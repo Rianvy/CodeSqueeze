@@ -1,0 +1,357 @@
+/**
+ * CodeSqueeze Styles
+ * Основные стили приложения
+ */
+
+/* ===== Base ===== */
+* {
+    scrollbar-width: thin;
+    scrollbar-color: #00ff88 #141414;
+}
+
+*::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+}
+
+*::-webkit-scrollbar-track {
+    background: #141414;
+}
+
+*::-webkit-scrollbar-thumb {
+    background: #00ff88;
+    border-radius: 3px;
+}
+
+body {
+    font-family: 'Inter', sans-serif;
+}
+
+textarea,
+code,
+pre,
+.mono {
+    font-family: 'JetBrains Mono', monospace;
+}
+
+/* ===== Animations ===== */
+@keyframes float {
+    0%, 100% { transform: translateY(0px); }
+    50% { transform: translateY(-10px); }
+}
+
+@keyframes glow {
+    from { box-shadow: 0 0 20px rgba(0, 255, 136, 0.1); }
+    to { box-shadow: 0 0 40px rgba(0, 255, 136, 0.3); }
+}
+
+@keyframes shimmer {
+    0% { background-position: -200% 0; }
+    100% { background-position: 200% 0; }
+}
+
+@keyframes slideDown {
+    from { opacity: 0; transform: translateY(-10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.shimmer {
+    background: linear-gradient(90deg, transparent, rgba(0,255,136,0.1), transparent);
+    background-size: 200% 100%;
+    animation: shimmer 2s infinite;
+}
+
+.float {
+    animation: float 6s ease-in-out infinite;
+}
+
+/* ===== Glass Effect ===== */
+.glass {
+    background: rgba(20, 20, 20, 0.8);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+}
+
+/* ===== Gradient Border ===== */
+.gradient-border {
+    position: relative;
+    background: linear-gradient(135deg, #141414, #1a1a1a);
+}
+
+.gradient-border::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    padding: 1px;
+    background: linear-gradient(135deg, #00ff88, #00cc6f, #009952, #00ff88);
+    -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
+    pointer-events: none;
+    opacity: 0.5;
+    transition: opacity 0.3s;
+}
+
+.gradient-border:hover::before {
+    opacity: 1;
+}
+
+/* ===== Text Gradient ===== */
+.text-gradient {
+    background: linear-gradient(135deg, #00ff88, #00cc6f, #4dffb8);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+/* ===== Background Grid ===== */
+.bg-grid {
+    background-image: 
+        linear-gradient(rgba(0, 255, 136, 0.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(0, 255, 136, 0.03) 1px, transparent 1px);
+    background-size: 50px 50px;
+}
+
+/* ===== Glow Effects ===== */
+.glow-box {
+    box-shadow: 0 0 60px rgba(0, 255, 136, 0.1);
+}
+
+.btn-glow:hover {
+    box-shadow: 0 0 30px rgba(0, 255, 136, 0.4), 0 0 60px rgba(0, 255, 136, 0.2);
+}
+
+/* ===== Stat Card ===== */
+.stat-card {
+    background: linear-gradient(135deg, rgba(0,255,136,0.05), transparent);
+}
+
+/* ===== Floating Shapes ===== */
+.floating-shapes {
+    position: absolute;
+    inset: 0;
+    overflow: hidden;
+    pointer-events: none;
+}
+
+.shape {
+    position: absolute;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(0,255,136,0.1) 0%, transparent 70%);
+    animation: float 8s ease-in-out infinite;
+}
+
+/* ===== Custom Checkbox ===== */
+input[type="checkbox"] {
+    appearance: none;
+    width: 44px;
+    height: 24px;
+    background: #2a2a2a;
+    border-radius: 12px;
+    position: relative;
+    cursor: pointer;
+    transition: all 0.3s;
+}
+
+input[type="checkbox"]::before {
+    content: '';
+    position: absolute;
+    width: 18px;
+    height: 18px;
+    background: #666;
+    border-radius: 50%;
+    top: 3px;
+    left: 3px;
+    transition: all 0.3s;
+}
+
+input[type="checkbox"]:checked {
+    background: linear-gradient(135deg, #00ff88, #00cc6f);
+}
+
+input[type="checkbox"]:checked::before {
+    transform: translateX(20px);
+    background: #0a0a0a;
+}
+
+/* ===== Tooltips ===== */
+.tooltip-wrapper {
+    position: relative;
+    display: inline-block;
+}
+
+.tooltip-text {
+    position: absolute;
+    bottom: calc(100% + 8px);
+    left: 50%;
+    transform: translateX(-50%);
+    padding: 8px 12px;
+    background: #1f1f1f;
+    border: 1px solid #2a2a2a;
+    border-radius: 8px;
+    font-size: 12px;
+    white-space: nowrap;
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.2s;
+    z-index: 1000;
+    pointer-events: none;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.5);
+}
+
+.tooltip-text::after {
+    content: '';
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    border: 5px solid transparent;
+    border-top-color: #1f1f1f;
+}
+
+.tooltip-wrapper:hover .tooltip-text {
+    opacity: 1;
+    visibility: visible;
+}
+
+/* ===== Mobile Menu ===== */
+.mobile-menu {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.3s ease-in-out;
+}
+
+.mobile-menu.active {
+    max-height: 500px;
+}
+
+/* ===== Progress Ring ===== */
+.progress-ring {
+    transform: rotate(-90deg);
+}
+
+.progress-ring-circle {
+    transition: stroke-dashoffset 0.5s ease;
+}
+
+/* ===== Social Icons ===== */
+.social-icon {
+    transition: all 0.3s;
+}
+
+.social-icon:hover {
+    transform: translateY(-3px);
+}
+
+/* ===== Code Blocks ===== */
+pre {
+    background: #0f0f0f;
+    border-radius: 12px;
+    padding: 20px;
+    overflow-x: auto;
+    border: 1px solid rgba(255,255,255,0.1);
+}
+
+code {
+    color: #00ff88;
+}
+
+/* ===== Tab Buttons ===== */
+.tab-btn.active {
+    background: linear-gradient(135deg, #00ff88, #00cc6f);
+    color: #0a0a0a;
+}
+
+/* ===== Shake Animation ===== */
+@keyframes shake {
+    0%, 100% { transform: translateX(0); }
+    10%, 30%, 50%, 70%, 90% { transform: translateX(-5px); }
+    20%, 40%, 60%, 80% { transform: translateX(5px); }
+}
+
+.animate-shake {
+    animation: shake 0.5s ease-in-out;
+}
+
+/* ===== Error State ===== */
+.border-red-500\/50 {
+    border-color: rgba(239, 68, 68, 0.5);
+}
+
+.focus\:border-red-500:focus {
+    border-color: rgb(239, 68, 68);
+}
+
+/* ===== Fullscreen Modal ===== */
+#fullscreen-modal {
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+}
+
+#fullscreen-modal #fs-textarea {
+    font-family: 'JetBrains Mono', monospace;
+    line-height: 1.5;
+    resize: none;
+}
+
+#fullscreen-modal #fs-highlighted {
+    font-family: 'JetBrains Mono', monospace;
+    line-height: 1.5;
+    margin: 0;
+    background: transparent;
+}
+
+#fullscreen-modal .line-number {
+    display: block;
+    line-height: 1.5;
+    color: #4a5568;
+    font-size: 12px;
+    user-select: none;
+}
+
+/* ===== Shake Animation ===== */
+@keyframes shake {
+    0%, 100% { transform: translateX(0); }
+    10%, 30%, 50%, 70%, 90% { transform: translateX(-5px); }
+    20%, 40%, 60%, 80% { transform: translateX(5px); }
+}
+
+.animate-shake {
+    animation: shake 0.5s ease-in-out;
+}
+
+/* ===== Fullscreen button animation ===== */
+.fullscreen-btn:hover svg {
+    transform: scale(1.1);
+}
+
+.fullscreen-btn svg {
+    transition: transform 0.2s;
+}
+
+/* ===== Keyboard shortcut badges ===== */
+kbd {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+}
+
+/* ===== Line numbers in fullscreen ===== */
+#fs-line-numbers {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 12px;
+    line-height: 1.5;
+    counter-reset: line;
+    min-width: 3rem;
+}
+
+/* ===== Responsive adjustments ===== */
+@media (max-width: 640px) {
+    #fullscreen-modal {
+        inset: 0;
+        border-radius: 0;
+    }
+    
+    #fs-line-numbers {
+        display: none;
+    }
+}

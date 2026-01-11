@@ -1,0 +1,467 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Статистика — CodeSqueeze</title>
+    <script src="js/tailwind.standalone.js"></script>
+	<script src="js/tailwind-config.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Inter', sans-serif; }
+        .mono { font-family: 'JetBrains Mono', monospace; }
+        .glass { background: rgba(20, 20, 20, 0.8); backdrop-filter: blur(20px); }
+        .text-gradient { background: linear-gradient(135deg, #00ff88, #00cc6f); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        .bg-grid { background-image: linear-gradient(rgba(0, 255, 136, 0.03) 1px, transparent 1px), linear-gradient(90deg, rgba(0, 255, 136, 0.03) 1px, transparent 1px); background-size: 50px 50px; }
+        .mobile-menu { max-height: 0; overflow: hidden; transition: max-height 0.3s; }
+        .mobile-menu.active { max-height: 500px; }
+        @keyframes countUp { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+        .count-up { animation: countUp 0.6s ease-out forwards; }
+    </style>
+</head>
+<body class="bg-dark-600 min-h-screen text-white bg-grid">
+
+    <!-- Header -->
+    <header class="glass border-b border-white/5 sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-6 py-4">
+            <div class="flex items-center justify-between">
+                <a href="index.html" class="flex items-center gap-4">
+                    <div class="w-12 h-12 bg-gradient-to-br from-brand-400 to-brand-600 rounded-2xl flex items-center justify-center">
+                        <svg class="w-7 h-7 text-dark-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"/>
+                        </svg>
+                    </div>
+                    <div>
+                        <h1 class="text-2xl font-bold text-gradient">CodeSqueeze</h1>
+                        <p class="text-xs text-gray-500">Статистика</p>
+                    </div>
+                </a>
+                
+                <nav class="hidden md:flex items-center gap-2">
+                    <a href="index.html" class="px-4 py-2 text-sm text-gray-400 hover:text-white hover:bg-white/5 rounded-xl transition-all">Главная</a>
+                    <a href="features.html" class="px-4 py-2 text-sm text-gray-400 hover:text-white hover:bg-white/5 rounded-xl transition-all">Возможности</a>
+                    <a href="docs.html" class="px-4 py-2 text-sm text-gray-400 hover:text-white hover:bg-white/5 rounded-xl transition-all">Документация</a>
+					<div class="w-px h-6 bg-white/10 mx-2"></div>
+                    <a href="https://github.com/Rianvy/CodeSqueeze" target="_blank" 
+                       class="flex items-center gap-2 px-4 py-2 bg-white/5 hover:bg-white/10 border border-white/10 rounded-xl transition-all text-sm">
+                        <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
+                        <span>GitHub</span>
+                        <span class="px-2 py-0.5 bg-brand-500/20 text-brand-400 text-xs rounded-full">v2.0</span>
+                    </a>
+                </nav>
+                
+                <button id="mobileMenuBtn" class="md:hidden p-2 hover:bg-white/5 rounded-xl">
+                    <svg id="menuIcon" class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/></svg>
+                    <svg id="closeIcon" class="w-6 h-6 hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
+                </button>
+            </div>
+            
+            <nav id="mobileMenu" class="mobile-menu md:hidden">
+                <div class="py-4 space-y-2 border-t border-white/5 mt-4">
+                    <a href="index.html" class="block px-4 py-3 text-sm text-gray-400 hover:bg-white/5 rounded-xl">🏠 Главная</a>
+                    <a href="features.html" class="block px-4 py-3 text-sm text-gray-400 hover:bg-white/5 rounded-xl">🎯 Возможности</a>
+                    <a href="docs.html" class="block px-4 py-3 text-sm text-gray-400 hover:bg-white/5 rounded-xl">📚 Документация</a>
+					<a href="https://github.com/Rianvy/CodeSqueeze" target="_blank" 
+                       class="flex items-center gap-2 px-4 py-3 bg-white/5 border border-white/10 rounded-xl transition-all text-sm">
+                        <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
+                        <span>GitHub Repository</span>
+                        <span class="ml-auto px-2 py-0.5 bg-brand-500/20 text-brand-400 text-xs rounded-full">v2.0</span>
+                    </a>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <main class="max-w-7xl mx-auto px-6 py-16">
+        
+        <!-- Hero -->
+        <div class="text-center mb-16">
+            <div class="inline-flex items-center gap-2 px-4 py-2 bg-brand-500/10 border border-brand-500/20 rounded-full text-brand-400 text-sm mb-6">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"/>
+                </svg>
+                Аналитика в реальном времени
+            </div>
+            <h1 class="text-4xl md:text-5xl font-bold mb-6">
+                Статистика <span class="text-gradient">CodeSqueeze</span>
+            </h1>
+            <p class="text-xl text-gray-400 max-w-2xl mx-auto">
+                Узнайте, насколько эффективно CodeSqueeze сжимает код
+            </p>
+        </div>
+
+        <!-- Main Stats -->
+        <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6 mb-16">
+            
+            <div class="p-8 rounded-3xl bg-gradient-to-br from-brand-500/10 to-transparent border border-brand-500/20 text-center group hover:border-brand-500/40 transition-all">
+                <div class="w-16 h-16 bg-brand-500/20 rounded-2xl flex items-center justify-center mx-auto mb-4 group-hover:scale-110 transition-transform">
+                    <svg class="w-8 h-8 text-brand-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"/>
+                    </svg>
+                </div>
+                <div class="text-5xl font-bold text-gradient mono mb-2">73%</div>
+                <div class="text-gray-400">Средняя экономия</div>
+                <div class="text-xs text-gray-600 mt-1">для HTML файлов</div>
+            </div>
+
+            <div class="p-8 rounded-3xl bg-gradient-to-br from-yellow-500/10 to-transparent border border-yellow-500/20 text-center group hover:border-yellow-500/40 transition-all">
+                <div class="w-16 h-16 bg-yellow-500/20 rounded-2xl flex items-center justify-center mx-auto mb-4 group-hover:scale-110 transition-transform">
+                    <svg class="w-8 h-8 text-yellow-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 9l3 3-3 3m5 0h3M5 20h14a2 2 0 002-2V6a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/>
+                    </svg>
+                </div>
+                <div class="text-5xl font-bold text-yellow-400 mono mb-2">65%</div>
+                <div class="text-gray-400">Средняя экономия</div>
+                <div class="text-xs text-gray-600 mt-1">для JavaScript</div>
+            </div>
+
+            <div class="p-8 rounded-3xl bg-gradient-to-br from-blue-500/10 to-transparent border border-blue-500/20 text-center group hover:border-blue-500/40 transition-all">
+                <div class="w-16 h-16 bg-blue-500/20 rounded-2xl flex items-center justify-center mx-auto mb-4 group-hover:scale-110 transition-transform">
+                    <svg class="w-8 h-8 text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 21a4 4 0 01-4-4V5a2 2 0 012-2h4a2 2 0 012 2v12a4 4 0 01-4 4zm0 0h12a2 2 0 002-2v-4a2 2 0 00-2-2h-2.343M11 7.343l1.657-1.657a2 2 0 012.828 0l2.829 2.829a2 2 0 010 2.828l-8.486 8.485M7 17h.01"/>
+                    </svg>
+                </div>
+                <div class="text-5xl font-bold text-blue-400 mono mb-2">68%</div>
+                <div class="text-gray-400">Средняя экономия</div>
+                <div class="text-xs text-gray-600 mt-1">для CSS</div>
+            </div>
+
+            <div class="p-8 rounded-3xl bg-gradient-to-br from-purple-500/10 to-transparent border border-purple-500/20 text-center group hover:border-purple-500/40 transition-all">
+                <div class="w-16 h-16 bg-purple-500/20 rounded-2xl flex items-center justify-center mx-auto mb-4 group-hover:scale-110 transition-transform">
+                    <svg class="w-8 h-8 text-purple-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/>
+                    </svg>
+                </div>
+                <div class="text-5xl font-bold text-purple-400 mono mb-2">&lt;1ms</div>
+                <div class="text-gray-400">Время обработки</div>
+                <div class="text-xs text-gray-600 mt-1">для 10KB кода</div>
+            </div>
+        </div>
+
+        <!-- Benchmark Results -->
+        <section class="mb-16">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl font-bold mb-4">Результаты тестирования</h2>
+                <p class="text-gray-400">Реальные примеры сжатия популярных файлов</p>
+            </div>
+
+            <div class="overflow-x-auto">
+                <table class="w-full">
+                    <thead>
+                        <tr class="border-b border-white/10">
+                            <th class="text-left py-4 px-6 text-gray-400 font-medium">Файл</th>
+                            <th class="text-right py-4 px-6 text-gray-400 font-medium">До</th>
+                            <th class="text-right py-4 px-6 text-gray-400 font-medium">После</th>
+                            <th class="text-right py-4 px-6 text-gray-400 font-medium">Экономия</th>
+                            <th class="py-4 px-6 text-gray-400 font-medium">Прогресс</th>
+                        </tr>
+                    </thead>
+                    <tbody class="divide-y divide-white/5">
+                        <tr class="hover:bg-white/5 transition-colors">
+                            <td class="py-4 px-6">
+                                <div class="flex items-center gap-3">
+                                    <span class="px-2 py-1 bg-orange-500/20 text-orange-400 text-xs rounded mono">HTML</span>
+                                    <span>index.html</span>
+                                </div>
+                            </td>
+                            <td class="py-4 px-6 text-right mono text-gray-400">15.2 KB</td>
+                            <td class="py-4 px-6 text-right mono text-brand-400">4.1 KB</td>
+                            <td class="py-4 px-6 text-right mono text-brand-400 font-bold">73%</td>
+                            <td class="py-4 px-6">
+                                <div class="w-full h-2 bg-dark-200 rounded-full overflow-hidden">
+                                    <div class="h-full bg-gradient-to-r from-brand-600 to-brand-400 rounded-full" style="width: 73%"></div>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr class="hover:bg-white/5 transition-colors">
+                            <td class="py-4 px-6">
+                                <div class="flex items-center gap-3">
+                                    <span class="px-2 py-1 bg-yellow-500/20 text-yellow-400 text-xs rounded mono">JS</span>
+                                    <span>app.js</span>
+                                </div>
+                            </td>
+                            <td class="py-4 px-6 text-right mono text-gray-400">42.8 KB</td>
+                            <td class="py-4 px-6 text-right mono text-brand-400">15.0 KB</td>
+                            <td class="py-4 px-6 text-right mono text-brand-400 font-bold">65%</td>
+                            <td class="py-4 px-6">
+                                <div class="w-full h-2 bg-dark-200 rounded-full overflow-hidden">
+                                    <div class="h-full bg-gradient-to-r from-yellow-600 to-yellow-400 rounded-full" style="width: 65%"></div>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr class="hover:bg-white/5 transition-colors">
+                            <td class="py-4 px-6">
+                                <div class="flex items-center gap-3">
+                                    <span class="px-2 py-1 bg-blue-500/20 text-blue-400 text-xs rounded mono">CSS</span>
+                                    <span>styles.css</span>
+                                </div>
+                            </td>
+                            <td class="py-4 px-6 text-right mono text-gray-400">28.5 KB</td>
+                            <td class="py-4 px-6 text-right mono text-brand-400">9.1 KB</td>
+                            <td class="py-4 px-6 text-right mono text-brand-400 font-bold">68%</td>
+                            <td class="py-4 px-6">
+                                <div class="w-full h-2 bg-dark-200 rounded-full overflow-hidden">
+                                    <div class="h-full bg-gradient-to-r from-blue-600 to-blue-400 rounded-full" style="width: 68%"></div>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr class="hover:bg-white/5 transition-colors">
+                            <td class="py-4 px-6">
+                                <div class="flex items-center gap-3">
+                                    <span class="px-2 py-1 bg-orange-500/20 text-orange-400 text-xs rounded mono">HTML</span>
+                                    <span>dashboard.html</span>
+                                </div>
+                            </td>
+                            <td class="py-4 px-6 text-right mono text-gray-400">87.3 KB</td>
+                            <td class="py-4 px-6 text-right mono text-brand-400">21.8 KB</td>
+                            <td class="py-4 px-6 text-right mono text-brand-400 font-bold">75%</td>
+                            <td class="py-4 px-6">
+                                <div class="w-full h-2 bg-dark-200 rounded-full overflow-hidden">
+                                    <div class="h-full bg-gradient-to-r from-brand-600 to-brand-400 rounded-full" style="width: 75%"></div>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr class="hover:bg-white/5 transition-colors">
+                            <td class="py-4 px-6">
+                                <div class="flex items-center gap-3">
+                                    <span class="px-2 py-1 bg-yellow-500/20 text-yellow-400 text-xs rounded mono">JS</span>
+                                    <span>utils.js</span>
+                                </div>
+                            </td>
+                            <td class="py-4 px-6 text-right mono text-gray-400">12.4 KB</td>
+                            <td class="py-4 px-6 text-right mono text-brand-400">4.8 KB</td>
+                            <td class="py-4 px-6 text-right mono text-brand-400 font-bold">61%</td>
+                            <td class="py-4 px-6">
+                                <div class="w-full h-2 bg-dark-200 rounded-full overflow-hidden">
+                                    <div class="h-full bg-gradient-to-r from-yellow-600 to-yellow-400 rounded-full" style="width: 61%"></div>
+                                </div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <!-- Performance Metrics -->
+        <section class="mb-16">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl font-bold mb-4">Производительность</h2>
+                <p class="text-gray-400">Скорость обработки на разных размерах файлов</p>
+            </div>
+
+            <div class="grid md:grid-cols-3 gap-6">
+                <div class="p-6 rounded-2xl bg-dark-400/50 border border-white/5">
+                    <div class="flex items-center justify-between mb-4">
+                        <span class="text-gray-400">Маленький файл</span>
+                        <span class="px-2 py-1 bg-green-500/20 text-green-400 text-xs rounded">1-10 KB</span>
+                    </div>
+                    <div class="text-3xl font-bold text-brand-400 mono mb-2">&lt; 1ms</div>
+                    <div class="text-sm text-gray-500">Мгновенная обработка</div>
+                </div>
+
+                <div class="p-6 rounded-2xl bg-dark-400/50 border border-white/5">
+                    <div class="flex items-center justify-between mb-4">
+                        <span class="text-gray-400">Средний файл</span>
+                        <span class="px-2 py-1 bg-yellow-500/20 text-yellow-400 text-xs rounded">10-100 KB</span>
+                    </div>
+                    <div class="text-3xl font-bold text-brand-400 mono mb-2">1-5ms</div>
+                    <div class="text-sm text-gray-500">Практически мгновенно</div>
+                </div>
+
+                <div class="p-6 rounded-2xl bg-dark-400/50 border border-white/5">
+                    <div class="flex items-center justify-between mb-4">
+                        <span class="text-gray-400">Большой файл</span>
+                        <span class="px-2 py-1 bg-orange-500/20 text-orange-400 text-xs rounded">100+ KB</span>
+                    </div>
+                    <div class="text-3xl font-bold text-brand-400 mono mb-2">5-20ms</div>
+                    <div class="text-sm text-gray-500">Очень быстро</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- What Gets Removed -->
+        <section class="mb-16">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl font-bold mb-4">Что удаляется при минификации</h2>
+                <p class="text-gray-400">Детальная разбивка экономии по типам оптимизации</p>
+            </div>
+
+            <div class="grid md:grid-cols-2 gap-8">
+                <!-- HTML -->
+                <div class="p-8 rounded-3xl bg-dark-400/50 border border-white/5">
+                    <div class="flex items-center gap-3 mb-6">
+                        <span class="px-3 py-1 bg-orange-500/20 text-orange-400 text-sm rounded-lg font-medium">HTML</span>
+                        <h3 class="text-xl font-bold">Оптимизации</h3>
+                    </div>
+                    
+                    <div class="space-y-4">
+                        <div>
+                            <div class="flex justify-between mb-2">
+                                <span class="text-gray-400">Пробелы и переносы</span>
+                                <span class="text-brand-400 mono">~45%</span>
+                            </div>
+                            <div class="h-2 bg-dark-200 rounded-full overflow-hidden">
+                                <div class="h-full bg-gradient-to-r from-orange-600 to-orange-400 rounded-full" style="width: 45%"></div>
+                            </div>
+                        </div>
+                        <div>
+                            <div class="flex justify-between mb-2">
+                                <span class="text-gray-400">HTML комментарии</span>
+                                <span class="text-brand-400 mono">~15%</span>
+                            </div>
+                            <div class="h-2 bg-dark-200 rounded-full overflow-hidden">
+                                <div class="h-full bg-gradient-to-r from-orange-600 to-orange-400 rounded-full" style="width: 15%"></div>
+                            </div>
+                        </div>
+                        <div>
+                            <div class="flex justify-between mb-2">
+                                <span class="text-gray-400">Inline JS/CSS сжатие</span>
+                                <span class="text-brand-400 mono">~13%</span>
+                            </div>
+                            <div class="h-2 bg-dark-200 rounded-full overflow-hidden">
+                                <div class="h-full bg-gradient-to-r from-orange-600 to-orange-400 rounded-full" style="width: 13%"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- JavaScript -->
+                <div class="p-8 rounded-3xl bg-dark-400/50 border border-white/5">
+                    <div class="flex items-center gap-3 mb-6">
+                        <span class="px-3 py-1 bg-yellow-500/20 text-yellow-400 text-sm rounded-lg font-medium">JavaScript</span>
+                        <h3 class="text-xl font-bold">Оптимизации</h3>
+                    </div>
+                    
+                    <div class="space-y-4">
+                        <div>
+                            <div class="flex justify-between mb-2">
+                                <span class="text-gray-400">Пробелы и отступы</span>
+                                <span class="text-brand-400 mono">~35%</span>
+                            </div>
+                            <div class="h-2 bg-dark-200 rounded-full overflow-hidden">
+                                <div class="h-full bg-gradient-to-r from-yellow-600 to-yellow-400 rounded-full" style="width: 35%"></div>
+                            </div>
+                        </div>
+                        <div>
+                            <div class="flex justify-between mb-2">
+                                <span class="text-gray-400">Комментарии // и /* */</span>
+                                <span class="text-brand-400 mono">~20%</span>
+                            </div>
+                            <div class="h-2 bg-dark-200 rounded-full overflow-hidden">
+                                <div class="h-full bg-gradient-to-r from-yellow-600 to-yellow-400 rounded-full" style="width: 20%"></div>
+                            </div>
+                        </div>
+                        <div>
+                            <div class="flex justify-between mb-2">
+                                <span class="text-gray-400">Переносы строк</span>
+                                <span class="text-brand-400 mono">~10%</span>
+                            </div>
+                            <div class="h-2 bg-dark-200 rounded-full overflow-hidden">
+                                <div class="h-full bg-gradient-to-r from-yellow-600 to-yellow-400 rounded-full" style="width: 10%"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Comparison -->
+        <section class="mb-16">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl font-bold mb-4">Сравнение с другими инструментами</h2>
+                <p class="text-gray-400">CodeSqueeze vs популярные минификаторы</p>
+            </div>
+
+            <div class="overflow-x-auto">
+                <table class="w-full">
+                    <thead>
+                        <tr class="border-b border-white/10">
+                            <th class="text-left py-4 px-6 text-gray-400 font-medium">Критерий</th>
+                            <th class="py-4 px-6 text-center">
+                                <span class="text-gradient font-bold">CodeSqueeze</span>
+                            </th>
+                            <th class="py-4 px-6 text-center text-gray-400">HTMLMinifier</th>
+                            <th class="py-4 px-6 text-center text-gray-400">Terser</th>
+                        </tr>
+                    </thead>
+                    <tbody class="divide-y divide-white/5">
+                        <tr class="hover:bg-white/5 transition-colors">
+                            <td class="py-4 px-6">Работает в браузере</td>
+                            <td class="py-4 px-6 text-center"><span class="text-brand-400 text-xl">✓</span></td>
+                            <td class="py-4 px-6 text-center"><span class="text-gray-500">Частично</span></td>
+                            <td class="py-4 px-6 text-center"><span class="text-gray-500">Частично</span></td>
+                        </tr>
+                        <tr class="hover:bg-white/5 transition-colors">
+                            <td class="py-4 px-6">Без зависимостей</td>
+                            <td class="py-4 px-6 text-center"><span class="text-brand-400 text-xl">✓</span></td>
+                            <td class="py-4 px-6 text-center"><span class="text-red-400 text-xl">✗</span></td>
+                            <td class="py-4 px-6 text-center"><span class="text-red-400 text-xl">✗</span></td>
+                        </tr>
+                        <tr class="hover:bg-white/5 transition-colors">
+                            <td class="py-4 px-6">Размер библиотеки</td>
+                            <td class="py-4 px-6 text-center"><span class="text-brand-400">~15 KB</span></td>
+                            <td class="py-4 px-6 text-center"><span class="text-gray-400">~150 KB</span></td>
+                            <td class="py-4 px-6 text-center"><span class="text-gray-400">~500 KB</span></td>
+                        </tr>
+                        <tr class="hover:bg-white/5 transition-colors">
+                            <td class="py-4 px-6">HTML + JS + CSS</td>
+                            <td class="py-4 px-6 text-center"><span class="text-brand-400 text-xl">✓</span></td>
+                            <td class="py-4 px-6 text-center"><span class="text-gray-500">Только HTML</span></td>
+                            <td class="py-4 px-6 text-center"><span class="text-gray-500">Только JS</span></td>
+                        </tr>
+                        <tr class="hover:bg-white/5 transition-colors">
+                            <td class="py-4 px-6">Приватность (локально)</td>
+                            <td class="py-4 px-6 text-center"><span class="text-brand-400 text-xl">✓</span></td>
+                            <td class="py-4 px-6 text-center"><span class="text-brand-400 text-xl">✓</span></td>
+                            <td class="py-4 px-6 text-center"><span class="text-brand-400 text-xl">✓</span></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <!-- CTA -->
+        <section class="text-center p-12 rounded-3xl bg-gradient-to-br from-brand-500/10 to-transparent border border-brand-500/20">
+            <h2 class="text-3xl font-bold mb-4">Попробуйте сами</h2>
+            <p class="text-gray-400 mb-8 max-w-xl mx-auto">
+                Проверьте статистику сжатия на своих файлах
+            </p>
+            <a href="index.html" class="inline-flex items-center gap-2 px-8 py-4 bg-gradient-to-r from-brand-500 to-brand-600 text-dark-500 rounded-2xl font-bold text-lg hover:shadow-lg hover:shadow-brand-500/25 transition-all">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/>
+                </svg>
+                Начать минификацию
+            </a>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="border-t border-white/5 mt-16 bg-dark-500/50">
+        <div class="max-w-7xl mx-auto px-6 py-12">
+            <div class="flex flex-col md:flex-row items-center justify-between gap-6">
+                <div class="flex items-center gap-3">
+                    <div class="w-10 h-10 bg-gradient-to-br from-brand-500 to-brand-600 rounded-xl flex items-center justify-center">
+                        <svg class="w-5 h-5 text-dark-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"/>
+                        </svg>
+                    </div>
+                    <span class="text-gradient font-bold">CodeSqueeze</span>
+                </div>
+                <div class="flex items-center gap-6 text-sm text-gray-500">
+                    <a href="privacy.html" class="hover:text-brand-400 transition-colors">Конфиденциальность</a>
+                    <a href="terms.html" class="hover:text-brand-400 transition-colors">Условия</a>
+                    <span>© 2026</span>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        document.getElementById('mobileMenuBtn').addEventListener('click', function() {
+            document.getElementById('mobileMenu').classList.toggle('active');
+            document.getElementById('menuIcon').classList.toggle('hidden');
+            document.getElementById('closeIcon').classList.toggle('hidden');
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Условия использования — CodeSqueeze</title>
+    <script src="js/tailwind.standalone.js"></script>
+	<script src="js/tailwind-config.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Inter', sans-serif; }
+        .glass { background: rgba(20, 20, 20, 0.8); backdrop-filter: blur(20px); }
+        .text-gradient { background: linear-gradient(135deg, #00ff88, #00cc6f); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        .bg-grid { background-image: linear-gradient(rgba(0, 255, 136, 0.03) 1px, transparent 1px), linear-gradient(90deg, rgba(0, 255, 136, 0.03) 1px, transparent 1px); background-size: 50px 50px; }
+        .mobile-menu { max-height: 0; overflow: hidden; transition: max-height 0.3s; }
+        .mobile-menu.active { max-height: 500px; }
+    </style>
+</head>
+<body class="bg-dark-600 min-h-screen text-white bg-grid">
+
+    <!-- Header -->
+    <header class="glass border-b border-white/5 sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-6 py-4">
+            <div class="flex items-center justify-between">
+                <a href="index.html" class="flex items-center gap-4">
+                    <div class="w-12 h-12 bg-gradient-to-br from-brand-400 to-brand-600 rounded-2xl flex items-center justify-center">
+                        <svg class="w-7 h-7 text-dark-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"/>
+                        </svg>
+                    </div>
+                    <div>
+                        <h1 class="text-2xl font-bold text-gradient">CodeSqueeze</h1>
+                        <p class="text-xs text-gray-500">Условия использования</p>
+                    </div>
+                </a>
+                
+                <nav class="hidden md:flex items-center gap-2">
+                    <a href="index.html" class="px-4 py-2 text-sm text-gray-400 hover:text-white hover:bg-white/5 rounded-xl transition-all">Главная</a>
+                    <a href="features.html" class="px-4 py-2 text-sm text-gray-400 hover:text-white hover:bg-white/5 rounded-xl transition-all">Возможности</a>
+                    <a href="docs.html" class="px-4 py-2 text-sm text-gray-400 hover:text-white hover:bg-white/5 rounded-xl transition-all">Документация</a>
+					<div class="w-px h-6 bg-white/10 mx-2"></div>
+                    <a href="https://github.com/Rianvy/CodeSqueeze" target="_blank" 
+                       class="flex items-center gap-2 px-4 py-2 bg-white/5 hover:bg-white/10 border border-white/10 rounded-xl transition-all text-sm">
+                        <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
+                        <span>GitHub</span>
+                        <span class="px-2 py-0.5 bg-brand-500/20 text-brand-400 text-xs rounded-full">v2.0</span>
+                    </a>
+                </nav>
+                
+                <button id="mobileMenuBtn" class="md:hidden p-2 hover:bg-white/5 rounded-xl">
+                    <svg id="menuIcon" class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/></svg>
+                    <svg id="closeIcon" class="w-6 h-6 hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
+                </button>
+            </div>
+            
+            <nav id="mobileMenu" class="mobile-menu md:hidden">
+                <div class="py-4 space-y-2 border-t border-white/5 mt-4">
+                    <a href="index.html" class="block px-4 py-3 text-sm text-gray-400 hover:bg-white/5 rounded-xl">🏠 Главная</a>
+                    <a href="features.html" class="block px-4 py-3 text-sm text-gray-400 hover:bg-white/5 rounded-xl">🎯 Возможности</a>
+                    <a href="docs.html" class="block px-4 py-3 text-sm text-gray-400 hover:bg-white/5 rounded-xl">📚 Документация</a>
+					<a href="https://github.com/Rianvy/CodeSqueeze" target="_blank" 
+                       class="flex items-center gap-2 px-4 py-3 bg-white/5 border border-white/10 rounded-xl transition-all text-sm">
+                        <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
+                        <span>GitHub Repository</span>
+                        <span class="ml-auto px-2 py-0.5 bg-brand-500/20 text-brand-400 text-xs rounded-full">v2.0</span>
+                    </a>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <main class="max-w-4xl mx-auto px-6 py-16">
+        
+        <div class="mb-12">
+            <div class="inline-flex items-center gap-2 px-4 py-2 bg-brand-500/10 border border-brand-500/20 rounded-full text-brand-400 text-sm mb-6">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/>
+                </svg>
+                Правовая информация
+            </div>
+            <h1 class="text-4xl font-bold mb-4">Условия использования</h1>
+            <p class="text-gray-400">Последнее обновление: Январь 2026</p>
+        </div>
+
+        <div class="space-y-12">
+            
+            <!-- Intro -->
+            <section class="p-8 rounded-3xl bg-dark-400/50 border border-white/5">
+                <p class="text-gray-300 leading-relaxed">
+                    Добро пожаловать в CodeSqueeze! Используя этот сервис, вы соглашаетесь с настоящими условиями. 
+                    Пожалуйста, внимательно прочитайте их перед использованием.
+                </p>
+            </section>
+
+            <!-- Section 1 -->
+            <section>
+                <h2 class="text-2xl font-bold mb-4 flex items-center gap-3">
+                    <span class="w-8 h-8 bg-brand-500/20 rounded-lg flex items-center justify-center text-brand-400 text-sm">1</span>
+                    Принятие условий
+                </h2>
+                <div class="p-6 rounded-2xl bg-dark-400/50 border border-white/5">
+                    <p class="text-gray-400">
+                        Получая доступ к CodeSqueeze или используя его, вы подтверждаете, что прочитали, поняли и 
+                        согласны соблюдать настоящие Условия использования. Если вы не согласны с какой-либо частью 
+                        условий, вы не должны использовать сервис.
+                    </p>
+                </div>
+            </section>
+
+            <!-- Section 2 -->
+            <section>
+                <h2 class="text-2xl font-bold mb-4 flex items-center gap-3">
+                    <span class="w-8 h-8 bg-brand-500/20 rounded-lg flex items-center justify-center text-brand-400 text-sm">2</span>
+                    Описание сервиса
+                </h2>
+                <div class="p-6 rounded-2xl bg-dark-400/50 border border-white/5">
+                    <p class="text-gray-400 mb-4">
+                        CodeSqueeze — это бесплатный онлайн-инструмент для минификации HTML, JavaScript и CSS кода. 
+                        Сервис предоставляется «как есть» (as is) и «как доступно» (as available).
+                    </p>
+                    <p class="text-gray-400">
+                        Вся обработка кода происходит локально в вашем браузере. 
+                        Мы не храним, не передаём и не обрабатываем ваш код на серверах.
+                    </p>
+                </div>
+            </section>
+
+            <!-- Section 3 -->
+            <section>
+                <h2 class="text-2xl font-bold mb-4 flex items-center gap-3">
+                    <span class="w-8 h-8 bg-brand-500/20 rounded-lg flex items-center justify-center text-brand-400 text-sm">3</span>
+                    Использование сервиса
+                </h2>
+                <div class="p-6 rounded-2xl bg-dark-400/50 border border-white/5">
+                    <p class="text-gray-400 mb-4">Вы соглашаетесь:</p>
+                    <ul class="space-y-3 text-gray-400">
+                        <li class="flex items-start gap-3">
+                            <svg class="w-5 h-5 text-brand-500 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
+                            <span>Использовать сервис только в законных целях</span>
+                        </li>
+                        <li class="flex items-start gap-3">
+                            <svg class="w-5 h-5 text-brand-500 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
+                            <span>Не пытаться нарушить работу сервиса</span>
+                        </li>
+                        <li class="flex items-start gap-3">
+                            <svg class="w-5 h-5 text-brand-500 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
+                            <span>Не использовать автоматические средства для массового доступа</span>
+                        </li>
+                        <li class="flex items-start gap-3">
+                            <svg class="w-5 h-5 text-brand-500 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
+                            <span>Тестировать минифицированный код перед использованием в продакшене</span>
+                        </li>
+                    </ul>
+                </div>
+            </section>
+
+            <!-- Section 4 -->
+            <section>
+                <h2 class="text-2xl font-bold mb-4 flex items-center gap-3">
+                    <span class="w-8 h-8 bg-brand-500/20 rounded-lg flex items-center justify-center text-brand-400 text-sm">4</span>
+                    Интеллектуальная собственность
+                </h2>
+                <div class="p-6 rounded-2xl bg-dark-400/50 border border-white/5">
+                    <p class="text-gray-400 mb-4">
+                        <strong class="text-white">Ваш код:</strong> Вы сохраняете все права на код, который обрабатываете через CodeSqueeze. 
+                        Мы не заявляем никаких прав на ваш контент.
+                    </p>
+                    <p class="text-gray-400">
+                        <strong class="text-white">Наш код:</strong> CodeSqueeze распространяется под лицензией MIT. 
+                        Вы можете свободно использовать, копировать, модифицировать и распространять исходный код.
+                    </p>
+                </div>
+            </section>
+
+            <!-- Section 5 -->
+            <section>
+                <h2 class="text-2xl font-bold mb-4 flex items-center gap-3">
+                    <span class="w-8 h-8 bg-brand-500/20 rounded-lg flex items-center justify-center text-brand-400 text-sm">5</span>
+                    Отказ от гарантий
+                </h2>
+                <div class="p-6 rounded-2xl bg-yellow-500/10 border border-yellow-500/20">
+                    <p class="text-gray-300 mb-4">
+                        <strong class="text-yellow-400">ВАЖНО:</strong> Сервис предоставляется «как есть» без каких-либо гарантий, 
+                        явных или подразумеваемых.
+                    </p>
+                    <p class="text-gray-400">
+                        Мы не гарантируем, что:
+                    </p>
+                    <ul class="mt-4 space-y-2 text-gray-400">
+                        <li>• Сервис будет работать бесперебойно</li>
+                        <li>• Результаты минификации будут безошибочными</li>
+                        <li>• Сервис будет соответствовать вашим требованиям</li>
+                    </ul>
+                </div>
+            </section>
+
+            <!-- Section 6 -->
+            <section>
+                <h2 class="text-2xl font-bold mb-4 flex items-center gap-3">
+                    <span class="w-8 h-8 bg-brand-500/20 rounded-lg flex items-center justify-center text-brand-400 text-sm">6</span>
+                    Ограничение ответственности
+                </h2>
+                <div class="p-6 rounded-2xl bg-dark-400/50 border border-white/5">
+                    <p class="text-gray-400">
+                        Ни при каких обстоятельствах CodeSqueeze или его создатели не несут ответственности за любые 
+                        прямые, косвенные, случайные, особые или последующие убытки, возникшие в результате использования 
+                        или невозможности использования сервиса.
+                    </p>
+                </div>
+            </section>
+
+            <!-- Section 7 -->
+            <section>
+                <h2 class="text-2xl font-bold mb-4 flex items-center gap-3">
+                    <span class="w-8 h-8 bg-brand-500/20 rounded-lg flex items-center justify-center text-brand-400 text-sm">7</span>
+                    Лицензия MIT
+                </h2>
+                <div class="p-6 rounded-2xl bg-dark-400/50 border border-white/5 font-mono text-sm">
+                    <p class="text-gray-400 mb-4">MIT License</p>
+                    <p class="text-gray-400 mb-4">Copyright (c) 2026 Maxim</p>
+                    <p class="text-gray-500 leading-relaxed">
+                        Permission is hereby granted, free of charge, to any person obtaining a copy
+                        of this software and associated documentation files (the "Software"), to deal
+                        in the Software without restriction, including without limitation the rights
+                        to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+                        copies of the Software, and to permit persons to whom the Software is
+                        furnished to do so, subject to the following conditions:
+                    </p>
+                    <p class="text-gray-500 leading-relaxed mt-4">
+                        The above copyright notice and this permission notice shall be included in all
+                        copies or substantial portions of the Software.
+                    </p>
+                    <p class="text-gray-500 leading-relaxed mt-4">
+						THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+						IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+						FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+						AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+						LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+						OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+						SOFTWARE.
+                    </p>
+                </div>
+            </section>
+
+            <!-- Section 8 -->
+            <section>
+                <h2 class="text-2xl font-bold mb-4 flex items-center gap-3">
+                    <span class="w-8 h-8 bg-brand-500/20 rounded-lg flex items-center justify-center text-brand-400 text-sm">8</span>
+                    Изменения условий
+                </h2>
+                <div class="p-6 rounded-2xl bg-dark-400/50 border border-white/5">
+                    <p class="text-gray-400">
+                        Мы оставляем за собой право изменять эти условия в любое время. 
+                        Изменения вступают в силу сразу после публикации на этой странице. 
+                        Продолжая использовать сервис после внесения изменений, вы соглашаетесь с новыми условиями.
+                    </p>
+                </div>
+            </section>
+
+            <!-- Section 9 -->
+            <section>
+                <h2 class="text-2xl font-bold mb-4 flex items-center gap-3">
+                    <span class="w-8 h-8 bg-brand-500/20 rounded-lg flex items-center justify-center text-brand-400 text-sm">9</span>
+                    Применимое право
+                </h2>
+                <div class="p-6 rounded-2xl bg-dark-400/50 border border-white/5">
+                    <p class="text-gray-400">
+                        Настоящие Условия регулируются и толкуются в соответствии с законодательством. 
+                        Любые споры подлежат разрешению в компетентных судах.
+                    </p>
+                </div>
+            </section>
+
+            <!-- Contact -->
+            <section>
+                <h2 class="text-2xl font-bold mb-4 flex items-center gap-3">
+                    <span class="w-8 h-8 bg-brand-500/20 rounded-lg flex items-center justify-center text-brand-400 text-sm">10</span>
+                    Контакты
+                </h2>
+                <div class="p-6 rounded-2xl bg-dark-400/50 border border-white/5">
+                    <p class="text-gray-400 mb-4">
+                        По вопросам, связанным с условиями использования:
+                    </p>
+                    <ul class="space-y-2 text-gray-400">
+                        <li class="flex items-center gap-2">
+                            <span class="text-brand-400">💬</span>
+                            <span>GitHub Issues</span>
+                        </li>
+                    </ul>
+                </div>
+            </section>
+
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="border-t border-white/5 mt-16 bg-dark-500/50">
+        <div class="max-w-7xl mx-auto px-6 py-12">
+            <div class="flex flex-col md:flex-row items-center justify-between gap-6">
+                <div class="flex items-center gap-3">
+                    <div class="w-10 h-10 bg-gradient-to-br from-brand-500 to-brand-600 rounded-xl flex items-center justify-center">
+                        <svg class="w-5 h-5 text-dark-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"/>
+                        </svg>
+                    </div>
+                    <span class="text-gradient font-bold">CodeSqueeze</span>
+                </div>
+                <div class="flex items-center gap-6 text-sm text-gray-500">
+                    <a href="privacy.html" class="hover:text-brand-400 transition-colors">Конфиденциальность</a>
+                    <a href="terms.html" class="text-brand-400">Условия</a>
+                    <span>© 2026</span>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        document.getElementById('mobileMenuBtn').addEventListener('click', function() {
+            document.getElementById('mobileMenu').classList.toggle('active');
+            document.getElementById('menuIcon').classList.toggle('hidden');
+            document.getElementById('closeIcon').classList.toggle('hidden');
+        });
+    </script>
+</body>
+</html>
