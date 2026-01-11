@@ -99,19 +99,6 @@ const Validator = (function() {
     }
 
     /**
-     * Валидация для скачивания
-     * @param {string} value - Значение
-     * @returns {ValidationResult}
-     */
-    function validateForDownload(value) {
-        const result = validateOutput(value);
-        if (!result.valid) {
-            result.message = 'Нет данных для скачивания';
-        }
-        return result;
-    }
-
-    /**
      * Валидация для минификации
      * @param {string} value - Значение
      * @returns {ValidationResult}
@@ -174,7 +161,6 @@ const Validator = (function() {
         validateInput,
         validateOutput,
         validateForCopy,
-        validateForDownload,
         validateForMinify,
         validateForBeautify,
         validateSize,

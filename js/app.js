@@ -326,11 +326,18 @@
      * Обработчик форматирования
      */
     function handleBeautify() {
-        const input = UI.getInputValue();
+        // Получаем значения напрямую
+        const outputEl = document.getElementById('outputCode');
+        const inputEl = document.getElementById('inputCode');
         
-        const validation = Validator.validateForBeautify(input);
-        if (!validation.valid) {
-            Notifications.warning(validation.message);
+        const outputValue = outputEl?.value?.trim() || '';
+        const inputValue = inputEl?.value?.trim() || '';
+        
+        // Приоритет: результат минификации > исходный код
+        const codeToBeautify = outputValue || inputValue;
+        
+        if (!codeToBeautify) {
+            Notifications.warning('Введите код для форматирования');
             UI.shakeElement('inputCode');
             return;
         }
@@ -338,9 +345,11 @@
         const mode = UI.getCurrentMode();
         
         try {
-            const output = Beautifier.beautify(input, mode);
+            const output = Beautifier.beautify(codeToBeautify, mode);
             UI.setOutputValue(output);
-            Notifications.success('Код отформатирован!');
+            
+            Notifications.success(outputValue ? 'Результат отформатирован!' : 'Код отформатирован!');
+            
         } catch (err) {
             console.error('Beautify error:', err);
             Notifications.error('Ошибка форматирования');

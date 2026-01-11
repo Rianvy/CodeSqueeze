@@ -5,14 +5,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>CodeSqueeze — Умный минификатор кода</title>
     <script src="js/tailwind.standalone.js"></script>
-	<script src="js/tailwind-config.js"></script>
+    <script src="js/tailwind-config.js"></script>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="css/styles.css">
 </head>
 <body class="bg-dark-600 min-h-screen text-white bg-grid">
     
     <!-- Floating Background Shapes -->
-    <div class="floating-shapes">
+    <div class="floating-shapes hidden sm:block">
         <div class="shape w-96 h-96 -top-48 -left-48 opacity-30"></div>
         <div class="shape w-64 h-64 top-1/4 right-0 opacity-20" style="animation-delay: -2s;"></div>
         <div class="shape w-80 h-80 bottom-0 left-1/3 opacity-25" style="animation-delay: -4s;"></div>
@@ -20,38 +20,34 @@
 
     <!-- Header -->
     <header class="glass border-b border-white/5 sticky top-0 z-50">
-        <div class="max-w-7xl mx-auto px-6 py-4">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 py-3 sm:py-4">
             <div class="flex items-center justify-between">
-                <div class="flex items-center gap-4">
+                <div class="flex items-center gap-3 sm:gap-4">
                     <!-- Animated Logo -->
                     <div class="relative group">
-                        <div class="absolute inset-0 bg-brand-500/20 rounded-2xl blur-xl group-hover:bg-brand-500/40 transition-all duration-500"></div>
-                        <div class="relative w-12 h-12 bg-gradient-to-br from-brand-400 via-brand-500 to-brand-600 rounded-2xl flex items-center justify-center transform group-hover:scale-110 transition-transform duration-300">
-                            <svg class="w-7 h-7 text-dark-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <div class="absolute inset-0 bg-brand-500/20 rounded-xl sm:rounded-2xl blur-xl group-hover:bg-brand-500/40 transition-all duration-500"></div>
+                        <div class="relative w-10 h-10 sm:w-12 sm:h-12 bg-gradient-to-br from-brand-400 via-brand-500 to-brand-600 rounded-xl sm:rounded-2xl flex items-center justify-center transform group-hover:scale-110 transition-transform duration-300">
+                            <svg class="w-5 h-5 sm:w-7 sm:h-7 text-dark-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"/>
                             </svg>
                         </div>
                     </div>
                     <div>
-                        <h1 class="text-2xl font-bold text-gradient">CodeSqueeze</h1>
-                        <p class="text-xs text-gray-500 flex items-center gap-2">
-                            <span class="w-2 h-2 bg-brand-500 rounded-full animate-pulse"></span>
-                            Умный минификатор кода
+                        <h1 class="text-xl sm:text-2xl font-bold text-gradient">CodeSqueeze</h1>
+                        <p class="text-[10px] sm:text-xs text-gray-500 flex items-center gap-1.5 sm:gap-2">
+                            <span class="w-1.5 h-1.5 sm:w-2 sm:h-2 bg-brand-500 rounded-full animate-pulse"></span>
+                            <span class="hidden sm:inline">Умный минификатор кода</span>
+                            <span class="sm:hidden">Минификатор</span>
                         </p>
                     </div>
                 </div>
                 
                 <!-- Desktop Navigation -->
-                <nav class="hidden md:flex items-center gap-2">
-                    <a href="features.html" class="px-4 py-2 text-sm text-gray-400 hover:text-white hover:bg-white/5 rounded-xl transition-all">
-                        Возможности
-                    </a>
-                    <a href="stats.html" class="px-4 py-2 text-sm text-gray-400 hover:text-white hover:bg-white/5 rounded-xl transition-all">
-                        Статистика
-                    </a>
-                    <a href="docs.html" class="px-4 py-2 text-sm text-gray-400 hover:text-white hover:bg-white/5 rounded-xl transition-all">
-                        Документация
-                    </a>
+                <nav class="hidden lg:flex items-center gap-2">
+                    <a href="index.html" class="px-4 py-2 text-sm text-brand-400 bg-brand-500/10 rounded-xl">Главная</a>
+                    <a href="features.html" class="px-4 py-2 text-sm text-gray-400 hover:text-white hover:bg-white/5 rounded-xl transition-all">Возможности</a>
+                    <a href="stats.html" class="px-4 py-2 text-sm text-gray-400 hover:text-white hover:bg-white/5 rounded-xl transition-all">Статистика</a>
+                    <a href="docs.html" class="px-4 py-2 text-sm text-gray-400 hover:text-white hover:bg-white/5 rounded-xl transition-all">Документация</a>
                     <div class="w-px h-6 bg-white/10 mx-2"></div>
                     <a href="https://github.com/Rianvy/CodeSqueeze" target="_blank" 
                        class="flex items-center gap-2 px-4 py-2 bg-white/5 hover:bg-white/10 border border-white/10 rounded-xl transition-all text-sm">
@@ -62,7 +58,7 @@
                 </nav>
                 
                 <!-- Mobile Menu Button -->
-                <button id="mobileMenuBtn" class="md:hidden p-2 hover:bg-white/5 rounded-xl transition-all">
+                <button id="mobileMenuBtn" class="lg:hidden p-2 hover:bg-white/5 rounded-xl transition-all">
                     <svg id="menuIcon" class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/>
                     </svg>
@@ -73,17 +69,12 @@
             </div>
             
             <!-- Mobile Navigation -->
-            <nav id="mobileMenu" class="mobile-menu md:hidden">
+            <nav id="mobileMenu" class="mobile-menu lg:hidden">
                 <div class="py-4 space-y-2 border-t border-white/5 mt-4">
-                    <a href="features.html" class="block px-4 py-3 text-sm text-gray-400 hover:text-white hover:bg-white/5 rounded-xl transition-all">
-                        🎯 Возможности
-                    </a>
-                    <a href="stats.html" class="block px-4 py-3 text-sm text-gray-400 hover:text-white hover:bg-white/5 rounded-xl transition-all">
-                        📊 Статистика
-                    </a>
-                    <a href="docs.html" class="block px-4 py-3 text-sm text-gray-400 hover:text-white hover:bg-white/5 rounded-xl transition-all">
-                        📚 Документация
-                    </a>
+                    <a href="index.html" class="block px-4 py-3 text-sm text-brand-400 bg-brand-500/10 rounded-xl">🏠 Главная</a>
+                    <a href="features.html" class="block px-4 py-3 text-sm text-gray-400 hover:text-white hover:bg-white/5 rounded-xl transition-all">🎯 Возможности</a>
+                    <a href="stats.html" class="block px-4 py-3 text-sm text-gray-400 hover:text-white hover:bg-white/5 rounded-xl transition-all">📊 Статистика</a>
+                    <a href="docs.html" class="block px-4 py-3 text-sm text-gray-400 hover:text-white hover:bg-white/5 rounded-xl transition-all">📚 Документация</a>
                     <a href="https://github.com/Rianvy/CodeSqueeze" target="_blank" 
                        class="flex items-center gap-2 px-4 py-3 bg-white/5 border border-white/10 rounded-xl transition-all text-sm">
                         <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
@@ -95,69 +86,70 @@
         </div>
     </header>
 
-    <main class="max-w-7xl mx-auto px-6 py-8 relative">
+    <main class="max-w-7xl mx-auto px-3 sm:px-6 py-4 sm:py-8 relative">
         
         <!-- Mode Selector & Options -->
-        <div class="flex flex-col lg:flex-row gap-4 mb-8">
+        <div class="flex flex-col gap-3 sm:gap-4 mb-4 sm:mb-8">
             
             <!-- Mode Tabs -->
-            <div class="flex-shrink-0">
-                <div class="inline-flex p-1.5 bg-dark-400/50 rounded-2xl border border-white/5 w-full lg:w-auto">
-                    <button class="tab-btn active flex-1 lg:flex-none px-6 py-3 rounded-xl text-sm font-medium transition-all flex items-center justify-center gap-2" data-input="html">
-                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <div class="w-full">
+                <div class="inline-flex p-1 sm:p-1.5 bg-dark-400/50 rounded-xl sm:rounded-2xl border border-white/5 w-full sm:w-auto">
+                    <button class="tab-btn active flex-1 sm:flex-none px-4 sm:px-6 py-2.5 sm:py-3 rounded-lg sm:rounded-xl text-xs sm:text-sm font-medium transition-all flex items-center justify-center gap-1.5 sm:gap-2" data-input="html">
+                        <svg class="w-4 h-4 sm:w-5 sm:h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4"/>
                         </svg>
-                        HTML
+                        <span>HTML</span>
                     </button>
-                    <button class="tab-btn flex-1 lg:flex-none px-6 py-3 rounded-xl text-sm font-medium transition-all flex items-center justify-center gap-2" data-input="js">
-                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <button class="tab-btn flex-1 sm:flex-none px-4 sm:px-6 py-2.5 sm:py-3 rounded-lg sm:rounded-xl text-xs sm:text-sm font-medium transition-all flex items-center justify-center gap-1.5 sm:gap-2" data-input="js">
+                        <svg class="w-4 h-4 sm:w-5 sm:h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 9l3 3-3 3m5 0h3M5 20h14a2 2 0 002-2V6a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/>
                         </svg>
-                        JavaScript
+                        <span>JavaScript</span>
                     </button>
                 </div>
             </div>
             
             <!-- Options -->
-            <div class="flex-1 grid grid-cols-2 lg:flex lg:flex-wrap items-center gap-3 lg:gap-6 lg:justify-end">
-                <label class="flex items-center gap-3 cursor-pointer group">
-                    <input type="checkbox" id="removeComments" checked>
-                    <span class="text-sm text-gray-400 group-hover:text-white transition-colors">Комментарии</span>
+            <div class="grid grid-cols-2 gap-x-2 gap-y-1 sm:flex sm:flex-wrap sm:items-center sm:justify-start lg:justify-end sm:gap-4 lg:gap-6">
+                <label class="flex items-center gap-2 sm:gap-3 cursor-pointer group py-1.5 sm:py-0">
+                    <input type="checkbox" id="removeComments" checked class="w-4 h-4 rounded">
+                    <span class="text-xs sm:text-sm text-gray-400 group-hover:text-white transition-colors truncate">Комментарии</span>
                 </label>
-                <label class="flex items-center gap-3 cursor-pointer group">
-                    <input type="checkbox" id="removeWhitespace" checked>
-                    <span class="text-sm text-gray-400 group-hover:text-white transition-colors">Пробелы</span>
+                <label class="flex items-center gap-2 sm:gap-3 cursor-pointer group py-1.5 sm:py-0">
+                    <input type="checkbox" id="removeWhitespace" checked class="w-4 h-4 rounded">
+                    <span class="text-xs sm:text-sm text-gray-400 group-hover:text-white transition-colors truncate">Пробелы</span>
                 </label>
-                <label class="flex items-center gap-3 cursor-pointer group">
-                    <input type="checkbox" id="minifyInlineJS" checked>
-                    <span class="text-sm text-gray-400 group-hover:text-white transition-colors">Inline JS</span>
+                <label class="flex items-center gap-2 sm:gap-3 cursor-pointer group py-1.5 sm:py-0">
+                    <input type="checkbox" id="minifyInlineJS" checked class="w-4 h-4 rounded">
+                    <span class="text-xs sm:text-sm text-gray-400 group-hover:text-white transition-colors truncate">Inline JS</span>
                 </label>
-                <label class="flex items-center gap-3 cursor-pointer group">
-                    <input type="checkbox" id="minifyInlineCSS" checked>
-                    <span class="text-sm text-gray-400 group-hover:text-white transition-colors">Inline CSS</span>
+                <label class="flex items-center gap-2 sm:gap-3 cursor-pointer group py-1.5 sm:py-0">
+                    <input type="checkbox" id="minifyInlineCSS" checked class="w-4 h-4 rounded">
+                    <span class="text-xs sm:text-sm text-gray-400 group-hover:text-white transition-colors truncate">Inline CSS</span>
                 </label>
             </div>
         </div>
 
         <!-- Main Editor Area -->
-        <div class="grid lg:grid-cols-2 gap-6 mb-8">
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-3 sm:gap-6 mb-4 sm:mb-8">
             
             <!-- Input Editor -->
-            <div class="gradient-border rounded-3xl glow-box">
-                <div class="bg-dark-400/80 px-6 py-4 flex items-center justify-between border-b border-white/5">
-                    <div class="flex items-center gap-3">
-                        <div class="flex gap-1.5">
+            <div class="gradient-border rounded-xl sm:rounded-3xl glow-box overflow-hidden">
+                <div class="bg-dark-400/80 px-3 sm:px-6 py-2.5 sm:py-4 flex items-center justify-between border-b border-white/5">
+                    <div class="flex items-center gap-2 sm:gap-3">
+                        <!-- Decorative dots - hidden on mobile -->
+                        <div class="hidden md:flex gap-1.5">
                             <div class="w-3 h-3 rounded-full bg-red-500/80"></div>
                             <div class="w-3 h-3 rounded-full bg-yellow-500/80"></div>
                             <div class="w-3 h-3 rounded-full bg-green-500/80"></div>
                         </div>
-                        <div class="w-px h-4 bg-white/10"></div>
-                        <span class="text-sm font-medium text-gray-300">Исходный код</span>
-                        <span class="px-2 py-0.5 bg-brand-500/10 text-brand-400 text-xs rounded-full mono" id="inputLang">HTML</span>
+                        <div class="hidden md:block w-px h-4 bg-white/10"></div>
+                        <span class="text-xs sm:text-sm font-medium text-gray-300">Исходный код</span>
+                        <span class="px-1.5 sm:px-2 py-0.5 bg-brand-500/10 text-brand-400 text-[10px] sm:text-xs rounded-full mono" id="inputLang">HTML</span>
                     </div>
-                    <div class="flex items-center gap-1">
+                    <div class="flex items-center gap-0.5 sm:gap-1">
                         <div class="tooltip-wrapper">
-                            <button id="btnClear" class="p-2 hover:bg-white/5 rounded-lg transition-all text-gray-400 hover:text-white">
+                            <button id="btnClear" class="p-1.5 sm:p-2 hover:bg-white/5 rounded-lg transition-all text-gray-400 hover:text-white min-w-[32px] min-h-[32px] sm:min-w-[36px] sm:min-h-[36px] flex items-center justify-center">
                                 <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/>
                                 </svg>
@@ -165,266 +157,360 @@
                             <span class="tooltip-text">Очистить</span>
                         </div>
                         <div class="tooltip-wrapper">
-                            <button id="btnPaste" class="p-2 hover:bg-white/5 rounded-lg transition-all text-gray-400 hover:text-white">
+                            <button id="btnPaste" class="p-1.5 sm:p-2 hover:bg-white/5 rounded-lg transition-all text-gray-400 hover:text-white min-w-[32px] min-h-[32px] sm:min-w-[36px] sm:min-h-[36px] flex items-center justify-center">
                                 <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"/>
                                 </svg>
                             </button>
-                            <span class="tooltip-text">Вставить из буфера</span>
+                            <span class="tooltip-text">Вставить</span>
                         </div>
                         <div class="tooltip-wrapper">
-                            <button id="btnSample" class="p-2 hover:bg-white/5 rounded-lg transition-all text-gray-400 hover:text-white">
+                            <button id="btnSample" class="p-1.5 sm:p-2 hover:bg-white/5 rounded-lg transition-all text-gray-400 hover:text-white min-w-[32px] min-h-[32px] sm:min-w-[36px] sm:min-h-[36px] flex items-center justify-center">
                                 <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/>
                                 </svg>
                             </button>
-                            <span class="tooltip-text">Загрузить пример</span>
+                            <span class="tooltip-text">Пример</span>
                         </div>
                     </div>
                 </div>
                 <div class="relative">
                     <textarea id="inputCode" 
-                              class="w-full h-96 p-6 bg-dark-500 text-gray-300 text-sm resize-y focus:outline-none placeholder-gray-600 leading-relaxed"
+                              class="w-full h-48 sm:h-64 md:h-80 lg:h-96 p-3 sm:p-4 md:p-6 bg-dark-500 text-gray-300 text-xs sm:text-sm resize-none sm:resize-y focus:outline-none placeholder-gray-600 leading-relaxed mono"
                               placeholder="// Вставьте ваш код сюда...&#10;&#10;<!DOCTYPE html>&#10;<html>&#10;  <head>&#10;    <title>Пример</title>&#10;  </head>&#10;</html>"></textarea>
-                    <div class="absolute bottom-4 right-4 text-xs text-gray-600 mono bg-dark-400/80 px-2 py-1 rounded">
-                        <span id="inputChars">0</span> символов
+                    <div class="absolute bottom-2 sm:bottom-4 right-2 sm:right-4 text-[10px] sm:text-xs text-gray-600 mono bg-dark-400/80 px-1.5 sm:px-2 py-0.5 sm:py-1 rounded pointer-events-none">
+                        <span id="inputChars">0</span> <span class="hidden sm:inline">символов</span><span class="sm:hidden">сим</span>
                     </div>
                 </div>
             </div>
 
             <!-- Output Editor -->
-            <div class="gradient-border rounded-3xl glow-box">
-                <div class="bg-dark-400/80 px-6 py-4 flex items-center justify-between border-b border-white/5">
-                    <div class="flex items-center gap-3">
-                        <div class="flex gap-1.5">
+            <div class="gradient-border rounded-xl sm:rounded-3xl glow-box overflow-hidden">
+                <div class="bg-dark-400/80 px-3 sm:px-6 py-2.5 sm:py-4 flex items-center justify-between border-b border-white/5">
+                    <div class="flex items-center gap-2 sm:gap-3">
+                        <div class="hidden md:flex gap-1.5">
                             <div class="w-3 h-3 rounded-full bg-red-500/80"></div>
                             <div class="w-3 h-3 rounded-full bg-yellow-500/80"></div>
                             <div class="w-3 h-3 rounded-full bg-green-500/80"></div>
                         </div>
-                        <div class="w-px h-4 bg-white/10"></div>
-                        <span class="text-sm font-medium text-gray-300">Результат</span>
+                        <div class="hidden md:block w-px h-4 bg-white/10"></div>
+                        <span class="text-xs sm:text-sm font-medium text-gray-300">Результат</span>
                     </div>
-                    <div class="flex items-center gap-1">
+                    <div class="flex items-center gap-0.5 sm:gap-1">
                         <div class="tooltip-wrapper">
-                            <button id="btnCopy" class="p-2 hover:bg-white/5 rounded-lg transition-all text-gray-400 hover:text-brand-400">
+                            <button id="btnCopy" class="p-1.5 sm:p-2 hover:bg-white/5 rounded-lg transition-all text-gray-400 hover:text-brand-400 min-w-[32px] min-h-[32px] sm:min-w-[36px] sm:min-h-[36px] flex items-center justify-center">
                                 <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"/>
                                 </svg>
                             </button>
-                            <span class="tooltip-text">Копировать результат</span>
+                            <span class="tooltip-text">Копировать</span>
                         </div>
                     </div>
                 </div>
                 <div class="relative">
                     <textarea id="outputCode" readonly
-                              class="w-full h-96 p-6 bg-dark-500 text-brand-300 text-sm resize-y focus:outline-none placeholder-gray-600 leading-relaxed"
+                              class="w-full h-48 sm:h-64 md:h-80 lg:h-96 p-3 sm:p-4 md:p-6 bg-dark-500 text-brand-300 text-xs sm:text-sm resize-none sm:resize-y focus:outline-none placeholder-gray-600 leading-relaxed mono"
                               placeholder="Минифицированный код появится здесь..."></textarea>
-                    <div class="absolute bottom-4 right-4 text-xs text-gray-600 mono bg-dark-400/80 px-2 py-1 rounded">
-                        <span id="outputChars">0</span> символов
+                    <div class="absolute bottom-2 sm:bottom-4 right-2 sm:right-4 text-[10px] sm:text-xs text-gray-600 mono bg-dark-400/80 px-1.5 sm:px-2 py-0.5 sm:py-1 rounded pointer-events-none">
+                        <span id="outputChars">0</span> <span class="hidden sm:inline">символов</span><span class="sm:hidden">сим</span>
                     </div>
                 </div>
             </div>
         </div>
 
         <!-- Action Buttons -->
-        <div class="flex flex-col sm:flex-row items-center justify-center gap-4 mb-10">
+        <div class="flex flex-col sm:flex-row items-stretch sm:items-center justify-center gap-2 sm:gap-4 mb-6 sm:mb-10">
             <button id="btnMinify" 
-                    class="w-full sm:w-auto group relative px-10 py-5 bg-gradient-to-r from-brand-500 via-brand-400 to-brand-500 text-dark-500 rounded-2xl font-bold text-lg transition-all transform hover:scale-105 btn-glow overflow-hidden">
+                    class="group relative px-4 sm:px-6 py-3 sm:py-4 bg-gradient-to-r from-brand-500 via-brand-400 to-brand-500 text-dark-500 rounded-xl sm:rounded-2xl font-bold text-sm sm:text-lg transition-all transform hover:scale-105 active:scale-95 btn-glow overflow-hidden">
                 <div class="absolute inset-0 shimmer"></div>
-                <span class="relative flex items-center justify-center gap-3">
-                    <svg class="w-6 h-6 group-hover:animate-pulse" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <span class="relative flex items-center justify-center gap-2 sm:gap-3">
+                    <svg class="w-5 h-5 sm:w-6 sm:h-6 group-hover:animate-pulse" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/>
                     </svg>
-                    Минифицировать
+                    <span>Минифицировать</span>
                 </span>
             </button>
             
-            <div class="w-full sm:w-auto flex gap-3">
+            <div class="grid grid-cols-2 sm:flex gap-2 sm:gap-3">
                 <button id="btnBeautify" 
-                        class="flex-1 sm:flex-none px-6 py-4 bg-dark-300/50 hover:bg-dark-200/50 border border-white/10 hover:border-brand-500/30 text-white rounded-2xl font-medium transition-all flex items-center justify-center gap-2">
-                    <svg class="w-5 h-5 text-brand-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        class="px-4 sm:px-6 py-3 sm:py-4 bg-dark-300/50 hover:bg-dark-200/50 border border-white/10 hover:border-brand-500/30 text-white rounded-xl sm:rounded-2xl font-medium transition-all active:scale-95 flex items-center justify-center gap-2">
+                    <svg class="w-4 h-4 sm:w-5 sm:h-5 text-brand-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"/>
                     </svg>
-                    <span class="hidden sm:inline">Форматировать</span>
-                    <span class="sm:hidden">Формат</span>
+                    <span class="text-xs sm:text-sm">Формат</span>
                 </button>
                 <button id="btnSwap" 
-                        class="flex-1 sm:flex-none px-6 py-4 bg-dark-300/50 hover:bg-dark-200/50 border border-white/10 hover:border-brand-500/30 text-white rounded-2xl font-medium transition-all flex items-center justify-center gap-2">
-                    <svg class="w-5 h-5 text-brand-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        class="px-4 sm:px-6 py-3 sm:py-4 bg-dark-300/50 hover:bg-dark-200/50 border border-white/10 hover:border-brand-500/30 text-white rounded-xl sm:rounded-2xl font-medium transition-all active:scale-95 flex items-center justify-center gap-2">
+                    <svg class="w-4 h-4 sm:w-5 sm:h-5 text-brand-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7h12m0 0l-4-4m4 4l-4 4m0 6H4m0 0l4 4m-4-4l4-4"/>
                     </svg>
-                    <span class="hidden sm:inline">Поменять</span>
-                    <span class="sm:hidden">Swap</span>
+                    <span class="text-xs sm:text-sm">Swap</span>
                 </button>
             </div>
         </div>
 
         <!-- Stats Dashboard -->
-        <div id="stats" class="gradient-border rounded-3xl overflow-hidden scroll-mt-20">
-            <div class="bg-dark-400/50 p-6 md:p-8">
-                <div class="flex items-center gap-3 mb-8">
-                    <div class="w-10 h-10 bg-brand-500/10 rounded-xl flex items-center justify-center">
-                        <svg class="w-5 h-5 text-brand-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <div id="stats" class="gradient-border rounded-xl sm:rounded-3xl overflow-hidden scroll-mt-20">
+            <div class="bg-dark-400/50 p-4 sm:p-6 md:p-8">
+                <div class="flex items-center gap-2 sm:gap-3 mb-4 sm:mb-8">
+                    <div class="w-8 h-8 sm:w-10 sm:h-10 bg-brand-500/10 rounded-lg sm:rounded-xl flex items-center justify-center flex-shrink-0">
+                        <svg class="w-4 h-4 sm:w-5 sm:h-5 text-brand-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"/>
                         </svg>
                     </div>
-                    <div>
-                        <h2 class="text-xl font-bold">Статистика сжатия</h2>
-                        <p class="text-sm text-gray-500">Результаты минификации в реальном времени</p>
+                    <div class="min-w-0">
+                        <h2 class="text-base sm:text-xl font-bold truncate">Статистика сжатия</h2>
+                        <p class="text-[10px] sm:text-sm text-gray-500 truncate">Результаты минификации</p>
                     </div>
                 </div>
                 
-                <div class="grid grid-cols-2 lg:grid-cols-4 gap-4 lg:gap-6">
+                <div class="grid grid-cols-2 lg:grid-cols-4 gap-2 sm:gap-4 lg:gap-6">
                     <!-- Original Size -->
-                    <div class="stat-card rounded-2xl p-4 md:p-6 border border-white/5 hover:border-brand-500/30 transition-all group">
-                        <div class="flex items-start justify-between mb-4">
-                            <div class="w-10 md:w-12 h-10 md:h-12 bg-gray-500/10 rounded-xl flex items-center justify-center group-hover:bg-brand-500/10 transition-colors">
-                                <svg class="w-5 md:w-6 h-5 md:h-6 text-gray-400 group-hover:text-brand-400 transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <div class="stat-card rounded-xl sm:rounded-2xl p-3 sm:p-4 md:p-6 border border-white/5 hover:border-brand-500/30 transition-all group">
+                        <div class="flex items-start justify-between mb-2 sm:mb-4">
+                            <div class="w-8 h-8 sm:w-10 md:w-12 sm:h-10 md:h-12 bg-brand-500/10 rounded-lg sm:rounded-xl flex items-center justify-center">
+                                <svg class="w-4 h-4 sm:w-5 md:w-6 sm:h-5 md:h-6 text-brand-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/>
                                 </svg>
                             </div>
                         </div>
-                        <div class="text-2xl md:text-3xl lg:text-4xl font-bold text-gradient mono" id="originalSize">0</div>
-                        <div class="text-xs md:text-sm text-gray-500 mt-2">Исходный размер</div>
-                        <div class="text-xs text-gray-600 mono">байт</div>
+                        <div class="text-lg sm:text-2xl md:text-3xl lg:text-4xl font-bold text-gradient mono truncate" id="originalSize">0</div>
+                        <div class="text-[10px] sm:text-xs md:text-sm text-gray-500 mt-1 sm:mt-2 truncate">Исходный размер</div>
+                        <div class="text-[10px] sm:text-xs text-gray-600 mono">байт</div>
                     </div>
                     
                     <!-- Minified Size -->
-                    <div class="stat-card rounded-2xl p-4 md:p-6 border border-white/5 hover:border-brand-500/30 transition-all group">
-                        <div class="flex items-start justify-between mb-4">
-                            <div class="w-10 md:w-12 h-10 md:h-12 bg-brand-500/10 rounded-xl flex items-center justify-center">
-                                <svg class="w-5 md:w-6 h-5 md:h-6 text-brand-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <div class="stat-card rounded-xl sm:rounded-2xl p-3 sm:p-4 md:p-6 border border-white/5 hover:border-brand-500/30 transition-all group">
+                        <div class="flex items-start justify-between mb-2 sm:mb-4">
+                            <div class="w-8 h-8 sm:w-10 md:w-12 sm:h-10 md:h-12 bg-brand-500/10 rounded-lg sm:rounded-xl flex items-center justify-center">
+                                <svg class="w-4 h-4 sm:w-5 md:w-6 sm:h-5 md:h-6 text-brand-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"/>
                                 </svg>
                             </div>
                         </div>
-                        <div class="text-2xl md:text-3xl lg:text-4xl font-bold text-gradient mono" id="minifiedSize">0</div>
-                        <div class="text-xs md:text-sm text-gray-500 mt-2">После сжатия</div>
-                        <div class="text-xs text-gray-600 mono">байт</div>
+                        <div class="text-lg sm:text-2xl md:text-3xl lg:text-4xl font-bold text-gradient mono truncate" id="minifiedSize">0</div>
+                        <div class="text-[10px] sm:text-xs md:text-sm text-gray-500 mt-1 sm:mt-2 truncate">После сжатия</div>
+                        <div class="text-[10px] sm:text-xs text-gray-600 mono">байт</div>
                     </div>
                     
                     <!-- Savings Percentage -->
-                    <div class="stat-card rounded-2xl p-4 md:p-6 border border-white/5 hover:border-brand-500/30 transition-all group relative overflow-hidden">
-                        <div class="flex items-start justify-between mb-4">
-                            <div class="w-10 md:w-12 h-10 md:h-12 bg-brand-500/10 rounded-xl flex items-center justify-center">
-                                <svg class="w-5 md:w-6 h-5 md:h-6 text-brand-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <div class="stat-card rounded-xl sm:rounded-2xl p-3 sm:p-4 md:p-6 border border-white/5 hover:border-brand-500/30 transition-all group relative overflow-hidden">
+                        <div class="flex items-start justify-between mb-2 sm:mb-4">
+                            <div class="w-8 h-8 sm:w-10 md:w-12 sm:h-10 md:h-12 bg-brand-500/10 rounded-lg sm:rounded-xl flex items-center justify-center">
+                                <svg class="w-4 h-4 sm:w-5 md:w-6 sm:h-5 md:h-6 text-brand-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"/>
                                 </svg>
                             </div>
-                            <!-- Mini Progress Ring -->
-                            <svg class="w-10 md:w-12 h-10 md:h-12 progress-ring" viewBox="0 0 36 36">
-                                <path class="text-dark-200" stroke="currentColor" stroke-width="3" fill="none" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831"/>
+                            <!-- Mini Progress Ring - hidden on small mobile -->
+                            <svg class="hidden sm:block w-8 sm:w-10 md:w-12 h-8 sm:h-10 md:h-12 progress-ring" viewBox="0 0 36 36">
+                                <path class="text-dark-100" stroke="currentColor" stroke-width="3" fill="none" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831"/>
                                 <path id="progressCircle" class="text-brand-500 progress-ring-circle" stroke="currentColor" stroke-width="3" stroke-linecap="round" fill="none" stroke-dasharray="0, 100" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831"/>
                             </svg>
                         </div>
-                        <div class="text-2xl md:text-3xl lg:text-4xl font-bold text-gradient mono" id="savings">0%</div>
-                        <div class="text-xs md:text-sm text-gray-500 mt-2">Экономия</div>
-                        <div class="text-xs text-gray-600">эффективность</div>
+                        <div class="text-lg sm:text-2xl md:text-3xl lg:text-4xl font-bold text-gradient mono" id="savings">0%</div>
+                        <div class="text-[10px] sm:text-xs md:text-sm text-gray-500 mt-1 sm:mt-2 truncate">Экономия</div>
+                        <div class="text-[10px] sm:text-xs text-gray-600 hidden sm:block">эффективность</div>
                     </div>
                     
                     <!-- Saved Bytes -->
-                    <div class="stat-card rounded-2xl p-4 md:p-6 border border-white/5 hover:border-brand-500/30 transition-all group">
-                        <div class="flex items-start justify-between mb-4">
-                            <div class="w-10 md:w-12 h-10 md:h-12 bg-green-500/10 rounded-xl flex items-center justify-center">
-                                <svg class="w-5 md:w-6 h-5 md:h-6 text-green-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <div class="stat-card rounded-xl sm:rounded-2xl p-3 sm:p-4 md:p-6 border border-white/5 hover:border-brand-500/30 transition-all group">
+                        <div class="flex items-start justify-between mb-2 sm:mb-4">
+                            <div class="w-8 h-8 sm:w-10 md:w-12 sm:h-10 md:h-12 bg-green-500/10 rounded-lg sm:rounded-xl flex items-center justify-center">
+                                <svg class="w-4 h-4 sm:w-5 md:w-6 sm:h-5 md:h-6 text-green-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
                                 </svg>
                             </div>
                         </div>
-                        <div class="text-2xl md:text-3xl lg:text-4xl font-bold text-green-400 mono" id="savedBytes">0</div>
-                        <div class="text-xs md:text-sm text-gray-500 mt-2">Сохранено</div>
-                        <div class="text-xs text-gray-600 mono">байт</div>
+                        <div class="text-lg sm:text-2xl md:text-3xl lg:text-4xl font-bold text-green-400 mono truncate" id="savedBytes">0</div>
+                        <div class="text-[10px] sm:text-xs md:text-sm text-gray-500 mt-1 sm:mt-2 truncate">Сохранено</div>
+                        <div class="text-[10px] sm:text-xs text-gray-600 mono">байт</div>
                     </div>
                 </div>
                 
                 <!-- Compression Bar -->
-                <div class="mt-8 pt-6 border-t border-white/5">
-                    <div class="flex items-center justify-between mb-3">
-                        <span class="text-sm text-gray-400">Степень сжатия</span>
-                        <span class="text-sm text-brand-400 mono" id="compressionPercent">0%</span>
+                <div class="mt-4 sm:mt-8 pt-4 sm:pt-6 border-t border-white/5">
+                    <div class="flex items-center justify-between mb-2 sm:mb-3">
+                        <span class="text-xs sm:text-sm text-gray-400">Степень сжатия</span>
+                        <span class="text-xs sm:text-sm text-brand-400 mono" id="compressionPercent">0%</span>
                     </div>
-                    <div class="h-3 bg-dark-300 rounded-full overflow-hidden">
+                    <div class="h-2 sm:h-3 bg-dark-300 rounded-full overflow-hidden">
                         <div id="compressionBar" class="h-full bg-gradient-to-r from-brand-600 via-brand-500 to-brand-400 rounded-full transition-all duration-500 relative" style="width: 0%">
                             <div class="absolute inset-0 shimmer"></div>
                         </div>
                     </div>
                 </div>
-				
-				<!-- Processing Time Info -->
-				<div class="mt-4 pt-4 border-t border-white/5">
-					<div class="flex items-center justify-between text-sm">
-						<span class="text-gray-400 flex items-center gap-2">
-							<svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-								<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/>
-							</svg>
-							Время обработки
-						</span>
-						<span class="text-brand-400 mono font-semibold" id="processingTime">0 мс</span>
-					</div>
-					<div class="mt-2 text-xs text-gray-600">
-						Скорость минификации в миллисекундах
-					</div>
-				</div>
+                
+                <!-- Processing Time Info -->
+                <div class="mt-3 sm:mt-4 pt-3 sm:pt-4 border-t border-white/5">
+                    <div class="flex items-center justify-between text-xs sm:text-sm">
+                        <span class="text-gray-400 flex items-center gap-1.5 sm:gap-2">
+                            <svg class="w-3 h-3 sm:w-4 sm:h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/>
+                            </svg>
+                            <span class="hidden sm:inline">Время обработки</span>
+                            <span class="sm:hidden">Время</span>
+                        </span>
+                        <span class="text-brand-400 mono font-semibold" id="processingTime">0 мс</span>
+                    </div>
+                </div>
             </div>
         </div>
 
+        <!-- Keyboard Shortcuts Section -->
+        <div id="shortcuts" class="mt-8 sm:mt-12 scroll-mt-20">
+        <div class="gradient-border rounded-xl sm:rounded-3xl overflow-hidden glow-box">
+            <div class="bg-dark-400/50 p-4 sm:p-6 md:p-8">
+            <!-- Header -->
+            <div class="flex items-center gap-2 sm:gap-3 mb-4 sm:mb-6">
+                <div class="w-8 h-8 sm:w-10 sm:h-10 bg-brand-500/10 rounded-lg sm:rounded-xl flex items-center justify-center">
+                <svg class="w-4 h-4 sm:w-5 sm:h-5 text-brand-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 18h.01M8 21h8a2 2 0 002-2V5a2 2 0 00-2-2H8a2 2 0 00-2 2v14a2 2 0 002 2z"/>
+                </svg>
+                </div>
+                <div>
+                <h2 class="text-base sm:text-xl font-bold">Горячие клавиши</h2>
+                <p class="text-[10px] sm:text-sm text-gray-500">Ускорьте работу с помощью сочетаний</p>
+                </div>
+            </div>
+            
+            <!-- Shortcuts Grid -->
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-2 sm:gap-3">
+                <!-- Shortcut Item Template -->
+                <div class="flex items-center justify-between p-3 sm:p-4 rounded-xl bg-dark-400/30 border border-white/5 hover:border-brand-500/20 transition-all group">
+                <div class="flex items-center gap-3">
+                    <div class="w-9 h-9 sm:w-10 sm:h-10 bg-brand-500/10 rounded-lg flex items-center justify-center group-hover:scale-110 transition-transform">
+                    <svg class="w-4 h-4 sm:w-5 sm:h-5 text-brand-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/>
+                    </svg>
+                    </div>
+                    <span class="font-medium text-sm sm:text-base">Минифицировать</span>
+                </div>
+                <div class="flex items-center gap-1">
+                    <kbd class="px-1.5 sm:px-2 py-1 bg-dark-300 border border-white/10 rounded text-[10px] sm:text-xs text-gray-300 mono">Ctrl</kbd>
+                    <span class="text-gray-600 text-[10px]">+</span>
+                    <kbd class="px-1.5 sm:px-2 py-1 bg-dark-300 border border-white/10 rounded text-[10px] sm:text-xs text-gray-300 mono">Enter</kbd>
+                </div>
+                </div>
+
+                <div class="flex items-center justify-between p-3 sm:p-4 rounded-xl bg-dark-400/30 border border-white/5 hover:border-brand-500/20 transition-all group">
+                <div class="flex items-center gap-3">
+                    <div class="w-9 h-9 sm:w-10 sm:h-10 bg-brand-500/10 rounded-lg flex items-center justify-center group-hover:scale-110 transition-transform">
+                    <svg class="w-4 h-4 sm:w-5 sm:h-5 text-brand-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"/>
+                    </svg>
+                    </div>
+                    <span class="font-medium text-sm sm:text-base">Форматировать</span>
+                </div>
+                <div class="flex items-center gap-1">
+                    <kbd class="px-1.5 sm:px-2 py-1 bg-dark-300 border border-white/10 rounded text-[10px] sm:text-xs text-gray-300 mono">Ctrl</kbd>
+                    <span class="text-gray-600 text-[10px]">+</span>
+                    <kbd class="px-1.5 sm:px-2 py-1 bg-dark-300 border border-white/10 rounded text-[10px] sm:text-xs text-gray-300 mono">⇧</kbd>
+                    <span class="text-gray-600 text-[10px]">+</span>
+                    <kbd class="px-1.5 sm:px-2 py-1 bg-dark-300 border border-white/10 rounded text-[10px] sm:text-xs text-gray-300 mono">F</kbd>
+                </div>
+                </div>
+
+                <div class="flex items-center justify-between p-3 sm:p-4 rounded-xl bg-dark-400/30 border border-white/5 hover:border-brand-500/20 transition-all group">
+                <div class="flex items-center gap-3">
+                    <div class="w-9 h-9 sm:w-10 sm:h-10 bg-brand-500/10 rounded-lg flex items-center justify-center group-hover:scale-110 transition-transform">
+                    <svg class="w-4 h-4 sm:w-5 sm:h-5 text-brand-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"/>
+                    </svg>
+                    </div>
+                    <span class="font-medium text-sm sm:text-base">Копировать</span>
+                </div>
+                <div class="flex items-center gap-1">
+                    <kbd class="px-1.5 sm:px-2 py-1 bg-dark-300 border border-white/10 rounded text-[10px] sm:text-xs text-gray-300 mono">Ctrl</kbd>
+                    <span class="text-gray-600 text-[10px]">+</span>
+                    <kbd class="px-1.5 sm:px-2 py-1 bg-dark-300 border border-white/10 rounded text-[10px] sm:text-xs text-gray-300 mono">⇧</kbd>
+                    <span class="text-gray-600 text-[10px]">+</span>
+                    <kbd class="px-1.5 sm:px-2 py-1 bg-dark-300 border border-white/10 rounded text-[10px] sm:text-xs text-gray-300 mono">C</kbd>
+                </div>
+                </div>
+
+                <div class="flex items-center justify-between p-3 sm:p-4 rounded-xl bg-dark-400/30 border border-white/5 hover:border-brand-500/20 transition-all group">
+                <div class="flex items-center gap-3">
+                    <div class="w-9 h-9 sm:w-10 sm:h-10 bg-brand-500/10 rounded-lg flex items-center justify-center group-hover:scale-110 transition-transform">
+                    <svg class="w-4 h-4 sm:w-5 sm:h-5 text-brand-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"/>
+                    </svg>
+                    </div>
+                    <span class="font-medium text-sm sm:text-base">Вставить</span>
+                </div>
+                <div class="flex items-center gap-1">
+                    <kbd class="px-1.5 sm:px-2 py-1 bg-dark-300 border border-white/10 rounded text-[10px] sm:text-xs text-gray-300 mono">Ctrl</kbd>
+                    <span class="text-gray-600 text-[10px]">+</span>
+                    <kbd class="px-1.5 sm:px-2 py-1 bg-dark-300 border border-white/10 rounded text-[10px] sm:text-xs text-gray-300 mono">⇧</kbd>
+                    <span class="text-gray-600 text-[10px]">+</span>
+                    <kbd class="px-1.5 sm:px-2 py-1 bg-dark-300 border border-white/10 rounded text-[10px] sm:text-xs text-gray-300 mono">V</kbd>
+                </div>
+                </div>
+            </div>
+            
+            <!-- macOS Tip -->
+            <p class="mt-4 text-[10px] sm:text-xs text-gray-500 text-center">
+                💡 macOS: используйте <kbd class="px-1 py-0.5 bg-dark-300 border border-white/10 rounded text-[10px] mono">Cmd</kbd> вместо Ctrl
+            </p>
+            </div>
+        </div>
+        </div>
+
         <!-- Features Section -->
-        <div id="features" class="mt-12 grid md:grid-cols-3 gap-6 scroll-mt-20">
-            <div class="p-6 rounded-2xl bg-dark-400/30 border border-white/5 hover:border-brand-500/20 transition-all group">
-                <div class="w-12 h-12 bg-brand-500/10 rounded-xl flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
-                    <svg class="w-6 h-6 text-brand-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <div id="features" class="mt-8 sm:mt-12 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3 sm:gap-6 scroll-mt-20">
+            <div class="p-4 sm:p-6 rounded-xl sm:rounded-2xl bg-dark-400/30 border border-white/5 hover:border-brand-500/20 transition-all group">
+                <div class="w-10 h-10 sm:w-12 sm:h-12 bg-brand-500/10 rounded-lg sm:rounded-xl flex items-center justify-center mb-3 sm:mb-4 group-hover:scale-110 transition-transform">
+                    <svg class="w-5 h-5 sm:w-6 sm:h-6 text-brand-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/>
                     </svg>
                 </div>
-                <h3 class="font-semibold mb-2 text-lg">Безопасная минификация</h3>
-                <p class="text-sm text-gray-500 leading-relaxed">Сохраняет строки, regex и template literals без повреждений. Работает с любым кодом.</p>
+                <h3 class="font-semibold mb-1 sm:mb-2 text-sm sm:text-lg">Безопасная минификация</h3>
+                <p class="text-xs sm:text-sm text-gray-500 leading-relaxed">Сохраняет строки, regex и template literals без повреждений.</p>
             </div>
             
-            <div class="p-6 rounded-2xl bg-dark-400/30 border border-white/5 hover:border-brand-500/20 transition-all group">
-                <div class="w-12 h-12 bg-brand-500/10 rounded-xl flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
-                    <svg class="w-6 h-6 text-brand-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <div class="p-4 sm:p-6 rounded-xl sm:rounded-2xl bg-dark-400/30 border border-white/5 hover:border-brand-500/20 transition-all group">
+                <div class="w-10 h-10 sm:w-12 sm:h-12 bg-brand-500/10 rounded-lg sm:rounded-xl flex items-center justify-center mb-3 sm:mb-4 group-hover:scale-110 transition-transform">
+                    <svg class="w-5 h-5 sm:w-6 sm:h-6 text-brand-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/>
                     </svg>
                 </div>
-                <h3 class="font-semibold mb-2 text-lg">Мгновенная обработка</h3>
-                <p class="text-sm text-gray-500 leading-relaxed">Работает локально в браузере — никаких серверов. Ваш код не покидает устройство.</p>
+                <h3 class="font-semibold mb-1 sm:mb-2 text-sm sm:text-lg">Мгновенная обработка</h3>
+                <p class="text-xs sm:text-sm text-gray-500 leading-relaxed">Работает локально — ваш код не покидает устройство.</p>
             </div>
             
-            <div class="p-6 rounded-2xl bg-dark-400/30 border border-white/5 hover:border-brand-500/20 transition-all group">
-                <div class="w-12 h-12 bg-brand-500/10 rounded-xl flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
-                    <svg class="w-6 h-6 text-brand-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <div class="p-4 sm:p-6 rounded-xl sm:rounded-2xl bg-dark-400/30 border border-white/5 hover:border-brand-500/20 transition-all group sm:col-span-2 md:col-span-1">
+                <div class="w-10 h-10 sm:w-12 sm:h-12 bg-brand-500/10 rounded-lg sm:rounded-xl flex items-center justify-center mb-3 sm:mb-4 group-hover:scale-110 transition-transform">
+                    <svg class="w-5 h-5 sm:w-6 sm:h-6 text-brand-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 7v10c0 2.21 3.582 4 8 4s8-1.79 8-4V7M4 7c0 2.21 3.582 4 8 4s8-1.79 8-4M4 7c0-2.21 3.582-4 8-4s8 1.79 8 4"/>
                     </svg>
                 </div>
-                <h3 class="font-semibold mb-2 text-lg">Без зависимостей</h3>
-                <p class="text-sm text-gray-500 leading-relaxed">Чистый JavaScript — работает даже оффлайн. Один файл, никаких библиотек.</p>
+                <h3 class="font-semibold mb-1 sm:mb-2 text-sm sm:text-lg">Без зависимостей</h3>
+                <p class="text-xs sm:text-sm text-gray-500 leading-relaxed">Чистый JavaScript — работает даже оффлайн.</p>
             </div>
         </div>
     </main>
 
-    <!-- Улучшенный Footer -->
-    <footer class="border-t border-white/5 mt-16 bg-dark-500/50">
-        <div class="max-w-7xl mx-auto px-6 py-12">
+    <!-- Footer -->
+    <footer class="border-t border-white/5 mt-12 sm:mt-16 bg-dark-500/50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 py-8 sm:py-12">
             <!-- Main Footer Content -->
-            <div class="grid md:grid-cols-4 gap-8 mb-8">
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-6 sm:gap-8 mb-6 sm:mb-8">
                 <!-- Brand Column -->
-                <div class="md:col-span-2">
-                    <div class="flex items-center gap-3 mb-4">
-                        <div class="w-10 h-10 bg-gradient-to-br from-brand-500 to-brand-600 rounded-xl flex items-center justify-center">
-                            <svg class="w-5 h-5 text-dark-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <div class="col-span-2">
+                    <div class="flex items-center gap-2 sm:gap-3 mb-3 sm:mb-4">
+                        <div class="w-8 h-8 sm:w-10 sm:h-10 bg-gradient-to-br from-brand-500 to-brand-600 rounded-lg sm:rounded-xl flex items-center justify-center">
+                            <svg class="w-4 h-4 sm:w-5 sm:h-5 text-dark-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"/>
                             </svg>
                         </div>
-                        <span class="text-xl font-bold text-gradient">CodeSqueeze</span>
+                        <span class="text-lg sm:text-xl font-bold text-gradient">CodeSqueeze</span>
                     </div>
-                    <p class="text-gray-500 text-sm leading-relaxed max-w-md mb-4">
-                        Мощный онлайн-инструмент для минификации HTML и JavaScript кода. 
-                        Безопасно, быстро и абсолютно бесплатно.
+                    <p class="text-gray-500 text-xs sm:text-sm leading-relaxed max-w-md mb-3 sm:mb-4">
+                        Мощный онлайн-инструмент для минификации HTML и JavaScript кода.
                     </p>
-                    <div class="flex items-center gap-2">
-                        <span class="px-3 py-1 bg-brand-500/10 text-brand-400 text-xs rounded-full mono">v2.0.0</span>
-                        <span class="px-3 py-1 bg-green-500/10 text-green-400 text-xs rounded-full flex items-center gap-1">
-                            <span class="w-1.5 h-1.5 bg-green-400 rounded-full animate-pulse"></span>
+                    <div class="flex items-center gap-2 flex-wrap">
+                        <span class="px-2 sm:px-3 py-0.5 sm:py-1 bg-brand-500/10 text-brand-400 text-[10px] sm:text-xs rounded-full mono">v2.0.0</span>
+                        <span class="px-2 sm:px-3 py-0.5 sm:py-1 bg-green-500/10 text-green-400 text-[10px] sm:text-xs rounded-full flex items-center gap-1">
+                            <span class="w-1 h-1 sm:w-1.5 sm:h-1.5 bg-green-400 rounded-full animate-pulse"></span>
                             Online
                         </span>
                     </div>
@@ -432,57 +518,57 @@
                 
                 <!-- Links Column -->
                 <div>
-                    <h3 class="font-semibold mb-4 text-white">Навигация</h3>
-                    <ul class="space-y-2">
-                        <li><a href="features.html" class="text-sm text-gray-500 hover:text-brand-400 transition-colors">Возможности</a></li>
-                        <li><a href="stats.html" class="text-sm text-gray-500 hover:text-brand-400 transition-colors">Статистика</a></li>
-                        <li><a href="docs.html" class="text-sm text-gray-500 hover:text-brand-400 transition-colors">Документация</a></li>
+                    <h3 class="font-semibold mb-3 sm:mb-4 text-white text-sm sm:text-base">Навигация</h3>
+                    <ul class="space-y-1.5 sm:space-y-2">
+                        <li><a href="features.html" class="text-xs sm:text-sm text-gray-500 hover:text-brand-400 transition-colors">Возможности</a></li>
+                        <li><a href="stats.html" class="text-xs sm:text-sm text-gray-500 hover:text-brand-400 transition-colors">Статистика</a></li>
+                        <li><a href="docs.html" class="text-xs sm:text-sm text-gray-500 hover:text-brand-400 transition-colors">Документация</a></li>
                     </ul>
                 </div>
                 
                 <!-- Resources Column -->
                 <div>
-                    <h3 class="font-semibold mb-4 text-white">Ресурсы</h3>
-                    <ul class="space-y-2">
-                        <li><a href="https://github.com/Rianvy/CodeSqueeze" class="text-sm text-gray-500 hover:text-brand-400 transition-colors">GitHub</a></li>
-                        <li><a href="https://github.com/Rianvy/CodeSqueeze/releases" class="text-sm text-gray-500 hover:text-brand-400 transition-colors">Changelog</a></li>
-                        <li><a href="https://github.com/Rianvy/CodeSqueeze/blob/main/LICENSE" class="text-sm text-gray-500 hover:text-brand-400 transition-colors">Лицензия</a></li>
+                    <h3 class="font-semibold mb-3 sm:mb-4 text-white text-sm sm:text-base">Ресурсы</h3>
+                    <ul class="space-y-1.5 sm:space-y-2">
+                        <li><a href="https://github.com/Rianvy/CodeSqueeze" class="text-xs sm:text-sm text-gray-500 hover:text-brand-400 transition-colors">GitHub</a></li>
+                        <li><a href="https://github.com/Rianvy/CodeSqueeze/releases" class="text-xs sm:text-sm text-gray-500 hover:text-brand-400 transition-colors">Changelog</a></li>
+                        <li><a href="https://github.com/Rianvy/CodeSqueeze/blob/main/LICENSE" class="text-xs sm:text-sm text-gray-500 hover:text-brand-400 transition-colors">Лицензия</a></li>
                     </ul>
                 </div>
             </div>
             
             <!-- Social Links -->
-            <div class="border-t border-white/5 pt-8 mb-8">
-                <div class="flex flex-col sm:flex-row items-center justify-between gap-6">
-                    <div class="flex items-center gap-4">
+            <div class="border-t border-white/5 pt-6 sm:pt-8 mb-6 sm:mb-8">
+                <div class="flex flex-col sm:flex-row items-center justify-between gap-4 sm:gap-6">
+                    <div class="flex items-center gap-3 sm:gap-4">
                         <a href="https://github.com/Rianvy" target="_blank" 
-                           class="social-icon w-10 h-10 bg-white/5 hover:bg-brand-500/20 border border-white/10 hover:border-brand-500/50 rounded-xl flex items-center justify-center text-gray-400 hover:text-brand-400 transition-all">
-                            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
+                           class="social-icon w-9 h-9 sm:w-10 sm:h-10 bg-white/5 hover:bg-brand-500/20 border border-white/10 hover:border-brand-500/50 rounded-lg sm:rounded-xl flex items-center justify-center text-gray-400 hover:text-brand-400 transition-all">
+                            <svg class="w-4 h-4 sm:w-5 sm:h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
                         </a>
                         <a href="https://t.me/cyber_way" target="_blank" 
-                           class="social-icon w-10 h-10 bg-white/5 hover:bg-brand-500/20 border border-white/10 hover:border-brand-500/50 rounded-xl flex items-center justify-center text-gray-400 hover:text-brand-400 transition-all">
-                            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0zm5.894 8.221l-1.97 9.28c-.145.658-.537.818-1.084.508l-3-2.21-1.446 1.394c-.14.18-.357.295-.6.295-.002 0-.003 0-.005 0l.213-3.054 5.56-5.022c.24-.213-.054-.334-.373-.121l-6.869 4.326-2.96-.924c-.64-.203-.658-.64.135-.954l11.566-4.458c.538-.196 1.006.128.832.941z"/></svg>
+                           class="social-icon w-9 h-9 sm:w-10 sm:h-10 bg-white/5 hover:bg-brand-500/20 border border-white/10 hover:border-brand-500/50 rounded-lg sm:rounded-xl flex items-center justify-center text-gray-400 hover:text-brand-400 transition-all">
+                            <svg class="w-4 h-4 sm:w-5 sm:h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0zm5.894 8.221l-1.97 9.28c-.145.658-.537.818-1.084.508l-3-2.21-1.446 1.394c-.14.18-.357.295-.6.295-.002 0-.003 0-.005 0l.213-3.054 5.56-5.022c.24-.213-.054-.334-.373-.121l-6.869 4.326-2.96-.924c-.64-.203-.658-.64.135-.954l11.566-4.458c.538-.196 1.006.128.832.941z"/></svg>
                         </a>
                     </div>
                     
-                    <div class="text-sm text-gray-500">
-                        <span>Открытый исходный код на</span>
+                    <div class="text-xs sm:text-sm text-gray-500 text-center sm:text-right">
+                        <span>Открытый код на</span>
                         <a href="https://github.com/Rianvy/CodeSqueeze" target="_blank" class="text-brand-400 hover:text-brand-300 transition-colors ml-1">GitHub</a>
                     </div>
                 </div>
             </div>
             
             <!-- Bottom Bar -->
-            <div class="border-t border-white/5 pt-8 flex flex-col md:flex-row items-center justify-between gap-4 text-sm text-gray-600">
-                <div class="flex items-center gap-2">
+            <div class="border-t border-white/5 pt-6 sm:pt-8 flex flex-col sm:flex-row items-center justify-between gap-3 sm:gap-4 text-xs sm:text-sm text-gray-600">
+                <div class="flex items-center gap-1.5 sm:gap-2">
                     <span>© 2026 CodeSqueeze.</span>
-                    <span class="hidden sm:inline">Made with</span>
+                    <span class="hidden xs:inline">Made with</span>
                     <span class="text-red-400">❤</span>
                 </div>
                 
-                <div class="flex items-center gap-6">
-                    <a href="privacy.html" class="hover:text-brand-400 transition-colors">Политика конфиденциальности</a>
-                    <a href="terms.html" class="hover:text-brand-400 transition-colors">Условия использования</a>
+                <div class="flex items-center gap-4 sm:gap-6">
+                    <a href="privacy.html" class="hover:text-brand-400 transition-colors">Приватность</a>
+                    <a href="terms.html" class="hover:text-brand-400 transition-colors">Условия</a>
                 </div>
             </div>
         </div>
@@ -490,19 +576,22 @@
 
     <!-- Notification Toast -->
     <div id="notification" 
-         class="fixed bottom-6 right-6 px-6 py-4 bg-dark-300 border border-brand-500/30 text-white rounded-2xl font-medium shadow-2xl shadow-brand-500/10 transform translate-x-[150%] transition-transform duration-300 z-50 flex items-center gap-3 max-w-sm">
+         class="fixed bottom-6 right-6 px-6 py-4 bg-dark-300 border border-brand-500/30 text-white rounded-2xl font-medium shadow-2xl shadow-brand-500/10 transform translate-x-[150%] transition-transform duration-300 z-50 flex items-center gap-3 max-w-sm ">
         <div class="w-8 h-8 bg-brand-500/20 rounded-lg flex items-center justify-center flex-shrink-0">
             <svg class="w-5 h-5 text-brand-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
             </svg>
         </div>
-        <span id="notificationText"></span>
+        <span id="notificationText" class="text-sm sm:text-base"></span>
     </div>
 	
 	<!-- ===== JavaScript Modules ===== -->
     
     <!-- Конфигурация -->
     <script src="js/config.js"></script>
+
+    <!-- Глобальные tooltips -->
+    <script src="js/modules/tooltips.js"></script>
     
     <!-- Вспомогательные утилиты -->
     <script src="js/modules/utils.js"></script>

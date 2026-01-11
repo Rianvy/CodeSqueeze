@@ -1,7 +1,7 @@
 /**
  * Advanced Minifier Module
  * Логика минификации HTML, CSS и JavaScript
- * @version 2.0.0
+ * @version 2.1.0
  */
 
 const Minifier = (function() {
@@ -69,20 +69,32 @@ const Minifier = (function() {
      * Обновить статистику
      */
     function updateStats(original, minified, time) {
-        stats.originalSize = original.length;
-        stats.minifiedSize = minified.length;
-        stats.savedBytes = original.length - minified.length;
-        stats.savedPercent = ((stats.savedBytes / original.length) * 100).toFixed(2);
+        const originalSize = new Blob([original]).size;  // Точный размер в байтах
+        const minifiedSize = new Blob([minified]).size;
+        const savedBytes = originalSize - minifiedSize;
+        
+        stats.originalSize = originalSize;
+        stats.minifiedSize = minifiedSize;
+        stats.savedBytes = Math.max(0, savedBytes);  // Не показываем отрицательные значения
+        stats.savedPercent = originalSize > 0 
+            ? Math.max(0, ((savedBytes / originalSize) * 100)).toFixed(2)
+            : '0.00';
         stats.processingTime = time;
     }
 
     /**
-     * минификация JavaScript
+     * Минификация JavaScript
+     * @param {string} code - JavaScript код
+     * @param {boolean} onlyComments - Удалить только комментарии, сохранить форматирование
      */
-    function minifyJS(code) {
+    function minifyJS(code, onlyComments = false) {
         const result = [];
         let i = 0;
         const len = code.length;
+        
+        // Определяем режим работы
+        const shouldRemoveComments = options.removeComments;
+        const shouldRemoveWhitespace = onlyComments ? false : options.removeWhitespace;
         
         // Зарезервированные слова для лучшего распознавания контекста
         const keywords = new Set([
@@ -168,7 +180,7 @@ const Minifier = (function() {
                 continue;
             }
             
-            // обработка регулярных выражений
+            // Обработка регулярных выражений
             if (char === '/' && next !== '/' && next !== '*') {
                 let isRegex = false;
                 
@@ -178,7 +190,6 @@ const Minifier = (function() {
                     const lastToken = result[result.length - 1].trim();
                     const lastChar = lastToken[lastToken.length - 1];
                     
-                    // Операторы и ключевые слова перед regex
                     if ('=([,!&|:;{}?+-%*/<>^~'.includes(lastChar) || 
                         keywords.has(lastToken)) {
                         isRegex = true;
@@ -204,7 +215,6 @@ const Minifier = (function() {
                         } else if (code[i] === '/' && !inCharClass) {
                             regex += '/';
                             i++;
-                            // Флаги regex
                             while (i < len && /[gimsuy]/.test(code[i])) {
                                 regex += code[i];
                                 i++;
@@ -224,9 +234,14 @@ const Minifier = (function() {
             
             // Однострочные комментарии
             if (char === '/' && next === '/') {
-                if (options.removeComments) {
+                if (shouldRemoveComments) {
+                    // Пропускаем до конца строки
                     while (i < len && code[i] !== '\n') i++;
-                    i++;
+                    // Если сохраняем пробелы, добавляем перевод строки
+                    if (!shouldRemoveWhitespace && i < len) {
+                        result.push('\n');
+                        i++;
+                    }
                     continue;
                 } else {
                     let comment = '';
@@ -234,15 +249,18 @@ const Minifier = (function() {
                         comment += code[i];
                         i++;
                     }
-                    result.push(comment + '\n');
-                    i++;
+                    result.push(comment);
+                    if (i < len) {
+                        result.push('\n');
+                        i++;
+                    }
                     continue;
                 }
             }
             
             // Многострочные комментарии
             if (char === '/' && next === '*') {
-                if (options.removeComments) {
+                if (shouldRemoveComments) {
                     i += 2;
                     while (i < len - 1) {
                         if (code[i] === '*' && code[i + 1] === '/') {
@@ -269,9 +287,9 @@ const Minifier = (function() {
                 }
             }
             
-            // обработка пробелов
+            // Обработка пробелов
             if (/\s/.test(char)) {
-                if (options.removeWhitespace) {
+                if (shouldRemoveWhitespace) {
                     const startI = i;
                     while (i < len && /\s/.test(code[i])) i++;
                     
@@ -280,7 +298,6 @@ const Minifier = (function() {
                         const nextChar = code[i] || '';
                         const lastC = last[last.length - 1];
                         
-                        // Необходимость пробела между идентификаторами и ключевыми словами
                         const needSpace = /[a-zA-Z0-9_$]/.test(lastC) && 
                                          /[a-zA-Z0-9_$]/.test(nextChar);
                         
@@ -300,7 +317,7 @@ const Minifier = (function() {
             }
             
             // Удаление точки с запятой перед }
-            if (options.removeWhitespace && char === ';') {
+            if (shouldRemoveWhitespace && char === ';') {
                 let j = i + 1;
                 while (j < len && /\s/.test(code[j])) j++;
                 if (code[j] === '}') {
@@ -317,12 +334,19 @@ const Minifier = (function() {
     }
 
     /**
-     * минификация CSS
+     * Минификация CSS
+     * @param {string} code - CSS код
+     * @param {boolean} onlyComments - Удалить только комментарии, сохранить форматирование
      */
-    function minifyCSS(code) {
+    function minifyCSS(code, onlyComments = false) {
         const result = [];
         let i = 0;
         const len = code.length;
+        
+        // Определяем режим работы
+        const shouldRemoveComments = options.removeComments;
+        const shouldCollapseWhitespace = onlyComments ? false : options.collapseWhitespace;
+        const shouldRemoveWhitespace = onlyComments ? false : options.removeWhitespace;
         
         while (i < len) {
             const char = code[i];
@@ -355,7 +379,6 @@ const Minifier = (function() {
                 let url = 'url(';
                 i += 4;
                 
-                // Пропуск пробелов
                 while (i < len && /\s/.test(code[i])) i++;
                 
                 if (code[i] === '"' || code[i] === "'") {
@@ -388,7 +411,19 @@ const Minifier = (function() {
             // Комментарии
             if (char === '/' && next === '*') {
                 // Сохранение важных комментариев (/*! ... */)
-                if (code[i + 2] === '!') {
+                const isImportant = code[i + 2] === '!';
+                
+                if (shouldRemoveComments && !isImportant) {
+                    i += 2;
+                    while (i < len - 1) {
+                        if (code[i] === '*' && code[i + 1] === '/') { 
+                            i += 2; 
+                            break; 
+                        }
+                        i++;
+                    }
+                    continue;
+                } else {
                     let comment = '/*';
                     i += 2;
                     while (i < len - 1) {
@@ -400,26 +435,14 @@ const Minifier = (function() {
                         }
                         i++;
                     }
-                    if (!options.removeComments) result.push(comment);
-                    continue;
-                }
-                
-                if (options.removeComments) {
-                    i += 2;
-                    while (i < len - 1) {
-                        if (code[i] === '*' && code[i + 1] === '/') { 
-                            i += 2; 
-                            break; 
-                        }
-                        i++;
-                    }
+                    result.push(comment);
                     continue;
                 }
             }
             
-            // Пробелы с улучшенной логикой
+            // Пробелы
             if (/\s/.test(char)) {
-                if (options.collapseWhitespace) {
+                if (shouldCollapseWhitespace) {
                     while (i < len && /\s/.test(code[i])) i++;
                     
                     if (result.length > 0 && i < len) {
@@ -427,7 +450,6 @@ const Minifier = (function() {
                         const nextChar = code[i] || '';
                         const lastC = last[last.length - 1];
                         
-                        // Пробел необходим между определенными символами
                         const needSpace = (
                             (/[a-zA-Z0-9_\-\)]/.test(lastC) && 
                              /[a-zA-Z0-9_\.\#\-\[]/.test(nextChar)) ||
@@ -445,7 +467,7 @@ const Minifier = (function() {
             }
             
             // Удаление ; перед }
-            if (options.removeWhitespace && char === ';') {
+            if (shouldRemoveWhitespace && char === ';') {
                 let j = i + 1;
                 while (j < len && /\s/.test(code[j])) j++;
                 if (code[j] === '}') { 
@@ -454,35 +476,39 @@ const Minifier = (function() {
                 }
             }
             
-            // Удаление 0 перед единицами измерения (0px -> 0)
-            if (char === '0') {
-                const units = ['px', 'em', 'rem', 'vh', 'vw', '%', 'pt', 'cm', 'mm'];
-                const substr = code.substr(i + 1, 3).toLowerCase();
-                for (const unit of units) {
-                    if (substr.startsWith(unit)) {
-                        const before = result[result.length - 1];
-                        const beforeChar = before ? before[before.length - 1] : '';
-                        if (',:;{}'.includes(beforeChar) || /\s/.test(beforeChar)) {
-                            result.push('0');
-                            i += 1 + unit.length;
-                            // Пропуск пробелов после единицы
-                            while (i < len && /\s/.test(code[i])) i++;
-                            continue;
+            // Оптимизации только при полной минификации
+            if (shouldRemoveWhitespace) {
+                // Удаление 0 перед единицами измерения (0px -> 0)
+                if (char === '0') {
+                    const units = ['px', 'em', 'rem', 'vh', 'vw', '%', 'pt', 'cm', 'mm'];
+                    const substr = code.substr(i + 1, 3).toLowerCase();
+                    let matched = false;
+                    for (const unit of units) {
+                        if (substr.startsWith(unit)) {
+                            const before = result[result.length - 1];
+                            const beforeChar = before ? before[before.length - 1] : '';
+                            if (',:;{}'.includes(beforeChar) || /\s/.test(beforeChar) || before === undefined) {
+                                result.push('0');
+                                i += 1 + unit.length;
+                                while (i < len && /\s/.test(code[i])) i++;
+                                matched = true;
+                                break;
+                            }
                         }
-                        break;
                     }
+                    if (matched) continue;
                 }
-            }
-            
-            // Сокращение цветов (#ffffff -> #fff)
-            if (char === '#' && /[0-9a-fA-F]{6}/.test(code.substr(i + 1, 6))) {
-                const color = code.substr(i + 1, 6);
-                if (color[0] === color[1] && 
-                    color[2] === color[3] && 
-                    color[4] === color[5]) {
-                    result.push('#' + color[0] + color[2] + color[4]);
-                    i += 7;
-                    continue;
+                
+                // Сокращение цветов (#ffffff -> #fff)
+                if (char === '#' && /[0-9a-fA-F]{6}/.test(code.substr(i + 1, 6))) {
+                    const color = code.substr(i + 1, 6);
+                    if (color[0] === color[1] && 
+                        color[2] === color[3] && 
+                        color[4] === color[5]) {
+                        result.push('#' + color[0] + color[2] + color[4]);
+                        i += 7;
+                        continue;
+                    }
                 }
             }
             
@@ -494,7 +520,7 @@ const Minifier = (function() {
     }
 
     /**
-     * минификация HTML
+     * Минификация HTML
      */
     function minifyHTML(code) {
         const result = [];
@@ -506,8 +532,8 @@ const Minifier = (function() {
         let scriptContent = '';
         let styleContent = '';
         
-        // Теги, которые нельзя сжимать
-        const preserveTags = new Set(['pre', 'textarea', 'script', 'style', 'code']);
+        // Теги, содержимое которых нельзя сжимать
+        const preserveTags = new Set(['pre', 'textarea', 'code']);
         
         while (i < len) {
             // Открывающий тег script
@@ -516,10 +542,8 @@ const Minifier = (function() {
                 if (tagEnd !== -1) {
                     let tag = code.substring(i, tagEnd + 1);
                     
-                    // Проверка на внешний скрипт
                     const hasSrc = /\ssrc\s*=/i.test(tag);
                     
-                    // Удаление type="text/javascript"
                     if (options.removeEmptyAttributes) {
                         tag = tag.replace(/\s+type\s*=\s*["']?text\/javascript["']?/gi, '');
                     }
@@ -537,11 +561,21 @@ const Minifier = (function() {
             
             // Закрывающий тег script
             if (inScript && code.substr(i, 9).toLowerCase() === '</script>') {
-                if (options.minifyInlineJS && scriptContent.trim()) {
-                    result.push(minifyJS(scriptContent));
-                } else {
-                    result.push(scriptContent);
+                // Определяем, нужно ли обрабатывать содержимое
+                const hasContent = scriptContent.trim().length > 0;
+                
+                if (hasContent) {
+                    // Если включена минификация inline JS ИЛИ только удаление комментариев
+                    if (options.minifyInlineJS) {
+                        result.push(minifyJS(scriptContent));
+                    } else if (options.removeComments) {
+                        // Удаляем только комментарии, сохраняем форматирование
+                        result.push(minifyJS(scriptContent, true));
+                    } else {
+                        result.push(scriptContent);
+                    }
                 }
+                
                 result.push('</script>');
                 i += 9;
                 inScript = false;
@@ -575,11 +609,20 @@ const Minifier = (function() {
             
             // Закрывающий тег style
             if (inStyle && code.substr(i, 8).toLowerCase() === '</style>') {
-                if (options.minifyInlineCSS && styleContent.trim()) {
-                    result.push(minifyCSS(styleContent));
-                } else {
-                    result.push(styleContent);
+                const hasContent = styleContent.trim().length > 0;
+                
+                if (hasContent) {
+                    // Если включена минификация inline CSS ИЛИ только удаление комментариев
+                    if (options.minifyInlineCSS) {
+                        result.push(minifyCSS(styleContent));
+                    } else if (options.removeComments) {
+                        // Удаляем только комментарии, сохраняем форматирование
+                        result.push(minifyCSS(styleContent, true));
+                    } else {
+                        result.push(styleContent);
+                    }
                 }
+                
                 result.push('</style>');
                 i += 8;
                 inStyle = false;
@@ -601,7 +644,7 @@ const Minifier = (function() {
                     const tagName = tagMatch[2].toLowerCase();
                     
                     if (preserveTags.has(tagName)) {
-                        if (!isClosing && tagName !== 'script' && tagName !== 'style') {
+                        if (!isClosing) {
                             inPre = true;
                         } else if (isClosing) {
                             const tagEnd = code.indexOf('>', i);
@@ -644,8 +687,8 @@ const Minifier = (function() {
                 }
             }
             
-            // обработка пробелов
-            if (options.collapseWhitespace && !inPre && /\s/.test(code[i])) {
+            // Обработка пробелов
+            if (options.collapseWhitespace && options.removeWhitespace && !inPre && /\s/.test(code[i])) {
                 const startI = i;
                 while (i < len && /\s/.test(code[i])) i++;
                 
@@ -758,7 +801,6 @@ const Minifier = (function() {
         }
         
         if (type === 'html') {
-            // Базовая проверка парности тегов
             const openTags = (code.match(/<[^\/][^>]*>/g) || []).length;
             const closeTags = (code.match(/<\/[^>]+>/g) || []).length;
             if (Math.abs(openTags - closeTags) > 5) {
@@ -784,7 +826,7 @@ const Minifier = (function() {
         getStats,
         resetStats,
         validate,
-        version: '2.0.0'
+        version: '2.1.0'
     };
 })();
 

@@ -178,41 +178,74 @@ input[type="checkbox"]:checked::before {
 /* ===== Tooltips ===== */
 .tooltip-wrapper {
     position: relative;
-    display: inline-block;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
 }
 
-.tooltip-text {
+.tooltip-wrapper .tooltip-text {
     position: absolute;
-    bottom: calc(100% + 8px);
-    left: 50%;
-    transform: translateX(-50%);
-    padding: 8px 12px;
-    background: #1f1f1f;
-    border: 1px solid #2a2a2a;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
+}
+
+.global-tooltip {
+    position: fixed;
+    display: none;
+    padding: 6px 12px;
+    background: rgba(23, 23, 23, 0.95);
+    border: 1px solid rgba(255, 255, 255, 0.1);
     border-radius: 8px;
     font-size: 12px;
+    font-weight: 500;
+    color: #e5e5e5;
     white-space: nowrap;
     opacity: 0;
     visibility: hidden;
-    transition: all 0.2s;
-    z-index: 1000;
+    transition: opacity 0.15s ease, visibility 0.15s ease;
+    z-index: 10000;
     pointer-events: none;
-    box-shadow: 0 4px 12px rgba(0,0,0,0.5);
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.4);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
 }
 
-.tooltip-text::after {
+.global-tooltip.visible {
+    display: block;
+    opacity: 1;
+    visibility: visible;
+}
+
+.global-tooltip::after {
     content: '';
     position: absolute;
+    border: 6px solid transparent;
+}
+
+.global-tooltip.top::after {
     top: 100%;
     left: 50%;
     transform: translateX(-50%);
-    border: 5px solid transparent;
-    border-top-color: #1f1f1f;
+    border-top-color: rgba(23, 23, 23, 0.95);
 }
 
-.tooltip-wrapper:hover .tooltip-text {
-    opacity: 1;
-    visibility: visible;
+.global-tooltip.bottom::after {
+    bottom: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    border-bottom-color: rgba(23, 23, 23, 0.95);
+}
+
+@media (hover: none) and (pointer: coarse) {
+    .global-tooltip {
+        display: none !important;
+    }
 }
 
 /* ===== Mobile Menu ===== */

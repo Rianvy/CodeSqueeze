@@ -5,14 +5,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Возможности — CodeSqueeze</title>
     <script src="js/tailwind.standalone.js"></script>
-	<script src="js/tailwind-config.js"></script>
+    <script src="js/tailwind-config.js"></script>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
     <style>
         * { scrollbar-width: thin; scrollbar-color: #00ff88 #141414; }
         body { font-family: 'Inter', sans-serif; }
         .mono { font-family: 'JetBrains Mono', monospace; }
         .glass { background: rgba(20, 20, 20, 0.8); backdrop-filter: blur(20px); }
-        .text-gradient { background: linear-gradient(135deg, #00ff88, #00cc6f, #4dffb8); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        .text-gradient { background: linear-gradient(135deg, #00ff88, #00cc6f, #4dffb8); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
         .gradient-border { position: relative; }
         .gradient-border::before { content: ''; position: absolute; inset: 0; border-radius: inherit; padding: 1px; background: linear-gradient(135deg, #00ff88, #00cc6f); -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0); -webkit-mask-composite: xor; mask-composite: exclude; pointer-events: none; opacity: 0.5; }
         .bg-grid { background-image: linear-gradient(rgba(0, 255, 136, 0.03) 1px, transparent 1px), linear-gradient(90deg, rgba(0, 255, 136, 0.03) 1px, transparent 1px); background-size: 50px 50px; }
@@ -26,25 +26,27 @@
 
     <!-- Header -->
     <header class="glass border-b border-white/5 sticky top-0 z-50">
-        <div class="max-w-7xl mx-auto px-6 py-4">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 py-3 sm:py-4">
             <div class="flex items-center justify-between">
-                <a href="index.html" class="flex items-center gap-4">
-                    <div class="w-12 h-12 bg-gradient-to-br from-brand-400 via-brand-500 to-brand-600 rounded-2xl flex items-center justify-center">
-                        <svg class="w-7 h-7 text-dark-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <a href="index.html" class="flex items-center gap-2 sm:gap-4">
+                    <div class="w-10 h-10 sm:w-12 sm:h-12 bg-gradient-to-br from-brand-400 via-brand-500 to-brand-600 rounded-xl sm:rounded-2xl flex items-center justify-center flex-shrink-0">
+                        <svg class="w-5 h-5 sm:w-7 sm:h-7 text-dark-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"/>
                         </svg>
                     </div>
-                    <div>
-                        <h1 class="text-2xl font-bold text-gradient">CodeSqueeze</h1>
-                        <p class="text-xs text-gray-500">Возможности</p>
+                    <div class="min-w-0">
+                        <h1 class="text-xl sm:text-2xl font-bold text-gradient truncate">CodeSqueeze</h1>
+                        <p class="text-[10px] sm:text-xs text-gray-500">Возможности</p>
                     </div>
                 </a>
                 
-                <nav class="hidden md:flex items-center gap-2">
+                <!-- Desktop Navigation -->
+                <nav class="hidden lg:flex items-center gap-2">
                     <a href="index.html" class="px-4 py-2 text-sm text-gray-400 hover:text-white hover:bg-white/5 rounded-xl transition-all">Главная</a>
                     <a href="features.html" class="px-4 py-2 text-sm text-brand-400 bg-brand-500/10 rounded-xl">Возможности</a>
+                    <a href="stats.html" class="px-4 py-2 text-sm text-gray-400 hover:text-white hover:bg-white/5 rounded-xl transition-all">Статистика</a>
                     <a href="docs.html" class="px-4 py-2 text-sm text-gray-400 hover:text-white hover:bg-white/5 rounded-xl transition-all">Документация</a>
-					<div class="w-px h-6 bg-white/10 mx-2"></div>
+                    <div class="w-px h-6 bg-white/10 mx-2"></div>
                     <a href="https://github.com/Rianvy/CodeSqueeze" target="_blank" 
                        class="flex items-center gap-2 px-4 py-2 bg-white/5 hover:bg-white/10 border border-white/10 rounded-xl transition-all text-sm">
                         <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
@@ -53,7 +55,8 @@
                     </a>
                 </nav>
                 
-                <button id="mobileMenuBtn" class="md:hidden p-2 hover:bg-white/5 rounded-xl transition-all">
+                <!-- Mobile Menu Button -->
+                <button id="mobileMenuBtn" class="lg:hidden p-2 hover:bg-white/5 rounded-xl transition-all">
                     <svg id="menuIcon" class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/>
                     </svg>
@@ -63,12 +66,14 @@
                 </button>
             </div>
             
-            <nav id="mobileMenu" class="mobile-menu md:hidden">
+            <!-- Mobile Navigation -->
+            <nav id="mobileMenu" class="mobile-menu lg:hidden">
                 <div class="py-4 space-y-2 border-t border-white/5 mt-4">
                     <a href="index.html" class="block px-4 py-3 text-sm text-gray-400 hover:text-white hover:bg-white/5 rounded-xl">🏠 Главная</a>
                     <a href="features.html" class="block px-4 py-3 text-sm text-brand-400 bg-brand-500/10 rounded-xl">🎯 Возможности</a>
+                    <a href="stats.html" class="block px-4 py-3 text-sm text-gray-400 hover:bg-white/5 rounded-xl">📊 Статистика</a>
                     <a href="docs.html" class="block px-4 py-3 text-sm text-gray-400 hover:text-white hover:bg-white/5 rounded-xl">📚 Документация</a>
-					<a href="https://github.com/Rianvy/CodeSqueeze" target="_blank" 
+                    <a href="https://github.com/Rianvy/CodeSqueeze" target="_blank" 
                        class="flex items-center gap-2 px-4 py-3 bg-white/5 border border-white/10 rounded-xl transition-all text-sm">
                         <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
                         <span>GitHub Repository</span>
@@ -79,254 +84,303 @@
         </div>
     </header>
 
-    <main class="max-w-7xl mx-auto px-6 py-16">
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 py-8 sm:py-16">
         
         <!-- Hero -->
-        <div class="text-center mb-20">
-            <div class="inline-flex items-center gap-2 px-4 py-2 bg-brand-500/10 border border-brand-500/20 rounded-full text-brand-400 text-sm mb-6">
-                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <div class="text-center mb-10 sm:mb-20">
+            <div class="inline-flex items-center gap-1.5 sm:gap-2 px-3 sm:px-4 py-1.5 sm:py-2 bg-brand-500/10 border border-brand-500/20 rounded-full text-brand-400 text-xs sm:text-sm mb-4 sm:mb-6">
+                <svg class="w-3.5 h-3.5 sm:w-4 sm:h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/>
                 </svg>
                 Мощный функционал
             </div>
-            <h1 class="text-4xl md:text-6xl font-bold mb-6">
-                Всё, что нужно для<br>
+            <h1 class="text-2xl sm:text-4xl md:text-5xl lg:text-6xl font-bold mb-4 sm:mb-6 leading-tight">
+                Всё, что нужно для<br class="hidden sm:block">
                 <span class="text-gradient">минификации кода</span>
             </h1>
-            <p class="text-xl text-gray-400 max-w-2xl mx-auto">
+            <p class="text-sm sm:text-lg md:text-xl text-gray-400 max-w-2xl mx-auto px-4 sm:px-0">
                 Профессиональные инструменты для оптимизации HTML, JavaScript и CSS. 
                 Безопасно, быстро и совершенно бесплатно.
             </p>
         </div>
 
         <!-- Features Grid -->
-        <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8 mb-20">
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 lg:gap-8 mb-12 sm:mb-20">
             
             <!-- Feature 1 -->
-            <div class="group p-8 rounded-3xl bg-dark-400/30 border border-white/5 hover:border-brand-500/30 transition-all duration-300">
-                <div class="w-16 h-16 bg-gradient-to-br from-brand-500/20 to-brand-600/20 rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
-                    <svg class="w-8 h-8 text-brand-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <div class="group p-5 sm:p-6 lg:p-8 rounded-2xl sm:rounded-3xl bg-dark-400/30 border border-white/5 hover:border-brand-500/30 transition-all duration-300">
+                <div class="w-12 h-12 sm:w-14 lg:w-16 sm:h-14 lg:h-16 bg-gradient-to-br from-brand-500/20 to-brand-600/20 rounded-xl sm:rounded-2xl flex items-center justify-center mb-4 sm:mb-6 group-hover:scale-110 transition-transform">
+                    <svg class="w-6 h-6 sm:w-7 lg:w-8 sm:h-7 lg:h-8 text-brand-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4"/>
                     </svg>
                 </div>
-                <h3 class="text-xl font-bold mb-3">HTML Минификация</h3>
-                <p class="text-gray-400 leading-relaxed mb-4">
+                <h3 class="text-lg sm:text-xl font-bold mb-2 sm:mb-3">HTML Минификация</h3>
+                <p class="text-sm sm:text-base text-gray-400 leading-relaxed mb-3 sm:mb-4">
                     Удаление комментариев, лишних пробелов и переносов строк. Сохраняет структуру pre и textarea.
                 </p>
-                <ul class="space-y-2 text-sm text-gray-500">
+                <ul class="space-y-1.5 sm:space-y-2 text-xs sm:text-sm text-gray-500">
                     <li class="flex items-center gap-2">
-                        <svg class="w-4 h-4 text-brand-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
-                        Удаление HTML комментариев
+                        <svg class="w-3.5 h-3.5 sm:w-4 sm:h-4 text-brand-500 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
+                        <span>Удаление HTML комментариев</span>
                     </li>
                     <li class="flex items-center gap-2">
-                        <svg class="w-4 h-4 text-brand-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
-                        Сжатие пробелов между тегами
+                        <svg class="w-3.5 h-3.5 sm:w-4 sm:h-4 text-brand-500 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
+                        <span>Сжатие пробелов между тегами</span>
                     </li>
                     <li class="flex items-center gap-2">
-                        <svg class="w-4 h-4 text-brand-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
-                        Сохранение conditional comments
+                        <svg class="w-3.5 h-3.5 sm:w-4 sm:h-4 text-brand-500 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
+                        <span>Сохранение conditional comments</span>
                     </li>
                 </ul>
             </div>
 
             <!-- Feature 2 -->
-            <div class="group p-8 rounded-3xl bg-dark-400/30 border border-white/5 hover:border-brand-500/30 transition-all duration-300">
-                <div class="w-16 h-16 bg-gradient-to-br from-yellow-500/20 to-orange-500/20 rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
-                    <svg class="w-8 h-8 text-yellow-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <div class="group p-5 sm:p-6 lg:p-8 rounded-2xl sm:rounded-3xl bg-dark-400/30 border border-white/5 hover:border-brand-500/30 transition-all duration-300">
+                <div class="w-12 h-12 sm:w-14 lg:w-16 sm:h-14 lg:h-16 bg-gradient-to-br from-yellow-500/20 to-orange-500/20 rounded-xl sm:rounded-2xl flex items-center justify-center mb-4 sm:mb-6 group-hover:scale-110 transition-transform">
+                    <svg class="w-6 h-6 sm:w-7 lg:w-8 sm:h-7 lg:h-8 text-yellow-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 9l3 3-3 3m5 0h3M5 20h14a2 2 0 002-2V6a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/>
                     </svg>
                 </div>
-                <h3 class="text-xl font-bold mb-3">JavaScript Минификация</h3>
-                <p class="text-gray-400 leading-relaxed mb-4">
+                <h3 class="text-lg sm:text-xl font-bold mb-2 sm:mb-3">JavaScript Минификация</h3>
+                <p class="text-sm sm:text-base text-gray-400 leading-relaxed mb-3 sm:mb-4">
                     Безопасное сжатие JS кода с сохранением строк, регулярных выражений и template literals.
                 </p>
-                <ul class="space-y-2 text-sm text-gray-500">
+                <ul class="space-y-1.5 sm:space-y-2 text-xs sm:text-sm text-gray-500">
                     <li class="flex items-center gap-2">
-                        <svg class="w-4 h-4 text-brand-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
-                        Сохранение строковых литералов
+                        <svg class="w-3.5 h-3.5 sm:w-4 sm:h-4 text-brand-500 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
+                        <span>Сохранение строковых литералов</span>
                     </li>
                     <li class="flex items-center gap-2">
-                        <svg class="w-4 h-4 text-brand-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
-                        Корректная обработка regex
+                        <svg class="w-3.5 h-3.5 sm:w-4 sm:h-4 text-brand-500 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
+                        <span>Корректная обработка regex</span>
                     </li>
                     <li class="flex items-center gap-2">
-                        <svg class="w-4 h-4 text-brand-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
-                        Поддержка ES6+ синтаксиса
+                        <svg class="w-3.5 h-3.5 sm:w-4 sm:h-4 text-brand-500 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
+                        <span>Поддержка ES6+ синтаксиса</span>
                     </li>
                 </ul>
             </div>
 
             <!-- Feature 3 -->
-            <div class="group p-8 rounded-3xl bg-dark-400/30 border border-white/5 hover:border-brand-500/30 transition-all duration-300">
-                <div class="w-16 h-16 bg-gradient-to-br from-blue-500/20 to-cyan-500/20 rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
-                    <svg class="w-8 h-8 text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <div class="group p-5 sm:p-6 lg:p-8 rounded-2xl sm:rounded-3xl bg-dark-400/30 border border-white/5 hover:border-brand-500/30 transition-all duration-300 sm:col-span-2 lg:col-span-1">
+                <div class="w-12 h-12 sm:w-14 lg:w-16 sm:h-14 lg:h-16 bg-gradient-to-br from-blue-500/20 to-cyan-500/20 rounded-xl sm:rounded-2xl flex items-center justify-center mb-4 sm:mb-6 group-hover:scale-110 transition-transform">
+                    <svg class="w-6 h-6 sm:w-7 lg:w-8 sm:h-7 lg:h-8 text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 21a4 4 0 01-4-4V5a2 2 0 012-2h4a2 2 0 012 2v12a4 4 0 01-4 4zm0 0h12a2 2 0 002-2v-4a2 2 0 00-2-2h-2.343M11 7.343l1.657-1.657a2 2 0 012.828 0l2.829 2.829a2 2 0 010 2.828l-8.486 8.485M7 17h.01"/>
                     </svg>
                 </div>
-                <h3 class="text-xl font-bold mb-3">CSS Минификация</h3>
-                <p class="text-gray-400 leading-relaxed mb-4">
+                <h3 class="text-lg sm:text-xl font-bold mb-2 sm:mb-3">CSS Минификация</h3>
+                <p class="text-sm sm:text-base text-gray-400 leading-relaxed mb-3 sm:mb-4">
                     Оптимизация стилей с сохранением url() и всех типов селекторов.
                 </p>
-                <ul class="space-y-2 text-sm text-gray-500">
+                <ul class="space-y-1.5 sm:space-y-2 text-xs sm:text-sm text-gray-500">
                     <li class="flex items-center gap-2">
-                        <svg class="w-4 h-4 text-brand-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
-                        Удаление CSS комментариев
+                        <svg class="w-3.5 h-3.5 sm:w-4 sm:h-4 text-brand-500 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
+                        <span>Удаление CSS комментариев</span>
                     </li>
                     <li class="flex items-center gap-2">
-                        <svg class="w-4 h-4 text-brand-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
-                        Сохранение url() значений
+                        <svg class="w-3.5 h-3.5 sm:w-4 sm:h-4 text-brand-500 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
+                        <span>Сохранение url() значений</span>
                     </li>
                     <li class="flex items-center gap-2">
-                        <svg class="w-4 h-4 text-brand-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
-                        Удаление лишних точек с запятой
+                        <svg class="w-3.5 h-3.5 sm:w-4 sm:h-4 text-brand-500 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
+                        <span>Удаление лишних точек с запятой</span>
                     </li>
                 </ul>
             </div>
 
             <!-- Feature 4 -->
-            <div class="group p-8 rounded-3xl bg-dark-400/30 border border-white/5 hover:border-brand-500/30 transition-all duration-300">
-                <div class="w-16 h-16 bg-gradient-to-br from-purple-500/20 to-pink-500/20 rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
-                    <svg class="w-8 h-8 text-purple-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <div class="group p-5 sm:p-6 lg:p-8 rounded-2xl sm:rounded-3xl bg-dark-400/30 border border-white/5 hover:border-brand-500/30 transition-all duration-300">
+                <div class="w-12 h-12 sm:w-14 lg:w-16 sm:h-14 lg:h-16 bg-gradient-to-br from-purple-500/20 to-pink-500/20 rounded-xl sm:rounded-2xl flex items-center justify-center mb-4 sm:mb-6 group-hover:scale-110 transition-transform">
+                    <svg class="w-6 h-6 sm:w-7 lg:w-8 sm:h-7 lg:h-8 text-purple-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"/>
                     </svg>
                 </div>
-                <h3 class="text-xl font-bold mb-3">Форматирование кода</h3>
-                <p class="text-gray-400 leading-relaxed mb-4">
+                <h3 class="text-lg sm:text-xl font-bold mb-2 sm:mb-3">Форматирование кода</h3>
+                <p class="text-sm sm:text-base text-gray-400 leading-relaxed mb-3 sm:mb-4">
                     Обратное преобразование — beautify минифицированного кода для удобного чтения.
                 </p>
-                <ul class="space-y-2 text-sm text-gray-500">
+                <ul class="space-y-1.5 sm:space-y-2 text-xs sm:text-sm text-gray-500">
                     <li class="flex items-center gap-2">
-                        <svg class="w-4 h-4 text-brand-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
-                        Автоматические отступы
+                        <svg class="w-3.5 h-3.5 sm:w-4 sm:h-4 text-brand-500 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
+                        <span>Автоматические отступы</span>
                     </li>
                     <li class="flex items-center gap-2">
-                        <svg class="w-4 h-4 text-brand-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
-                        Форматирование HTML тегов
+                        <svg class="w-3.5 h-3.5 sm:w-4 sm:h-4 text-brand-500 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
+                        <span>Форматирование HTML тегов</span>
                     </li>
                     <li class="flex items-center gap-2">
-                        <svg class="w-4 h-4 text-brand-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
-                        Читаемый JavaScript
+                        <svg class="w-3.5 h-3.5 sm:w-4 sm:h-4 text-brand-500 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
+                        <span>Читаемый JavaScript</span>
                     </li>
                 </ul>
             </div>
 
             <!-- Feature 5 -->
-            <div class="group p-8 rounded-3xl bg-dark-400/30 border border-white/5 hover:border-brand-500/30 transition-all duration-300">
-                <div class="w-16 h-16 bg-gradient-to-br from-green-500/20 to-emerald-500/20 rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
-                    <svg class="w-8 h-8 text-green-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <div class="group p-5 sm:p-6 lg:p-8 rounded-2xl sm:rounded-3xl bg-dark-400/30 border border-white/5 hover:border-brand-500/30 transition-all duration-300">
+                <div class="w-12 h-12 sm:w-14 lg:w-16 sm:h-14 lg:h-16 bg-gradient-to-br from-green-500/20 to-emerald-500/20 rounded-xl sm:rounded-2xl flex items-center justify-center mb-4 sm:mb-6 group-hover:scale-110 transition-transform">
+                    <svg class="w-6 h-6 sm:w-7 lg:w-8 sm:h-7 lg:h-8 text-green-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/>
                     </svg>
                 </div>
-                <h3 class="text-xl font-bold mb-3">Безопасность данных</h3>
-                <p class="text-gray-400 leading-relaxed mb-4">
+                <h3 class="text-lg sm:text-xl font-bold mb-2 sm:mb-3">Безопасность данных</h3>
+                <p class="text-sm sm:text-base text-gray-400 leading-relaxed mb-3 sm:mb-4">
                     Весь код обрабатывается локально в браузере. Ничего не отправляется на сервер.
                 </p>
-                <ul class="space-y-2 text-sm text-gray-500">
+                <ul class="space-y-1.5 sm:space-y-2 text-xs sm:text-sm text-gray-500">
                     <li class="flex items-center gap-2">
-                        <svg class="w-4 h-4 text-brand-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
-                        Обработка на клиенте
+                        <svg class="w-3.5 h-3.5 sm:w-4 sm:h-4 text-brand-500 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
+                        <span>Обработка на клиенте</span>
                     </li>
                     <li class="flex items-center gap-2">
-                        <svg class="w-4 h-4 text-brand-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
-                        Никаких внешних запросов
+                        <svg class="w-3.5 h-3.5 sm:w-4 sm:h-4 text-brand-500 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
+                        <span>Никаких внешних запросов</span>
                     </li>
                     <li class="flex items-center gap-2">
-                        <svg class="w-4 h-4 text-brand-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
-                        Работает оффлайн
+                        <svg class="w-3.5 h-3.5 sm:w-4 sm:h-4 text-brand-500 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
+                        <span>Работает оффлайн</span>
                     </li>
                 </ul>
             </div>
 
             <!-- Feature 6 -->
-            <div class="group p-8 rounded-3xl bg-dark-400/30 border border-white/5 hover:border-brand-500/30 transition-all duration-300">
-                <div class="w-16 h-16 bg-gradient-to-br from-red-500/20 to-rose-500/20 rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
-                    <svg class="w-8 h-8 text-red-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <div class="group p-5 sm:p-6 lg:p-8 rounded-2xl sm:rounded-3xl bg-dark-400/30 border border-white/5 hover:border-brand-500/30 transition-all duration-300 sm:col-span-2 lg:col-span-1">
+                <div class="w-12 h-12 sm:w-14 lg:w-16 sm:h-14 lg:h-16 bg-gradient-to-br from-red-500/20 to-rose-500/20 rounded-xl sm:rounded-2xl flex items-center justify-center mb-4 sm:mb-6 group-hover:scale-110 transition-transform">
+                    <svg class="w-6 h-6 sm:w-7 lg:w-8 sm:h-7 lg:h-8 text-red-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/>
                     </svg>
                 </div>
-                <h3 class="text-xl font-bold mb-3">Мгновенная скорость</h3>
-                <p class="text-gray-400 leading-relaxed mb-4">
+                <h3 class="text-lg sm:text-xl font-bold mb-2 sm:mb-3">Мгновенная скорость</h3>
+                <p class="text-sm sm:text-base text-gray-400 leading-relaxed mb-3 sm:mb-4">
                     Оптимизированные алгоритмы обеспечивают мгновенную обработку даже больших файлов.
                 </p>
-                <ul class="space-y-2 text-sm text-gray-500">
+                <ul class="space-y-1.5 sm:space-y-2 text-xs sm:text-sm text-gray-500">
                     <li class="flex items-center gap-2">
-                        <svg class="w-4 h-4 text-brand-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
-                        Посимвольный парсинг
+                        <svg class="w-3.5 h-3.5 sm:w-4 sm:h-4 text-brand-500 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
+                        <span>Посимвольный парсинг</span>
                     </li>
                     <li class="flex items-center gap-2">
-                        <svg class="w-4 h-4 text-brand-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
-                        Нет зависимостей
+                        <svg class="w-3.5 h-3.5 sm:w-4 sm:h-4 text-brand-500 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
+                        <span>Нет зависимостей</span>
                     </li>
                     <li class="flex items-center gap-2">
-                        <svg class="w-4 h-4 text-brand-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
-                        Чистый JavaScript
+                        <svg class="w-3.5 h-3.5 sm:w-4 sm:h-4 text-brand-500 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
+                        <span>Чистый JavaScript</span>
                     </li>
                 </ul>
             </div>
         </div>
 
         <!-- Comparison Table -->
-        <div class="mb-20">
-            <div class="text-center mb-12">
-                <h2 class="text-3xl font-bold mb-4">Сравнение с аналогами</h2>
-                <p class="text-gray-400">Почему CodeSqueeze — лучший выбор</p>
+        <div class="mb-12 sm:mb-20">
+            <div class="text-center mb-8 sm:mb-12">
+                <h2 class="text-xl sm:text-2xl md:text-3xl font-bold mb-2 sm:mb-4">Сравнение с аналогами</h2>
+                <p class="text-sm sm:text-base text-gray-400">Почему CodeSqueeze — лучший выбор</p>
             </div>
             
-            <div class="overflow-x-auto">
-                <table class="w-full">
-                    <thead>
-                        <tr class="border-b border-white/10">
-                            <th class="text-left py-4 px-6 text-gray-400 font-medium">Функция</th>
-                            <th class="py-4 px-6 text-center">
-                                <span class="text-gradient font-bold">CodeSqueeze</span>
-                            </th>
-                            <th class="py-4 px-6 text-center text-gray-400">Другие</th>
-                        </tr>
-                    </thead>
-                    <tbody class="divide-y divide-white/5">
-                        <tr class="hover:bg-white/5 transition-colors">
-                            <td class="py-4 px-6">Локальная обработка</td>
-                            <td class="py-4 px-6 text-center"><span class="text-brand-400 text-xl">✓</span></td>
-                            <td class="py-4 px-6 text-center"><span class="text-gray-500">Часто нет</span></td>
-                        </tr>
-                        <tr class="hover:bg-white/5 transition-colors">
-                            <td class="py-4 px-6">Безопасность строк</td>
-                            <td class="py-4 px-6 text-center"><span class="text-brand-400 text-xl">✓</span></td>
-                            <td class="py-4 px-6 text-center"><span class="text-gray-500">Не всегда</span></td>
-                        </tr>
-                        <tr class="hover:bg-white/5 transition-colors">
-                            <td class="py-4 px-6">Без регистрации</td>
-                            <td class="py-4 px-6 text-center"><span class="text-brand-400 text-xl">✓</span></td>
-                            <td class="py-4 px-6 text-center"><span class="text-gray-500">Часто нужна</span></td>
-                        </tr>
-                        <tr class="hover:bg-white/5 transition-colors">
-                            <td class="py-4 px-6">Бесплатно навсегда</td>
-                            <td class="py-4 px-6 text-center"><span class="text-brand-400 text-xl">✓</span></td>
-                            <td class="py-4 px-6 text-center"><span class="text-gray-500">Лимиты</span></td>
-                        </tr>
-                        <tr class="hover:bg-white/5 transition-colors">
-                            <td class="py-4 px-6">Открытый исходный код</td>
-                            <td class="py-4 px-6 text-center"><span class="text-brand-400 text-xl">✓</span></td>
-                            <td class="py-4 px-6 text-center"><span class="text-gray-500">Редко</span></td>
-                        </tr>
-                        <tr class="hover:bg-white/5 transition-colors">
-                            <td class="py-4 px-6">Работает оффлайн</td>
-                            <td class="py-4 px-6 text-center"><span class="text-brand-400 text-xl">✓</span></td>
-                            <td class="py-4 px-6 text-center"><span class="text-gray-500">Нет</span></td>
-                        </tr>
-                    </tbody>
-                </table>
+            <!-- Mobile: Card View -->
+            <div class="sm:hidden space-y-3">
+                <div class="p-4 rounded-xl bg-dark-400/30 border border-white/5">
+                    <div class="flex items-center justify-between mb-2">
+                        <span class="text-sm text-gray-300">Локальная обработка</span>
+                        <span class="text-brand-400 font-bold">✓</span>
+                    </div>
+                    <span class="text-xs text-gray-500">Другие: Часто нет</span>
+                </div>
+                <div class="p-4 rounded-xl bg-dark-400/30 border border-white/5">
+                    <div class="flex items-center justify-between mb-2">
+                        <span class="text-sm text-gray-300">Безопасность строк</span>
+                        <span class="text-brand-400 font-bold">✓</span>
+                    </div>
+                    <span class="text-xs text-gray-500">Другие: Не всегда</span>
+                </div>
+                <div class="p-4 rounded-xl bg-dark-400/30 border border-white/5">
+                    <div class="flex items-center justify-between mb-2">
+                        <span class="text-sm text-gray-300">Без регистрации</span>
+                        <span class="text-brand-400 font-bold">✓</span>
+                    </div>
+                    <span class="text-xs text-gray-500">Другие: Часто нужна</span>
+                </div>
+                <div class="p-4 rounded-xl bg-dark-400/30 border border-white/5">
+                    <div class="flex items-center justify-between mb-2">
+                        <span class="text-sm text-gray-300">Бесплатно навсегда</span>
+                        <span class="text-brand-400 font-bold">✓</span>
+                    </div>
+                    <span class="text-xs text-gray-500">Другие: Лимиты</span>
+                </div>
+                <div class="p-4 rounded-xl bg-dark-400/30 border border-white/5">
+                    <div class="flex items-center justify-between mb-2">
+                        <span class="text-sm text-gray-300">Открытый исходный код</span>
+                        <span class="text-brand-400 font-bold">✓</span>
+                    </div>
+                    <span class="text-xs text-gray-500">Другие: Редко</span>
+                </div>
+                <div class="p-4 rounded-xl bg-dark-400/30 border border-white/5">
+                    <div class="flex items-center justify-between mb-2">
+                        <span class="text-sm text-gray-300">Работает оффлайн</span>
+                        <span class="text-brand-400 font-bold">✓</span>
+                    </div>
+                    <span class="text-xs text-gray-500">Другие: Нет</span>
+                </div>
+            </div>
+            
+            <!-- Desktop: Table View -->
+            <div class="hidden sm:block overflow-x-auto -mx-4 sm:mx-0">
+                <div class="min-w-[500px] px-4 sm:px-0">
+                    <table class="w-full">
+                        <thead>
+                            <tr class="border-b border-white/10">
+                                <th class="text-left py-3 sm:py-4 px-4 sm:px-6 text-gray-400 font-medium text-sm sm:text-base">Функция</th>
+                                <th class="py-3 sm:py-4 px-4 sm:px-6 text-center">
+                                    <span class="text-gradient font-bold text-sm sm:text-base">CodeSqueeze</span>
+                                </th>
+                                <th class="py-3 sm:py-4 px-4 sm:px-6 text-center text-gray-400 text-sm sm:text-base">Другие</th>
+                            </tr>
+                        </thead>
+                        <tbody class="divide-y divide-white/5">
+                            <tr class="hover:bg-white/5 transition-colors">
+                                <td class="py-3 sm:py-4 px-4 sm:px-6 text-sm sm:text-base">Локальная обработка</td>
+                                <td class="py-3 sm:py-4 px-4 sm:px-6 text-center"><span class="text-brand-400 text-lg sm:text-xl">✓</span></td>
+                                <td class="py-3 sm:py-4 px-4 sm:px-6 text-center"><span class="text-gray-500 text-sm sm:text-base">Часто нет</span></td>
+                            </tr>
+                            <tr class="hover:bg-white/5 transition-colors">
+                                <td class="py-3 sm:py-4 px-4 sm:px-6 text-sm sm:text-base">Безопасность строк</td>
+                                <td class="py-3 sm:py-4 px-4 sm:px-6 text-center"><span class="text-brand-400 text-lg sm:text-xl">✓</span></td>
+                                <td class="py-3 sm:py-4 px-4 sm:px-6 text-center"><span class="text-gray-500 text-sm sm:text-base">Не всегда</span></td>
+                            </tr>
+                            <tr class="hover:bg-white/5 transition-colors">
+                                <td class="py-3 sm:py-4 px-4 sm:px-6 text-sm sm:text-base">Без регистрации</td>
+                                <td class="py-3 sm:py-4 px-4 sm:px-6 text-center"><span class="text-brand-400 text-lg sm:text-xl">✓</span></td>
+                                <td class="py-3 sm:py-4 px-4 sm:px-6 text-center"><span class="text-gray-500 text-sm sm:text-base">Часто нужна</span></td>
+                            </tr>
+                            <tr class="hover:bg-white/5 transition-colors">
+                                <td class="py-3 sm:py-4 px-4 sm:px-6 text-sm sm:text-base">Бесплатно навсегда</td>
+                                <td class="py-3 sm:py-4 px-4 sm:px-6 text-center"><span class="text-brand-400 text-lg sm:text-xl">✓</span></td>
+                                <td class="py-3 sm:py-4 px-4 sm:px-6 text-center"><span class="text-gray-500 text-sm sm:text-base">Лимиты</span></td>
+                            </tr>
+                            <tr class="hover:bg-white/5 transition-colors">
+                                <td class="py-3 sm:py-4 px-4 sm:px-6 text-sm sm:text-base">Открытый исходный код</td>
+                                <td class="py-3 sm:py-4 px-4 sm:px-6 text-center"><span class="text-brand-400 text-lg sm:text-xl">✓</span></td>
+                                <td class="py-3 sm:py-4 px-4 sm:px-6 text-center"><span class="text-gray-500 text-sm sm:text-base">Редко</span></td>
+                            </tr>
+                            <tr class="hover:bg-white/5 transition-colors">
+                                <td class="py-3 sm:py-4 px-4 sm:px-6 text-sm sm:text-base">Работает оффлайн</td>
+                                <td class="py-3 sm:py-4 px-4 sm:px-6 text-center"><span class="text-brand-400 text-lg sm:text-xl">✓</span></td>
+                                <td class="py-3 sm:py-4 px-4 sm:px-6 text-center"><span class="text-gray-500 text-sm sm:text-base">Нет</span></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
             </div>
         </div>
 
         <!-- CTA -->
-        <div class="text-center gradient-border rounded-3xl p-12 bg-dark-400/50">
-            <h2 class="text-3xl font-bold mb-4">Готовы начать?</h2>
-            <p class="text-gray-400 mb-8 max-w-xl mx-auto">
+        <div class="text-center gradient-border rounded-2xl sm:rounded-3xl p-6 sm:p-8 md:p-12 bg-dark-400/50">
+            <h2 class="text-xl sm:text-2xl md:text-3xl font-bold mb-3 sm:mb-4">Готовы начать?</h2>
+            <p class="text-sm sm:text-base text-gray-400 mb-6 sm:mb-8 max-w-xl mx-auto">
                 Попробуйте CodeSqueeze прямо сейчас и убедитесь в качестве минификации
             </p>
-            <a href="index.html" class="inline-flex items-center gap-2 px-8 py-4 bg-gradient-to-r from-brand-500 to-brand-600 text-dark-500 rounded-2xl font-bold text-lg hover:shadow-lg hover:shadow-brand-500/25 transition-all">
-                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <a href="index.html" class="inline-flex items-center justify-center gap-2 w-full sm:w-auto px-6 sm:px-8 py-3 sm:py-4 bg-gradient-to-r from-brand-500 to-brand-600 text-dark-500 rounded-xl sm:rounded-2xl font-bold text-sm sm:text-lg hover:shadow-lg hover:shadow-brand-500/25 transition-all active:scale-95">
+                <svg class="w-4 h-4 sm:w-5 sm:h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/>
                 </svg>
                 Начать минификацию
@@ -335,18 +389,18 @@
     </main>
 
     <!-- Footer -->
-    <footer class="border-t border-white/5 mt-16 bg-dark-500/50">
-        <div class="max-w-7xl mx-auto px-6 py-12">
-            <div class="flex flex-col md:flex-row items-center justify-between gap-6">
-                <div class="flex items-center gap-3">
-                    <div class="w-10 h-10 bg-gradient-to-br from-brand-500 to-brand-600 rounded-xl flex items-center justify-center">
-                        <svg class="w-5 h-5 text-dark-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+    <footer class="border-t border-white/5 mt-12 sm:mt-16 bg-dark-500/50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 py-8 sm:py-12">
+            <div class="flex flex-col sm:flex-row items-center justify-between gap-4 sm:gap-6">
+                <div class="flex items-center gap-2 sm:gap-3">
+                    <div class="w-8 h-8 sm:w-10 sm:h-10 bg-gradient-to-br from-brand-500 to-brand-600 rounded-lg sm:rounded-xl flex items-center justify-center">
+                        <svg class="w-4 h-4 sm:w-5 sm:h-5 text-dark-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"/>
                         </svg>
                     </div>
-                    <span class="text-gradient font-bold">CodeSqueeze</span>
+                    <span class="text-gradient font-bold text-sm sm:text-base">CodeSqueeze</span>
                 </div>
-                <div class="flex items-center gap-6 text-sm text-gray-500">
+                <div class="flex flex-wrap items-center justify-center gap-4 sm:gap-6 text-xs sm:text-sm text-gray-500">
                     <a href="privacy.html" class="hover:text-brand-400 transition-colors">Конфиденциальность</a>
                     <a href="terms.html" class="hover:text-brand-400 transition-colors">Условия</a>
                     <span>© 2026</span>

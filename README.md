@@ -118,6 +118,7 @@ CodeSqueeze/
 │       ├── utils.js       # Вспомогательные функции
 │       ├── storage.js     # Локальное хранилище
 │       ├── fullscreen.js  # Полноэкранный режим для редакторов
+│       ├── tooltips.js    # Глобальные tooltips
 │       └── notifications.js # Уведомления
 ```
 

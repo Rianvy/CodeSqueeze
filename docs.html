@@ -5,18 +5,21 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Документация — CodeSqueeze</title>
     <script src="js/tailwind.standalone.js"></script>
-	<script src="js/tailwind-config.js"></script>
+    <script src="js/tailwind-config.js"></script>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
     <style>
         body { font-family: 'Inter', sans-serif; }
         .mono, code, pre { font-family: 'JetBrains Mono', monospace; }
         .glass { background: rgba(20, 20, 20, 0.8); backdrop-filter: blur(20px); }
-        .text-gradient { background: linear-gradient(135deg, #00ff88, #00cc6f); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        .text-gradient { background: linear-gradient(135deg, #00ff88, #00cc6f); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
         .bg-grid { background-image: linear-gradient(rgba(0, 255, 136, 0.03) 1px, transparent 1px), linear-gradient(90deg, rgba(0, 255, 136, 0.03) 1px, transparent 1px); background-size: 50px 50px; }
         .mobile-menu { max-height: 0; overflow: hidden; transition: max-height 0.3s; }
         .mobile-menu.active { max-height: 500px; }
+        .mobile-toc { max-height: 0; overflow: hidden; transition: max-height 0.3s ease-in-out; }
+        .mobile-toc.active { max-height: 600px; }
         .sidebar-link.active { background: rgba(0, 255, 136, 0.1); border-left-color: #00ff88; color: #00ff88; }
-        pre { background: #0f0f0f; border-radius: 12px; padding: 20px; overflow-x: auto; border: 1px solid rgba(255,255,255,0.1); }
+        pre { background: #0f0f0f; border-radius: 12px; padding: 16px; overflow-x: auto; border: 1px solid rgba(255,255,255,0.1); font-size: 13px; }
+        @media (min-width: 640px) { pre { padding: 20px; font-size: 14px; } }
         code { color: #00ff88; }
         .prose h2 { scroll-margin-top: 100px; }
     </style>
@@ -25,25 +28,27 @@
 
     <!-- Header -->
     <header class="glass border-b border-white/5 sticky top-0 z-50">
-        <div class="max-w-7xl mx-auto px-6 py-4">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 py-3 sm:py-4">
             <div class="flex items-center justify-between">
-                <a href="index.html" class="flex items-center gap-4">
-                    <div class="w-12 h-12 bg-gradient-to-br from-brand-400 to-brand-600 rounded-2xl flex items-center justify-center">
-                        <svg class="w-7 h-7 text-dark-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <a href="index.html" class="flex items-center gap-2 sm:gap-4">
+                    <div class="w-10 h-10 sm:w-12 sm:h-12 bg-gradient-to-br from-brand-400 to-brand-600 rounded-xl sm:rounded-2xl flex items-center justify-center flex-shrink-0">
+                        <svg class="w-5 h-5 sm:w-7 sm:h-7 text-dark-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"/>
                         </svg>
                     </div>
-                    <div>
-                        <h1 class="text-2xl font-bold text-gradient">CodeSqueeze</h1>
-                        <p class="text-xs text-gray-500">Документация</p>
+                    <div class="min-w-0">
+                        <h1 class="text-xl sm:text-2xl font-bold text-gradient truncate">CodeSqueeze</h1>
+                        <p class="text-[10px] sm:text-xs text-gray-500">Документация</p>
                     </div>
                 </a>
                 
-                <nav class="hidden md:flex items-center gap-2">
+                <!-- Desktop Navigation -->
+                <nav class="hidden lg:flex items-center gap-2">
                     <a href="index.html" class="px-4 py-2 text-sm text-gray-400 hover:text-white hover:bg-white/5 rounded-xl transition-all">Главная</a>
                     <a href="features.html" class="px-4 py-2 text-sm text-gray-400 hover:text-white hover:bg-white/5 rounded-xl transition-all">Возможности</a>
+                    <a href="stats.html" class="px-4 py-2 text-sm text-gray-400 hover:text-white hover:bg-white/5 rounded-xl transition-all">Статистика</a>
                     <a href="docs.html" class="px-4 py-2 text-sm text-brand-400 bg-brand-500/10 rounded-xl">Документация</a>
-					<div class="w-px h-6 bg-white/10 mx-2"></div>
+                    <div class="w-px h-6 bg-white/10 mx-2"></div>
                     <a href="https://github.com/Rianvy/CodeSqueeze" target="_blank" 
                        class="flex items-center gap-2 px-4 py-2 bg-white/5 hover:bg-white/10 border border-white/10 rounded-xl transition-all text-sm">
                         <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
@@ -52,18 +57,21 @@
                     </a>
                 </nav>
                 
-                <button id="mobileMenuBtn" class="md:hidden p-2 hover:bg-white/5 rounded-xl">
+                <!-- Mobile Menu Button -->
+                <button id="mobileMenuBtn" class="lg:hidden p-2 hover:bg-white/5 rounded-xl">
                     <svg id="menuIcon" class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/></svg>
                     <svg id="closeIcon" class="w-6 h-6 hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
                 </button>
             </div>
             
-            <nav id="mobileMenu" class="mobile-menu md:hidden">
+            <!-- Mobile Navigation -->
+            <nav id="mobileMenu" class="mobile-menu lg:hidden">
                 <div class="py-4 space-y-2 border-t border-white/5 mt-4">
                     <a href="index.html" class="block px-4 py-3 text-sm text-gray-400 hover:bg-white/5 rounded-xl">🏠 Главная</a>
                     <a href="features.html" class="block px-4 py-3 text-sm text-gray-400 hover:bg-white/5 rounded-xl">🎯 Возможности</a>
+                    <a href="stats.html" class="block px-4 py-3 text-sm text-gray-400 hover:bg-white/5 rounded-xl">📊 Статистика</a>
                     <a href="docs.html" class="block px-4 py-3 text-sm text-brand-400 bg-brand-500/10 rounded-xl">📚 Документация</a>
-					<a href="https://github.com/Rianvy/CodeSqueeze" target="_blank" 
+                    <a href="https://github.com/Rianvy/CodeSqueeze" target="_blank" 
                        class="flex items-center gap-2 px-4 py-3 bg-white/5 border border-white/10 rounded-xl transition-all text-sm">
                         <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
                         <span>GitHub Repository</span>
@@ -74,11 +82,47 @@
         </div>
     </header>
 
-    <div class="max-w-7xl mx-auto px-6 py-12">
-        <div class="flex gap-12">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 py-6 sm:py-12">
+        
+        <!-- Mobile Table of Contents Toggle -->
+        <div class="lg:hidden mb-6">
+            <button id="tocToggle" class="w-full flex items-center justify-between p-4 bg-dark-400/50 border border-white/5 rounded-xl">
+                <span class="flex items-center gap-2 text-sm font-medium">
+                    <svg class="w-5 h-5 text-brand-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h7"/>
+                    </svg>
+                    Содержание
+                </span>
+                <svg id="tocChevron" class="w-5 h-5 text-gray-400 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
+                </svg>
+            </button>
             
-            <!-- Sidebar -->
-            <aside class="hidden lg:block w-64 flex-shrink-0">
+            <!-- Mobile TOC Content -->
+            <nav id="mobileToc" class="mobile-toc bg-dark-400/30 border border-t-0 border-white/5 rounded-b-xl -mt-1">
+                <div class="p-4 space-y-1">
+                    <p class="text-[10px] uppercase text-gray-500 font-medium mb-2">Начало работы</p>
+                    <a href="#intro" class="block px-3 py-2 text-sm text-gray-400 hover:text-brand-400 rounded-lg hover:bg-white/5">Введение</a>
+                    <a href="#install" class="block px-3 py-2 text-sm text-gray-400 hover:text-brand-400 rounded-lg hover:bg-white/5">Установка</a>
+                    <a href="#quickstart" class="block px-3 py-2 text-sm text-gray-400 hover:text-brand-400 rounded-lg hover:bg-white/5">Быстрый старт</a>
+                    
+                    <p class="text-[10px] uppercase text-gray-500 font-medium mb-2 mt-4">Использование</p>
+                    <a href="#html" class="block px-3 py-2 text-sm text-gray-400 hover:text-brand-400 rounded-lg hover:bg-white/5">HTML минификация</a>
+                    <a href="#javascript" class="block px-3 py-2 text-sm text-gray-400 hover:text-brand-400 rounded-lg hover:bg-white/5">JavaScript</a>
+                    <a href="#css" class="block px-3 py-2 text-sm text-gray-400 hover:text-brand-400 rounded-lg hover:bg-white/5">CSS</a>
+                    <a href="#options" class="block px-3 py-2 text-sm text-gray-400 hover:text-brand-400 rounded-lg hover:bg-white/5">Опции</a>
+                    
+                    <p class="text-[10px] uppercase text-gray-500 font-medium mb-2 mt-4">Дополнительно</p>
+                    <a href="#faq" class="block px-3 py-2 text-sm text-gray-400 hover:text-brand-400 rounded-lg hover:bg-white/5">FAQ</a>
+                    <a href="#troubleshooting" class="block px-3 py-2 text-sm text-gray-400 hover:text-brand-400 rounded-lg hover:bg-white/5">Решение проблем</a>
+                </div>
+            </nav>
+        </div>
+        
+        <div class="flex gap-8 lg:gap-12">
+            
+            <!-- Desktop Sidebar -->
+            <aside class="hidden lg:block w-56 xl:w-64 flex-shrink-0">
                 <nav class="sticky top-24 space-y-1">
                     <p class="text-xs uppercase text-gray-500 font-medium mb-3 px-4">Начало работы</p>
                     <a href="#intro" class="sidebar-link block px-4 py-2 text-sm text-gray-400 hover:text-white border-l-2 border-transparent hover:border-brand-500/50 transition-all">Введение</a>
@@ -102,22 +146,22 @@
                 <div class="prose prose-invert max-w-none">
                     
                     <!-- Intro -->
-                    <section id="intro" class="mb-16">
-                        <h1 class="text-4xl font-bold mb-6 text-gradient">Документация</h1>
-                        <p class="text-xl text-gray-400 mb-8">
+                    <section id="intro" class="mb-10 sm:mb-16 scroll-mt-24">
+                        <h1 class="text-2xl sm:text-3xl md:text-4xl font-bold mb-4 sm:mb-6 text-gradient">Документация</h1>
+                        <p class="text-base sm:text-lg md:text-xl text-gray-400 mb-6 sm:mb-8">
                             Полное руководство по использованию CodeSqueeze для минификации вашего кода.
                         </p>
                         
-                        <div class="p-6 rounded-2xl bg-brand-500/10 border border-brand-500/20 mb-8">
-                            <div class="flex gap-4">
-                                <div class="w-10 h-10 bg-brand-500/20 rounded-xl flex items-center justify-center flex-shrink-0">
-                                    <svg class="w-5 h-5 text-brand-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <div class="p-4 sm:p-6 rounded-xl sm:rounded-2xl bg-brand-500/10 border border-brand-500/20 mb-6 sm:mb-8">
+                            <div class="flex gap-3 sm:gap-4">
+                                <div class="w-8 h-8 sm:w-10 sm:h-10 bg-brand-500/20 rounded-lg sm:rounded-xl flex items-center justify-center flex-shrink-0">
+                                    <svg class="w-4 h-4 sm:w-5 sm:h-5 text-brand-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
                                     </svg>
                                 </div>
-                                <div>
-                                    <h3 class="font-semibold text-brand-400 mb-1">Что такое CodeSqueeze?</h3>
-                                    <p class="text-gray-400 text-sm">
+                                <div class="min-w-0">
+                                    <h3 class="font-semibold text-brand-400 mb-1 text-sm sm:text-base">Что такое CodeSqueeze?</h3>
+                                    <p class="text-gray-400 text-xs sm:text-sm">
                                         CodeSqueeze — это онлайн-инструмент для минификации HTML, JavaScript и CSS кода. 
                                         Работает полностью в браузере, без отправки данных на сервер.
                                     </p>
@@ -127,71 +171,71 @@
                     </section>
                     
                     <!-- Install -->
-                    <section id="install" class="mb-16">
-                        <h2 class="text-2xl font-bold mb-4 flex items-center gap-3">
-                            <span class="w-8 h-8 bg-brand-500/20 rounded-lg flex items-center justify-center text-brand-400 text-sm">1</span>
+                    <section id="install" class="mb-10 sm:mb-16 scroll-mt-24">
+                        <h2 class="text-xl sm:text-2xl font-bold mb-3 sm:mb-4 flex items-center gap-2 sm:gap-3">
+                            <span class="w-6 h-6 sm:w-8 sm:h-8 bg-brand-500/20 rounded-lg flex items-center justify-center text-brand-400 text-xs sm:text-sm flex-shrink-0">1</span>
                             Установка
                         </h2>
-                        <p class="text-gray-400 mb-6">
+                        <p class="text-sm sm:text-base text-gray-400 mb-4 sm:mb-6">
                             CodeSqueeze не требует установки. Просто откройте страницу в браузере и начните работу.
                         </p>
                         
-                        <h3 class="text-lg font-semibold mb-3">Локальное использование</h3>
-                        <p class="text-gray-400 mb-4">Если хотите использовать оффлайн, скачайте HTML файл:</p>
-                        <pre><code>git clone https://github.com/Rianvy/CodeSqueeze.git
+                        <h3 class="text-base sm:text-lg font-semibold mb-2 sm:mb-3">Локальное использование</h3>
+                        <p class="text-sm sm:text-base text-gray-400 mb-3 sm:mb-4">Если хотите использовать оффлайн, скачайте HTML файл:</p>
+                        <pre class="text-xs sm:text-sm"><code>git clone https://github.com/Rianvy/CodeSqueeze.git
 cd CodeSqueeze
 # Откройте index.html в браузере</code></pre>
                     </section>
                     
                     <!-- Quick Start -->
-                    <section id="quickstart" class="mb-16">
-                        <h2 class="text-2xl font-bold mb-4 flex items-center gap-3">
-                            <span class="w-8 h-8 bg-brand-500/20 rounded-lg flex items-center justify-center text-brand-400 text-sm">2</span>
+                    <section id="quickstart" class="mb-10 sm:mb-16 scroll-mt-24">
+                        <h2 class="text-xl sm:text-2xl font-bold mb-3 sm:mb-4 flex items-center gap-2 sm:gap-3">
+                            <span class="w-6 h-6 sm:w-8 sm:h-8 bg-brand-500/20 rounded-lg flex items-center justify-center text-brand-400 text-xs sm:text-sm flex-shrink-0">2</span>
                             Быстрый старт
                         </h2>
                         
-                        <div class="space-y-6">
-                            <div class="flex gap-4">
-                                <div class="w-8 h-8 bg-dark-200 rounded-full flex items-center justify-center text-brand-400 font-bold flex-shrink-0">1</div>
-                                <div>
-                                    <h3 class="font-semibold mb-2">Выберите тип кода</h3>
-                                    <p class="text-gray-400">Нажмите на вкладку HTML или JavaScript в зависимости от типа вашего кода.</p>
+                        <div class="space-y-4 sm:space-y-6">
+                            <div class="flex gap-3 sm:gap-4">
+                                <div class="w-6 h-6 sm:w-8 sm:h-8 bg-dark-200 rounded-full flex items-center justify-center text-brand-400 font-bold flex-shrink-0 text-xs sm:text-sm">1</div>
+                                <div class="min-w-0">
+                                    <h3 class="font-semibold mb-1 sm:mb-2 text-sm sm:text-base">Выберите тип кода</h3>
+                                    <p class="text-gray-400 text-xs sm:text-sm">Нажмите на вкладку HTML или JavaScript в зависимости от типа вашего кода.</p>
                                 </div>
                             </div>
-                            <div class="flex gap-4">
-                                <div class="w-8 h-8 bg-dark-200 rounded-full flex items-center justify-center text-brand-400 font-bold flex-shrink-0">2</div>
-                                <div>
-                                    <h3 class="font-semibold mb-2">Вставьте код</h3>
-                                    <p class="text-gray-400">Вставьте ваш код в левое текстовое поле или используйте кнопку "Вставить".</p>
+                            <div class="flex gap-3 sm:gap-4">
+                                <div class="w-6 h-6 sm:w-8 sm:h-8 bg-dark-200 rounded-full flex items-center justify-center text-brand-400 font-bold flex-shrink-0 text-xs sm:text-sm">2</div>
+                                <div class="min-w-0">
+                                    <h3 class="font-semibold mb-1 sm:mb-2 text-sm sm:text-base">Вставьте код</h3>
+                                    <p class="text-gray-400 text-xs sm:text-sm">Вставьте ваш код в левое текстовое поле или используйте кнопку "Вставить".</p>
                                 </div>
                             </div>
-                            <div class="flex gap-4">
-                                <div class="w-8 h-8 bg-dark-200 rounded-full flex items-center justify-center text-brand-400 font-bold flex-shrink-0">3</div>
-                                <div>
-                                    <h3 class="font-semibold mb-2">Настройте опции</h3>
-                                    <p class="text-gray-400">Включите или отключите нужные опции минификации.</p>
+                            <div class="flex gap-3 sm:gap-4">
+                                <div class="w-6 h-6 sm:w-8 sm:h-8 bg-dark-200 rounded-full flex items-center justify-center text-brand-400 font-bold flex-shrink-0 text-xs sm:text-sm">3</div>
+                                <div class="min-w-0">
+                                    <h3 class="font-semibold mb-1 sm:mb-2 text-sm sm:text-base">Настройте опции</h3>
+                                    <p class="text-gray-400 text-xs sm:text-sm">Включите или отключите нужные опции минификации.</p>
                                 </div>
                             </div>
-                            <div class="flex gap-4">
-                                <div class="w-8 h-8 bg-dark-200 rounded-full flex items-center justify-center text-brand-400 font-bold flex-shrink-0">4</div>
-                                <div>
-                                    <h3 class="font-semibold mb-2">Минифицируйте</h3>
-                                    <p class="text-gray-400">Нажмите кнопку "Минифицировать" и получите результат в правом поле.</p>
+                            <div class="flex gap-3 sm:gap-4">
+                                <div class="w-6 h-6 sm:w-8 sm:h-8 bg-dark-200 rounded-full flex items-center justify-center text-brand-400 font-bold flex-shrink-0 text-xs sm:text-sm">4</div>
+                                <div class="min-w-0">
+                                    <h3 class="font-semibold mb-1 sm:mb-2 text-sm sm:text-base">Минифицируйте</h3>
+                                    <p class="text-gray-400 text-xs sm:text-sm">Нажмите кнопку "Минифицировать" и получите результат в правом поле.</p>
                                 </div>
                             </div>
                         </div>
                     </section>
                     
                     <!-- HTML -->
-                    <section id="html" class="mb-16">
-                        <h2 class="text-2xl font-bold mb-4">HTML Минификация</h2>
-                        <p class="text-gray-400 mb-6">
+                    <section id="html" class="mb-10 sm:mb-16 scroll-mt-24">
+                        <h2 class="text-xl sm:text-2xl font-bold mb-3 sm:mb-4">HTML Минификация</h2>
+                        <p class="text-sm sm:text-base text-gray-400 mb-4 sm:mb-6">
                             CodeSqueeze безопасно минифицирует HTML, сохраняя важные элементы.
                         </p>
                         
-                        <h3 class="text-lg font-semibold mb-3">Пример</h3>
-                        <p class="text-gray-500 text-sm mb-2">До:</p>
-                        <pre><code>&lt;!DOCTYPE html&gt;
+                        <h3 class="text-base sm:text-lg font-semibold mb-2 sm:mb-3">Пример</h3>
+                        <p class="text-gray-500 text-xs sm:text-sm mb-2">До:</p>
+                        <pre class="text-xs sm:text-sm"><code>&lt;!DOCTYPE html&gt;
 &lt;html&gt;
   &lt;head&gt;
     &lt;title&gt;Example&lt;/title&gt;
@@ -204,41 +248,41 @@ cd CodeSqueeze
   &lt;/body&gt;
 &lt;/html&gt;</code></pre>
                         
-                        <p class="text-gray-500 text-sm mb-2 mt-4">После:</p>
-                        <pre><code>&lt;!DOCTYPE html&gt;&lt;html&gt;&lt;head&gt;&lt;title&gt;Example&lt;/title&gt;&lt;/head&gt;&lt;body&gt;&lt;div class="container"&gt;&lt;h1&gt;Hello&lt;/h1&gt;&lt;/div&gt;&lt;/body&gt;&lt;/html&gt;</code></pre>
+                        <p class="text-gray-500 text-xs sm:text-sm mb-2 mt-4">После:</p>
+                        <pre class="text-xs sm:text-sm overflow-x-auto"><code>&lt;!DOCTYPE html&gt;&lt;html&gt;&lt;head&gt;&lt;title&gt;Example&lt;/title&gt;&lt;/head&gt;&lt;body&gt;&lt;div class="container"&gt;&lt;h1&gt;Hello&lt;/h1&gt;&lt;/div&gt;&lt;/body&gt;&lt;/html&gt;</code></pre>
                     </section>
                     
                     <!-- JavaScript -->
-                    <section id="javascript" class="mb-16">
-                        <h2 class="text-2xl font-bold mb-4">JavaScript Минификация</h2>
-                        <p class="text-gray-400 mb-6">
+                    <section id="javascript" class="mb-10 sm:mb-16 scroll-mt-24">
+                        <h2 class="text-xl sm:text-2xl font-bold mb-3 sm:mb-4">JavaScript Минификация</h2>
+                        <p class="text-sm sm:text-base text-gray-400 mb-4 sm:mb-6">
                             Безопасно сжимает JS код, сохраняя строковые литералы и регулярные выражения.
                         </p>
                         
-                        <div class="p-4 rounded-xl bg-yellow-500/10 border border-yellow-500/20 mb-6">
-                            <p class="text-yellow-400 text-sm">
+                        <div class="p-3 sm:p-4 rounded-lg sm:rounded-xl bg-yellow-500/10 border border-yellow-500/20 mb-4 sm:mb-6">
+                            <p class="text-yellow-400 text-xs sm:text-sm">
                                 ⚠️ CodeSqueeze не переименовывает переменные. Для этого используйте UglifyJS или Terser.
                             </p>
                         </div>
                         
-                        <h3 class="text-lg font-semibold mb-3">Что сохраняется:</h3>
-                        <ul class="list-disc list-inside text-gray-400 space-y-2 mb-6">
-                            <li>Строки в одинарных кавычках: <code>'строка'</code></li>
-                            <li>Строки в двойных кавычках: <code>"строка"</code></li>
-                            <li>Template literals: <code>`строка ${var}`</code></li>
-                            <li>Регулярные выражения: <code>/pattern/flags</code></li>
+                        <h3 class="text-base sm:text-lg font-semibold mb-2 sm:mb-3">Что сохраняется:</h3>
+                        <ul class="list-disc list-inside text-gray-400 space-y-1.5 sm:space-y-2 mb-4 sm:mb-6 text-xs sm:text-sm">
+                            <li>Строки в одинарных кавычках: <code class="text-xs">'строка'</code></li>
+                            <li>Строки в двойных кавычках: <code class="text-xs">"строка"</code></li>
+                            <li>Template literals: <code class="text-xs">`строка ${var}`</code></li>
+                            <li>Регулярные выражения: <code class="text-xs">/pattern/flags</code></li>
                         </ul>
                     </section>
                     
                     <!-- CSS -->
-                    <section id="css" class="mb-16">
-                        <h2 class="text-2xl font-bold mb-4">CSS Минификация</h2>
-                        <p class="text-gray-400 mb-6">
-                            Inline CSS внутри тегов <code>&lt;style&gt;</code> автоматически минифицируется.
+                    <section id="css" class="mb-10 sm:mb-16 scroll-mt-24">
+                        <h2 class="text-xl sm:text-2xl font-bold mb-3 sm:mb-4">CSS Минификация</h2>
+                        <p class="text-sm sm:text-base text-gray-400 mb-4 sm:mb-6">
+                            Inline CSS внутри тегов <code class="text-xs sm:text-sm">&lt;style&gt;</code> автоматически минифицируется.
                         </p>
                         
-                        <h3 class="text-lg font-semibold mb-3">Оптимизации:</h3>
-                        <ul class="list-disc list-inside text-gray-400 space-y-2">
+                        <h3 class="text-base sm:text-lg font-semibold mb-2 sm:mb-3">Оптимизации:</h3>
+                        <ul class="list-disc list-inside text-gray-400 space-y-1.5 sm:space-y-2 text-xs sm:text-sm">
                             <li>Удаление CSS комментариев</li>
                             <li>Удаление лишних пробелов</li>
                             <li>Удаление необязательных точек с запятой</li>
@@ -247,80 +291,80 @@ cd CodeSqueeze
                     </section>
                     
                     <!-- Options -->
-                    <section id="options" class="mb-16">
-                        <h2 class="text-2xl font-bold mb-4">Опции</h2>
+                    <section id="options" class="mb-10 sm:mb-16 scroll-mt-24">
+                        <h2 class="text-xl sm:text-2xl font-bold mb-4 sm:mb-6">Опции</h2>
                         
-                        <div class="space-y-6">
-                            <div class="p-6 rounded-2xl bg-dark-400/50 border border-white/5">
-                                <h3 class="font-semibold mb-2">Удалить комментарии</h3>
-                                <p class="text-gray-400 text-sm mb-2">Удаляет HTML, JS и CSS комментарии из кода.</p>
-                                <p class="text-xs text-gray-500">По умолчанию: <span class="text-brand-400">Включено</span></p>
+                        <div class="space-y-3 sm:space-y-6">
+                            <div class="p-4 sm:p-6 rounded-xl sm:rounded-2xl bg-dark-400/50 border border-white/5">
+                                <h3 class="font-semibold mb-1 sm:mb-2 text-sm sm:text-base">Удалить комментарии</h3>
+                                <p class="text-gray-400 text-xs sm:text-sm mb-1 sm:mb-2">Удаляет HTML, JS и CSS комментарии из кода.</p>
+                                <p class="text-[10px] sm:text-xs text-gray-500">По умолчанию: <span class="text-brand-400">Включено</span></p>
                             </div>
                             
-                            <div class="p-6 rounded-2xl bg-dark-400/50 border border-white/5">
-                                <h3 class="font-semibold mb-2">Удалить лишние пробелы</h3>
-                                <p class="text-gray-400 text-sm mb-2">Сжимает множественные пробелы и переносы строк.</p>
-                                <p class="text-xs text-gray-500">По умолчанию: <span class="text-brand-400">Включено</span></p>
+                            <div class="p-4 sm:p-6 rounded-xl sm:rounded-2xl bg-dark-400/50 border border-white/5">
+                                <h3 class="font-semibold mb-1 sm:mb-2 text-sm sm:text-base">Удалить лишние пробелы</h3>
+                                <p class="text-gray-400 text-xs sm:text-sm mb-1 sm:mb-2">Сжимает множественные пробелы и переносы строк.</p>
+                                <p class="text-[10px] sm:text-xs text-gray-500">По умолчанию: <span class="text-brand-400">Включено</span></p>
                             </div>
                             
-                            <div class="p-6 rounded-2xl bg-dark-400/50 border border-white/5">
-                                <h3 class="font-semibold mb-2">Минифицировать Inline JS</h3>
-                                <p class="text-gray-400 text-sm mb-2">Сжимает JavaScript код внутри тегов &lt;script&gt;.</p>
-                                <p class="text-xs text-gray-500">По умолчанию: <span class="text-brand-400">Включено</span></p>
+                            <div class="p-4 sm:p-6 rounded-xl sm:rounded-2xl bg-dark-400/50 border border-white/5">
+                                <h3 class="font-semibold mb-1 sm:mb-2 text-sm sm:text-base">Минифицировать Inline JS</h3>
+                                <p class="text-gray-400 text-xs sm:text-sm mb-1 sm:mb-2">Сжимает JavaScript код внутри тегов &lt;script&gt;.</p>
+                                <p class="text-[10px] sm:text-xs text-gray-500">По умолчанию: <span class="text-brand-400">Включено</span></p>
                             </div>
                             
-                            <div class="p-6 rounded-2xl bg-dark-400/50 border border-white/5">
-                                <h3 class="font-semibold mb-2">Минифицировать Inline CSS</h3>
-                                <p class="text-gray-400 text-sm mb-2">Сжимает CSS код внутри тегов &lt;style&gt;.</p>
-                                <p class="text-xs text-gray-500">По умолчанию: <span class="text-brand-400">Включено</span></p>
+                            <div class="p-4 sm:p-6 rounded-xl sm:rounded-2xl bg-dark-400/50 border border-white/5">
+                                <h3 class="font-semibold mb-1 sm:mb-2 text-sm sm:text-base">Минифицировать Inline CSS</h3>
+                                <p class="text-gray-400 text-xs sm:text-sm mb-1 sm:mb-2">Сжимает CSS код внутри тегов &lt;style&gt;.</p>
+                                <p class="text-[10px] sm:text-xs text-gray-500">По умолчанию: <span class="text-brand-400">Включено</span></p>
                             </div>
                         </div>
                     </section>
                     
                     <!-- FAQ -->
-                    <section id="faq" class="mb-16">
-                        <h2 class="text-2xl font-bold mb-6">Часто задаваемые вопросы</h2>
+                    <section id="faq" class="mb-10 sm:mb-16 scroll-mt-24">
+                        <h2 class="text-xl sm:text-2xl font-bold mb-4 sm:mb-6">Часто задаваемые вопросы</h2>
                         
-                        <div class="space-y-4">
-                            <details class="group p-6 rounded-2xl bg-dark-400/50 border border-white/5">
-                                <summary class="font-semibold cursor-pointer flex items-center justify-between">
-                                    Безопасно ли это для продакшена?
-                                    <svg class="w-5 h-5 text-gray-400 group-open:rotate-180 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
+                        <div class="space-y-3 sm:space-y-4">
+                            <details class="group p-4 sm:p-6 rounded-xl sm:rounded-2xl bg-dark-400/50 border border-white/5">
+                                <summary class="font-semibold cursor-pointer flex items-center justify-between text-sm sm:text-base">
+                                    <span class="pr-4">Безопасно ли это для продакшена?</span>
+                                    <svg class="w-4 h-4 sm:w-5 sm:h-5 text-gray-400 group-open:rotate-180 transition-transform flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
                                 </summary>
-                                <p class="text-gray-400 mt-4">Да, CodeSqueeze использует безопасные алгоритмы, которые не ломают код. Однако всегда тестируйте минифицированный код перед деплоем.</p>
+                                <p class="text-gray-400 mt-3 sm:mt-4 text-xs sm:text-sm">Да, CodeSqueeze использует безопасные алгоритмы, которые не ломают код. Однако всегда тестируйте минифицированный код перед деплоем.</p>
                             </details>
                             
-                            <details class="group p-6 rounded-2xl bg-dark-400/50 border border-white/5">
-                                <summary class="font-semibold cursor-pointer flex items-center justify-between">
-                                    Мои данные отправляются куда-то?
-                                    <svg class="w-5 h-5 text-gray-400 group-open:rotate-180 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
+                            <details class="group p-4 sm:p-6 rounded-xl sm:rounded-2xl bg-dark-400/50 border border-white/5">
+                                <summary class="font-semibold cursor-pointer flex items-center justify-between text-sm sm:text-base">
+                                    <span class="pr-4">Мои данные отправляются куда-то?</span>
+                                    <svg class="w-4 h-4 sm:w-5 sm:h-5 text-gray-400 group-open:rotate-180 transition-transform flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
                                 </summary>
-                                <p class="text-gray-400 mt-4">Нет. Вся обработка происходит локально в вашем браузере. Никакие данные не отправляются на сервер.</p>
+                                <p class="text-gray-400 mt-3 sm:mt-4 text-xs sm:text-sm">Нет. Вся обработка происходит локально в вашем браузере. Никакие данные не отправляются на сервер.</p>
                             </details>
                             
-                            <details class="group p-6 rounded-2xl bg-dark-400/50 border border-white/5">
-                                <summary class="font-semibold cursor-pointer flex items-center justify-between">
-                                    Есть ограничения на размер файла?
-                                    <svg class="w-5 h-5 text-gray-400 group-open:rotate-180 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
+                            <details class="group p-4 sm:p-6 rounded-xl sm:rounded-2xl bg-dark-400/50 border border-white/5">
+                                <summary class="font-semibold cursor-pointer flex items-center justify-between text-sm sm:text-base">
+                                    <span class="pr-4">Есть ограничения на размер файла?</span>
+                                    <svg class="w-4 h-4 sm:w-5 sm:h-5 text-gray-400 group-open:rotate-180 transition-transform flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
                                 </summary>
-                                <p class="text-gray-400 mt-4">Технических ограничений нет. Производительность зависит от мощности вашего устройства.</p>
+                                <p class="text-gray-400 mt-3 sm:mt-4 text-xs sm:text-sm">Технических ограничений нет. Производительность зависит от мощности вашего устройства.</p>
                             </details>
                         </div>
                     </section>
                     
                     <!-- Troubleshooting -->
-                    <section id="troubleshooting" class="mb-16">
-                        <h2 class="text-2xl font-bold mb-6">Решение проблем</h2>
+                    <section id="troubleshooting" class="mb-10 sm:mb-16 scroll-mt-24">
+                        <h2 class="text-xl sm:text-2xl font-bold mb-4 sm:mb-6">Решение проблем</h2>
                         
-                        <div class="space-y-6">
-                            <div class="p-6 rounded-2xl bg-red-500/10 border border-red-500/20">
-                                <h3 class="font-semibold text-red-400 mb-2">Код не работает после минификации</h3>
-                                <p class="text-gray-400 text-sm">Проверьте, что все строки правильно закрыты кавычками и нет синтаксических ошибок в исходном коде.</p>
+                        <div class="space-y-4 sm:space-y-6">
+                            <div class="p-4 sm:p-6 rounded-xl sm:rounded-2xl bg-red-500/10 border border-red-500/20">
+                                <h3 class="font-semibold text-red-400 mb-1 sm:mb-2 text-sm sm:text-base">Код не работает после минификации</h3>
+                                <p class="text-gray-400 text-xs sm:text-sm">Проверьте, что все строки правильно закрыты кавычками и нет синтаксических ошибок в исходном коде.</p>
                             </div>
                             
-                            <div class="p-6 rounded-2xl bg-yellow-500/10 border border-yellow-500/20">
-                                <h3 class="font-semibold text-yellow-400 mb-2">Стили выглядят неправильно</h3>
-                                <p class="text-gray-400 text-sm">Убедитесь, что CSS синтаксис корректен. Попробуйте отключить опцию минификации CSS.</p>
+                            <div class="p-4 sm:p-6 rounded-xl sm:rounded-2xl bg-yellow-500/10 border border-yellow-500/20">
+                                <h3 class="font-semibold text-yellow-400 mb-1 sm:mb-2 text-sm sm:text-base">Стили выглядят неправильно</h3>
+                                <p class="text-gray-400 text-xs sm:text-sm">Убедитесь, что CSS синтаксис корректен. Попробуйте отключить опцию минификации CSS.</p>
                             </div>
                         </div>
                     </section>
@@ -331,18 +375,18 @@ cd CodeSqueeze
     </div>
 
     <!-- Footer -->
-    <footer class="border-t border-white/5 mt-16 bg-dark-500/50">
-        <div class="max-w-7xl mx-auto px-6 py-12">
-            <div class="flex flex-col md:flex-row items-center justify-between gap-6">
-                <div class="flex items-center gap-3">
-                    <div class="w-10 h-10 bg-gradient-to-br from-brand-500 to-brand-600 rounded-xl flex items-center justify-center">
-                        <svg class="w-5 h-5 text-dark-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+    <footer class="border-t border-white/5 mt-12 sm:mt-16 bg-dark-500/50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 py-8 sm:py-12">
+            <div class="flex flex-col sm:flex-row items-center justify-between gap-4 sm:gap-6">
+                <div class="flex items-center gap-2 sm:gap-3">
+                    <div class="w-8 h-8 sm:w-10 sm:h-10 bg-gradient-to-br from-brand-500 to-brand-600 rounded-lg sm:rounded-xl flex items-center justify-center">
+                        <svg class="w-4 h-4 sm:w-5 sm:h-5 text-dark-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"/>
                         </svg>
                     </div>
-                    <span class="text-gradient font-bold">CodeSqueeze</span>
+                    <span class="text-gradient font-bold text-sm sm:text-base">CodeSqueeze</span>
                 </div>
-                <div class="flex items-center gap-6 text-sm text-gray-500">
+                <div class="flex flex-wrap items-center justify-center gap-4 sm:gap-6 text-xs sm:text-sm text-gray-500">
                     <a href="privacy.html" class="hover:text-brand-400 transition-colors">Конфиденциальность</a>
                     <a href="terms.html" class="hover:text-brand-400 transition-colors">Условия</a>
                     <span>© 2026</span>
@@ -352,10 +396,25 @@ cd CodeSqueeze
     </footer>
 
     <script>
+        // Mobile Menu Toggle
         document.getElementById('mobileMenuBtn').addEventListener('click', function() {
             document.getElementById('mobileMenu').classList.toggle('active');
             document.getElementById('menuIcon').classList.toggle('hidden');
             document.getElementById('closeIcon').classList.toggle('hidden');
+        });
+        
+        // Mobile TOC Toggle
+        document.getElementById('tocToggle').addEventListener('click', function() {
+            document.getElementById('mobileToc').classList.toggle('active');
+            document.getElementById('tocChevron').classList.toggle('rotate-180');
+        });
+        
+        // Close TOC when clicking a link
+        document.querySelectorAll('#mobileToc a').forEach(link => {
+            link.addEventListener('click', function() {
+                document.getElementById('mobileToc').classList.remove('active');
+                document.getElementById('tocChevron').classList.remove('rotate-180');
+            });
         });
     </script>
 </body>

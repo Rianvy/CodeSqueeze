@@ -83,7 +83,7 @@ const UI = (function() {
         const header = editorBox.querySelector('.bg-dark-400\\/80');
         if (!header) return;
 
-        const actionsContainer = header.querySelector('.flex.items-center.gap-1');
+        const actionsContainer = header.querySelector(':scope > div:last-child');
         if (!actionsContainer || actionsContainer.querySelector('.fullscreen-btn')) return;
 
         const wrapper = document.createElement('div');

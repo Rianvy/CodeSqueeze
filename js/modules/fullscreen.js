@@ -11,6 +11,7 @@ const Fullscreen = (function() {
     let currentEditor = null;
     let originalValue = '';
     let isOpen = false;
+    let isReadonly = false;
     let onSaveCallback = null;
 
     /**
@@ -26,70 +27,99 @@ const Fullscreen = (function() {
         // Modal
         modal = document.createElement('div');
         modal.id = 'fullscreen-modal';
-        modal.className = 'fixed inset-4 md:inset-8 bg-dark-400 rounded-3xl z-[9999] flex flex-col opacity-0 scale-95 transition-all duration-300 border border-white/10';
+        modal.className = 'fixed inset-0 sm:inset-2 md:inset-4 lg:inset-8 bg-dark-400 sm:rounded-2xl md:rounded-3xl z-[9999] flex flex-col opacity-0 scale-95 transition-all duration-300 border-0 sm:border border-white/10';
         modal.innerHTML = `
             <!-- Header -->
-            <div class="flex items-center justify-between px-6 py-4 border-b border-white/10">
-                <div class="flex items-center gap-3">
-                    <div class="flex gap-1.5">
-                        <div class="w-3 h-3 rounded-full bg-red-500/80 cursor-pointer hover:bg-red-500" id="fs-close-btn"></div>
+            <div class="flex items-center justify-between px-3 sm:px-4 md:px-6 py-2.5 sm:py-3 md:py-4 border-b border-white/10">
+                <!-- Left side -->
+                <div class="flex items-center gap-2 sm:gap-3 min-w-0 flex-1">
+                    <!-- Window dots - hidden on mobile -->
+                    <div class="hidden sm:flex gap-1.5">
+                        <div class="w-3 h-3 rounded-full bg-red-500/80 cursor-pointer hover:bg-red-500 transition-colors" id="fs-close-btn" title="Закрыть"></div>
                         <div class="w-3 h-3 rounded-full bg-yellow-500/80"></div>
                         <div class="w-3 h-3 rounded-full bg-green-500/80"></div>
                     </div>
-                    <div class="w-px h-4 bg-white/10"></div>
-                    <span id="fs-title" class="text-sm font-medium text-gray-300">Редактор</span>
-                    <span id="fs-mode" class="px-2 py-0.5 bg-brand-500/10 text-brand-400 text-xs rounded-full mono">HTML</span>
+                    <div class="hidden sm:block w-px h-4 bg-white/10"></div>
+                    <span id="fs-title" class="text-xs sm:text-sm font-medium text-gray-300 truncate">Редактор</span>
+                    <span id="fs-mode" class="px-1.5 sm:px-2 py-0.5 bg-brand-500/10 text-brand-400 text-[10px] sm:text-xs rounded-full mono flex-shrink-0">HTML</span>
                 </div>
-                <div class="flex items-center gap-2">
-                    <button id="fs-copy-btn" class="p-2 hover:bg-white/5 rounded-lg transition-all text-gray-400 hover:text-white" title="Копировать">
-                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                
+                <!-- Right side -->
+                <div class="flex items-center gap-1 sm:gap-2">
+                    <!-- Copy button -->
+                    <button id="fs-copy-btn" class="p-1.5 sm:p-2 hover:bg-white/5 rounded-lg transition-all text-gray-400 hover:text-white" title="Копировать">
+                        <svg class="w-4 h-4 sm:w-5 sm:h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"/>
                         </svg>
                     </button>
-                    <button id="fs-wrap-btn" class="p-2 hover:bg-white/5 rounded-lg transition-all text-gray-400 hover:text-white" title="Перенос строк">
-                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    
+                    <!-- Wrap button - hidden on small mobile -->
+                    <button id="fs-wrap-btn" class="hidden xs:flex p-1.5 sm:p-2 hover:bg-white/5 rounded-lg transition-all text-gray-400 hover:text-white" title="Перенос строк">
+                        <svg class="w-4 h-4 sm:w-5 sm:h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"/>
                         </svg>
                     </button>
-                    <div class="w-px h-6 bg-white/10 mx-2"></div>
-                    <button id="fs-exit-btn" class="flex items-center gap-2 px-4 py-2 bg-white/5 hover:bg-white/10 rounded-lg transition-all text-sm">
+                    
+                    <!-- Divider - hidden on mobile -->
+                    <div class="hidden md:block w-px h-6 bg-white/10 mx-1 sm:mx-2"></div>
+                    
+                    <!-- Exit button -->
+                    <button id="fs-exit-btn" class="flex items-center gap-1.5 sm:gap-2 px-2.5 sm:px-3 md:px-4 py-1.5 sm:py-2 bg-white/5 hover:bg-white/10 rounded-lg transition-all text-xs sm:text-sm">
                         <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
                         </svg>
                         <span class="hidden sm:inline">Закрыть</span>
-                        <kbd class="hidden sm:inline px-1.5 py-0.5 bg-white/10 rounded text-xs">ESC</kbd>
+                        <kbd class="hidden lg:inline px-1.5 py-0.5 bg-white/10 rounded text-[10px]">ESC</kbd>
                     </button>
                 </div>
             </div>
 
             <!-- Editor Area -->
-            <div class="flex-1 flex overflow-hidden">
-                <!-- Line Numbers -->
-                <div id="fs-line-numbers" class="w-12 md:w-16 bg-dark-500 text-right py-4 pr-3 text-gray-600 text-sm mono overflow-hidden select-none border-r border-white/5">
+            <div class="flex-1 flex overflow-hidden min-h-0">
+                <!-- Line Numbers - narrower on mobile -->
+                <div id="fs-line-numbers" class="w-8 sm:w-10 md:w-12 lg:w-16 bg-dark-500 text-right py-2 sm:py-3 md:py-4 pr-1.5 sm:pr-2 md:pr-3 text-gray-600 text-[10px] sm:text-xs md:text-sm mono overflow-hidden select-none border-r border-white/5 flex-shrink-0">
                     1
                 </div>
                 
                 <!-- Textarea -->
-                <div class="flex-1 relative overflow-hidden">
+                <div class="flex-1 relative overflow-hidden min-w-0">
                     <textarea id="fs-textarea" 
-                              class="absolute inset-0 w-full h-full p-4 bg-dark-500 text-gray-300 text-sm mono resize-none focus:outline-none overflow-auto"
-                              style="tab-size: 4; caret-color: #00ff88;"
-                              spellcheck="false"></textarea>
+                              class="absolute inset-0 w-full h-full p-2 sm:p-3 md:p-4 bg-dark-500 text-gray-300 text-xs sm:text-sm mono resize-none focus:outline-none overflow-auto"
+                              style="tab-size: 4; -moz-tab-size: 4; caret-color: #00ff88;"
+                              spellcheck="false"
+                              autocomplete="off"
+                              autocorrect="off"
+                              autocapitalize="off"></textarea>
                 </div>
             </div>
 
             <!-- Footer -->
-            <div class="flex items-center justify-between px-6 py-3 border-t border-white/10 text-sm">
-                <div class="flex items-center gap-4 text-gray-500">
-                    <span>Строк: <span id="fs-lines" class="text-gray-300">0</span></span>
-                    <span>Символов: <span id="fs-chars" class="text-gray-300">0</span></span>
-                    <span>Размер: <span id="fs-size" class="text-gray-300">0 B</span></span>
+            <div class="flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-2 sm:gap-0 px-3 sm:px-4 md:px-6 py-2.5 sm:py-3 border-t border-white/10 text-xs sm:text-sm">
+                <!-- Stats -->
+                <div class="flex items-center justify-center sm:justify-start gap-3 sm:gap-4 text-gray-500 order-2 sm:order-1">
+                    <span class="flex items-center gap-1">
+                        <span class="hidden xs:inline">Строк:</span>
+                        <span class="xs:hidden">📝</span>
+                        <span id="fs-lines" class="text-gray-300">0</span>
+                    </span>
+                    <span class="flex items-center gap-1">
+                        <span class="hidden xs:inline">Символов:</span>
+                        <span class="xs:hidden">✏️</span>
+                        <span id="fs-chars" class="text-gray-300">0</span>
+                    </span>
+                    <span class="flex items-center gap-1">
+                        <span class="hidden sm:inline">Размер:</span>
+                        <span class="sm:hidden">📦</span>
+                        <span id="fs-size" class="text-gray-300">0 B</span>
+                    </span>
                 </div>
-                <div class="flex items-center gap-2">
-                    <button id="fs-cancel-btn" class="px-4 py-2 hover:bg-white/5 rounded-lg transition-all text-gray-400 hover:text-white">
+                
+                <!-- Action Buttons -->
+                <div id="fs-actions" class="flex items-center gap-2 order-1 sm:order-2">
+                    <button id="fs-cancel-btn" class="flex-1 sm:flex-none px-3 sm:px-4 py-2 hover:bg-white/5 rounded-lg transition-all text-gray-400 hover:text-white text-center">
                         Отмена
                     </button>
-                    <button id="fs-save-btn" class="px-4 py-2 bg-brand-500 hover:bg-brand-400 text-dark-500 rounded-lg transition-all font-medium">
+                    <button id="fs-save-btn" class="flex-1 sm:flex-none px-3 sm:px-4 py-2 bg-brand-500 hover:bg-brand-400 text-dark-500 rounded-lg transition-all font-medium text-center">
                         Применить
                     </button>
                 </div>
@@ -123,7 +153,8 @@ const Fullscreen = (function() {
 
         // Tab в textarea
         textarea.addEventListener('keydown', (e) => {
-            if (e.key === 'Tab') {
+            // Tab только для редактируемого режима
+            if (e.key === 'Tab' && !isReadonly) {
                 e.preventDefault();
                 const start = textarea.selectionStart;
                 const end = textarea.selectionEnd;
@@ -138,18 +169,20 @@ const Fullscreen = (function() {
                 close();
             }
 
-            // Ctrl+S для сохранения
+            // Ctrl+S для сохранения (только в режиме редактирования)
             if ((e.ctrlKey || e.metaKey) && e.key === 's') {
                 e.preventDefault();
-                save();
+                handleSaveOrClose();
             }
         });
 
         // Кнопки
-        modal.querySelector('#fs-close-btn').addEventListener('click', close);
+        const closeBtn = modal.querySelector('#fs-close-btn');
+        if (closeBtn) closeBtn.addEventListener('click', close);
+        
         modal.querySelector('#fs-exit-btn').addEventListener('click', close);
         modal.querySelector('#fs-cancel-btn').addEventListener('click', close);
-        modal.querySelector('#fs-save-btn').addEventListener('click', save);
+        modal.querySelector('#fs-save-btn').addEventListener('click', handleSaveOrClose);
         
         // Копирование
         modal.querySelector('#fs-copy-btn').addEventListener('click', () => {
@@ -169,24 +202,66 @@ const Fullscreen = (function() {
                     }
                 });
             } else {
-                // Fallback
                 navigator.clipboard.writeText(text).then(() => {
                     if (typeof Notifications !== 'undefined') {
                         Notifications.success('Скопировано!');
                     }
+                }).catch(() => {
+                    const textArea = document.createElement('textarea');
+                    textArea.value = text;
+                    textArea.style.position = 'fixed';
+                    textArea.style.opacity = '0';
+                    document.body.appendChild(textArea);
+                    textArea.select();
+                    try {
+                        document.execCommand('copy');
+                        if (typeof Notifications !== 'undefined') {
+                            Notifications.success('Скопировано!');
+                        }
+                    } catch (err) {
+                        if (typeof Notifications !== 'undefined') {
+                            Notifications.error('Ошибка копирования');
+                        }
+                    }
+                    document.body.removeChild(textArea);
                 });
             }
         });
 
         // Перенос строк
         let wrapEnabled = false;
-        modal.querySelector('#fs-wrap-btn').addEventListener('click', (e) => {
-            wrapEnabled = !wrapEnabled;
-            textarea.style.whiteSpace = wrapEnabled ? 'pre-wrap' : 'pre';
-            textarea.style.wordWrap = wrapEnabled ? 'break-word' : 'normal';
-            e.currentTarget.classList.toggle('text-brand-400', wrapEnabled);
-            e.currentTarget.classList.toggle('bg-brand-500/10', wrapEnabled);
-        });
+        const wrapBtn = modal.querySelector('#fs-wrap-btn');
+        if (wrapBtn) {
+            wrapBtn.addEventListener('click', (e) => {
+                wrapEnabled = !wrapEnabled;
+                textarea.style.whiteSpace = wrapEnabled ? 'pre-wrap' : 'pre';
+                textarea.style.wordWrap = wrapEnabled ? 'break-word' : 'normal';
+                textarea.style.overflowWrap = wrapEnabled ? 'break-word' : 'normal';
+                e.currentTarget.classList.toggle('text-brand-400', wrapEnabled);
+                e.currentTarget.classList.toggle('bg-brand-500/10', wrapEnabled);
+            });
+        }
+
+        // Touch: предотвращаем pull-to-refresh при свайпе в textarea
+        textarea.addEventListener('touchmove', (e) => {
+            if (textarea.scrollHeight > textarea.clientHeight) {
+                e.stopPropagation();
+            }
+        }, { passive: true });
+    }
+
+    /**
+     * Обработчик кнопки "Применить" / "Готово"
+     * В readonly режиме просто закрывает окно
+     */
+    function handleSaveOrClose() {
+        if (isReadonly) {
+            // В readonly режиме просто закрываем без сохранения и уведомлений
+            close();
+        } else {
+            // В режиме редактирования сохраняем и показываем уведомление
+            save();
+        }
     }
 
     /**
@@ -200,8 +275,11 @@ const Fullscreen = (function() {
         const lines = code.split('\n');
         const lineCount = lines.length;
         
+        const isMobile = window.innerWidth < 640;
+        const lineHeightClass = isMobile ? 'leading-5' : 'leading-6';
+        
         lineNumbers.innerHTML = Array.from({ length: lineCount }, (_, i) => 
-            `<div class="leading-6">${i + 1}</div>`
+            `<div class="${lineHeightClass}">${i + 1}</div>`
         ).join('');
     }
 
@@ -217,7 +295,7 @@ const Fullscreen = (function() {
         const sizeEl = modal.querySelector('#fs-size');
 
         if (linesEl) {
-            linesEl.textContent = code.split('\n').length;
+            linesEl.textContent = code.split('\n').length.toLocaleString();
         }
         
         if (charsEl) {
@@ -259,12 +337,15 @@ const Fullscreen = (function() {
 
         originalValue = value;
         onSaveCallback = onSave;
+        isReadonly = readonly;  // Сохраняем состояние readonly
         currentEditor = options.editor || null;
 
         // Заполнить данные
         const titleEl = modal.querySelector('#fs-title');
         const modeEl = modal.querySelector('#fs-mode');
         const textarea = modal.querySelector('#fs-textarea');
+        const saveBtn = modal.querySelector('#fs-save-btn');
+        const cancelBtn = modal.querySelector('#fs-cancel-btn');
 
         if (titleEl) titleEl.textContent = title;
         if (modeEl) modeEl.textContent = mode.toUpperCase();
@@ -273,11 +354,33 @@ const Fullscreen = (function() {
             textarea.value = value;
             textarea.readOnly = readonly;
             
-            // Установить цвет текста для readonly
             if (readonly) {
-                textarea.style.color = '#4ade80'; // Зелёный для результата
+                textarea.style.color = '#4ade80';
+                textarea.style.cursor = 'default';
             } else {
-                textarea.style.color = '#d1d5db'; // Серый для ввода
+                textarea.style.color = '#d1d5db';
+                textarea.style.cursor = 'text';
+            }
+        }
+
+        // Настройка кнопок для readonly режима
+        if (saveBtn) {
+            if (readonly) {
+                saveBtn.textContent = 'Готово';
+                // Можно изменить стиль кнопки для readonly
+                saveBtn.className = 'flex-1 sm:flex-none px-3 sm:px-4 py-2 bg-white/10 hover:bg-white/20 text-white rounded-lg transition-all font-medium text-center';
+            } else {
+                saveBtn.textContent = 'Применить';
+                saveBtn.className = 'flex-1 sm:flex-none px-3 sm:px-4 py-2 bg-brand-500 hover:bg-brand-400 text-dark-500 rounded-lg transition-all font-medium text-center';
+            }
+        }
+
+        // Скрываем кнопку "Отмена" в readonly режиме (опционально)
+        if (cancelBtn) {
+            if (readonly) {
+                cancelBtn.style.display = 'none';
+            } else {
+                cancelBtn.style.display = '';
             }
         }
 
@@ -287,6 +390,10 @@ const Fullscreen = (function() {
 
         // Показать модальное окно
         document.body.style.overflow = 'hidden';
+        document.body.style.position = 'fixed';
+        document.body.style.width = '100%';
+        document.body.style.top = `-${window.scrollY}px`;
+        
         backdrop.classList.remove('opacity-0');
         backdrop.classList.add('opacity-100');
         modal.classList.remove('opacity-0', 'scale-95');
@@ -294,10 +401,11 @@ const Fullscreen = (function() {
 
         isOpen = true;
 
-        // Фокус на textarea
         setTimeout(() => {
-            if (textarea) textarea.focus();
-        }, 100);
+            if (textarea && !readonly) {
+                textarea.focus();
+            }
+        }, 150);
     }
 
     /**
@@ -306,15 +414,21 @@ const Fullscreen = (function() {
     function close() {
         if (!modal) return;
 
+        const scrollY = document.body.style.top;
         document.body.style.overflow = '';
+        document.body.style.position = '';
+        document.body.style.width = '';
+        document.body.style.top = '';
+        window.scrollTo(0, parseInt(scrollY || '0') * -1);
+        
         backdrop.classList.remove('opacity-100');
         backdrop.classList.add('opacity-0');
         modal.classList.remove('opacity-100', 'scale-100');
         modal.classList.add('opacity-0', 'scale-95');
 
         isOpen = false;
+        isReadonly = false;  // Сбрасываем флаг
 
-        // Удалить после анимации
         setTimeout(() => {
             if (backdrop) {
                 backdrop.remove();
@@ -328,10 +442,10 @@ const Fullscreen = (function() {
     }
 
     /**
-     * Сохранить и закрыть
+     * Сохранить и закрыть (только для режима редактирования)
      */
     function save() {
-        if (!modal) return;
+        if (!modal || isReadonly) return;
         
         const textarea = modal.querySelector('#fs-textarea');
         const value = textarea ? textarea.value : '';

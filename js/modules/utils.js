@@ -162,40 +162,6 @@ const Utils = {
     },
 
     /**
-     * Скачать файл
-     * @param {string} content - Содержимое файла
-     * @param {string} filename - Имя файла
-     * @param {string} mimeType - MIME тип
-     * @returns {Object} Результат операции
-     */
-    downloadFile(content, filename, mimeType = 'text/plain') {
-        // Проверка на пустое содержимое
-        if (this.isEmpty(content)) {
-            return { success: false, error: 'empty_content' };
-        }
-
-        // Проверка имени файла
-        if (this.isEmpty(filename)) {
-            return { success: false, error: 'empty_filename' };
-        }
-
-        try {
-            const blob = new Blob([content], { type: mimeType });
-            const url = URL.createObjectURL(blob);
-            const link = document.createElement('a');
-            link.href = url;
-            link.download = filename;
-            document.body.appendChild(link);
-            link.click();
-            document.body.removeChild(link);
-            URL.revokeObjectURL(url);
-            return { success: true };
-        } catch (err) {
-            return { success: false, error: 'download_failed' };
-        }
-    },
-
-    /**
      * Проверить, является ли строка валидным HTML
      * @param {string} str - Строка для проверки
      * @returns {boolean}
